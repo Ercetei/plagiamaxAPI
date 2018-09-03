@@ -23,7 +23,7 @@ public class User {
 	private String mail;
 	private String password;
 	private String username;
-	private int wallet;
+	private Integer wallet;
 	private String creditcard;
 	private String expirationdate;
 	private String cryptogram;
@@ -34,7 +34,7 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(Long id, String lastname, String firstname, String mail, String password, String username, int wallet,
+	public User(Long id, String lastname, String firstname, String mail, String password, String username, Integer wallet,
 			String creditcard, String expirationdate, String cryptogram, Date birthdate) {
 		super();
 		this.id = id;
@@ -98,11 +98,11 @@ public class User {
 		this.username = username;
 	}
 
-	public int getWallet() {
+	public Integer getWallet() {
 		return wallet;
 	}
 
-	public void setWallet(int wallet) {
+	public void setWallet(Integer wallet) {
 		this.wallet = wallet;
 	}
 
