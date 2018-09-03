@@ -18,20 +18,25 @@ public class User {
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
+	@Column(name = "lastname", nullable = false)
 	private String lastname;
+	@Column(name = "firstname", nullable = false)
 	private String firstname;
+	@Column(name = "mail", nullable = false)
 	private String mail;
+	@Column(name = "password", nullable = false)
 	private String password;
+	@Column(name = "username", nullable = false)
 	private String username;
 	private Integer wallet;
 	private String creditcard;
 	private String expirationdate;
 	private String cryptogram;
+	@Column(name = "birthdate", nullable = false)
 	private Date birthdate;
 
 	public User() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public User(Long id, String lastname, String firstname, String mail, String password, String username, Integer wallet,
