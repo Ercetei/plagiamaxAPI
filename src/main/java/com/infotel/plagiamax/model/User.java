@@ -1,0 +1,141 @@
+package com.infotel.plagiamax.model;
+
+import static javax.persistence.GenerationType.IDENTITY;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "user")
+public class User {
+
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
+	private Long id;
+	private String lastname;
+	private String firstname;
+	private String mail;
+	private String password;
+	private String username;
+	private int wallet;
+	private String creditcard;
+	private String expirationdate;
+	private String cryptogram;
+	private Date birthdate;
+
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public User(Long id, String lastname, String firstname, String mail, String password, String username, int wallet,
+			String creditcard, String expirationdate, String cryptogram, Date birthdate) {
+		super();
+		this.id = id;
+		this.lastname = lastname;
+		this.firstname = firstname;
+		this.mail = mail;
+		this.password = password;
+		this.username = username;
+		this.wallet = wallet;
+		this.creditcard = creditcard;
+		this.expirationdate = expirationdate;
+		this.cryptogram = cryptogram;
+		this.birthdate = birthdate;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public int getWallet() {
+		return wallet;
+	}
+
+	public void setWallet(int wallet) {
+		this.wallet = wallet;
+	}
+
+	public String getCreditcard() {
+		return creditcard;
+	}
+
+	public void setCreditcard(String creditcard) {
+		this.creditcard = creditcard;
+	}
+
+	public String getExpirationdate() {
+		return expirationdate;
+	}
+
+	public void setExpirationdate(String expirationdate) {
+		this.expirationdate = expirationdate;
+	}
+
+	public String getCryptogram() {
+		return cryptogram;
+	}
+
+	public void setCryptogram(String cryptogram) {
+		this.cryptogram = cryptogram;
+	}
+
+	public Date getBirthdate() {
+		return birthdate;
+	}
+
+	public void setBirthdate(Date birthdate) {
+		this.birthdate = birthdate;
+	}
+
+}
