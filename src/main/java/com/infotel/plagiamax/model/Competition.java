@@ -11,17 +11,23 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "competition")
 public class Competition {
+	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
+	@Column(nullable = false)
 	private String label;
+	@Column(nullable = false)
 	private Integer status;
+	@Column(nullable = false)
 	private Integer type;
+	@Column(nullable = false)
 	private String place;
-	
-	public Competition() {}
-	
+
+	public Competition() {
+	}
+
 	public Competition(Long id, String label, Integer status, Integer type, String place) {
 		super();
 		this.id = id;
@@ -70,6 +76,5 @@ public class Competition {
 	public void setPlace(String place) {
 		this.place = place;
 	}
-	
-	
+
 }

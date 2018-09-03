@@ -16,11 +16,14 @@ public class Category {
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
+	@Column(nullable = false)
 	private String label;
+	@Column(nullable = false)
 	private Integer status;
-	
-	public Category() { }
-	
+
+	public Category() {
+	}
+
 	public Category(Long id, String label, Integer status) {
 		super();
 		this.id = id;
@@ -51,5 +54,5 @@ public class Category {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	
+
 }

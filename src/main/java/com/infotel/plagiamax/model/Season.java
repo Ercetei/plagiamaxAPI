@@ -13,15 +13,20 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "season")
 public class Season {
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
+	@Column(nullable = false)
 	private Date startDate;
+	@Column(nullable = false)
 	private Date endDate;
+	@Column(nullable = false)
 	private Integer status;
-	
-	public Season() {}
+
+	public Season() {
+	}
 
 	public Season(Long id, Date startDate, Date endDate, Integer status) {
 		super();
@@ -62,7 +67,5 @@ public class Season {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	
-	
-	
+
 }
