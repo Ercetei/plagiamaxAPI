@@ -6,6 +6,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.infotel.plagiamax.contract.PlaceContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -24,7 +25,7 @@ public class Competition extends DBItem {
 	@ManyToOne(targetEntity = Category.class)
 	private Category category;
 
-	@OneToOne(targetEntity = Place.class, mappedBy = PlaceContract.ASSOCIATION_TABLE)
+	@OneToOne(targetEntity = Place.class, mappedBy = PlaceContract.ASSOCIATION_COMPETITION)
 	private Place place;
 
 	public Competition() {

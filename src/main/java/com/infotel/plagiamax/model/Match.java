@@ -2,46 +2,60 @@ package com.infotel.plagiamax.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
 @Table(name = "match")
-public class Match {
+public class Match extends DBItem {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "idmatch", unique = true, nullable = false)
-	private Long idmatch;
 	private String label;
 	private Integer status;
-//	private Long idplace;
+
 	
+//Association to PLACE
+	@OneToMany(targetEntity=Place.class)
+	private Place place;
+
+//Association to MATCHPLAYER
+	@OneToOne(targetEntity=MatchPlayer.class)
+	private MatchPlayer matchplayer;
+	
+//Association to PLAYERSTATUS
+	@OneToOne(targetEntity=PlayerStatus.class)
+	private PlayerStatus playerstatus;
+	
+//Association to MATCHTEAM
+	@OneToOne(targetEntity=MatchTeam.class)
+	private MatchTeam matchteam;
+		
+//Association to SEASON
+	@ManyToOne(targetEntity = Season.class)
+	private Season season;
+
+
+//Constructor
 	public Match() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-
-	public Match(Long idmatch, String label, Integer status
-//			, Long idplace
-			) {
+	public Match(String label, Integer status, Place place) {
 		super();
-		this.idmatch = idmatch;
 		this.label = label;
 		this.status = status;
-//		this.idplace = idplace;
+		this.place = place;
 	}
 
-	public Long getIdmatch() {
-		return idmatch;
-	}
-	public void setIdmatch(Long idmatch) {
-		this.idmatch = idmatch;
-	}
-
+	
+//Label
 	public String getLabel() {
 		return label;
 	}
@@ -49,6 +63,7 @@ public class Match {
 		this.label = label;
 	}
 
+//Status
 	public Integer getStatus() {
 		return status;
 	}
@@ -56,11 +71,36 @@ public class Match {
 		this.status = status;
 	}
 
-//	public Long getIdplace() {
-//		return idplace;
-//	}
-//	public void setIdplace(Long idplace) {
-//		this.idplace = idplace;
-//	}
+//Place
+	public Place getPlace() {
+		return place;
+	}
+	public void setPlace(Place place) {
+		this.place = place;
+	}
+
+//MatchPlayer	
+	public MatchPlayer getMatchplayer() {
+		return matchplayer;
+	}
+	public void setMatchplayer(MatchPlayer matchplayer) {
+		this.matchplayer = matchplayer;
+	}
+	
+//PlayerStatus
+	public PlayerStatus getPlayerstatus() {
+		return playerstatus;
+	}
+	public void setPlayerstatus(PlayerStatus playerstatus) {
+		this.playerstatus = playerstatus;
+	}
+//MatchTeam
+	public MatchTeam getMatchteam() {
+		return matchteam;
+	}
+	public void setMatchteam(MatchTeam matchteam) {
+		this.matchteam = matchteam;
+	}
+	
 	
 }

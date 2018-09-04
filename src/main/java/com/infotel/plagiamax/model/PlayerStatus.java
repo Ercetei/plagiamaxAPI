@@ -2,62 +2,66 @@ package com.infotel.plagiamax.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.infotel.plagiamax.contract.MatchContract;
+//import com.infotel.plagiamax.contract.PlayerContract;
+import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
 @Table(name = "playerstatus")
-public class PlayerStatus {
+public class PlayerStatus extends DBItem {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "idplayerstatus", unique = true, nullable = false)
-	private Long idplayerstatus;
-//	private Long idplayer;
-//	private Long idmatch;
 	private Integer status;
-	private Float statusTime;
+	private Float statustime;
 	
+//Association a PLAYER
+	@OneToOne(targetEntity=Player.class
+//			,mappedBy=PlayerContract.ASSOCIATION_PLAYERSTATUS
+			)
+	private Player leftassociation;
+	
+//Association a MATCH
+	@OneToOne(targetEntity=Match.class,mappedBy=MatchContract.ASSOCIATION_PLAYERSTATUS)
+	private Match rightassociation;
+	
+	
+//Constructor
 	public PlayerStatus() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-
-	public PlayerStatus(Long idplayerstatus, 
-//			Long idplayer, Long idmatch, 
-			Integer status, Float statusTime) {
+	public PlayerStatus(Player leftassociation, Match rightassociation, Integer status, Float statustime) {
 		super();
-		this.idplayerstatus = idplayerstatus;
-//		this.idplayer = idplayer;
-//		this.idmatch = idmatch;
+		this.leftassociation = leftassociation;
+		this.rightassociation = rightassociation;
 		this.status = status;
-		this.statusTime = statusTime;
+		this.statustime = statustime;
 	}
 
-	public Long getIdplayerstatus() {
-		return idplayerstatus;
+	
+//Player
+	public Player getLeftAssociation() {
+		return leftassociation;
 	}
-	public void setIdplayerstatus(Long idplayerstatus) {
-		this.idplayerstatus = idplayerstatus;
+	public void setLeftAssociation(Player leftassociation) {
+		this.leftassociation = leftassociation;
+	}
+	
+//Match
+	public Match getRightAssociation() {
+		return rightassociation;
+	}
+	public void setRightAssociation(Match rightassociation) {
+		this.rightassociation = rightassociation;
 	}
 
-//	public Long getIdplayer() {
-//		return idplayer;
-//	}
-//	public void setIdplayer(Long idplayer) {
-//		this.idplayer = idplayer;
-//	}
-//
-//	public Long getIdmatch() {
-//		return idmatch;
-//	}
-//	public void setIdmatch(Long idmatch) {
-//		this.idmatch = idmatch;
-//	}
-
+//Status
 	public Integer getStatus() {
 		return status;
 	}
@@ -65,11 +69,12 @@ public class PlayerStatus {
 		this.status = status;
 	}
 
+//StatusTime
 	public Float getStatusTime() {
-		return statusTime;
+		return statustime;
 	}
-	public void setStatusTime(Float statusTime) {
-		this.statusTime = statusTime;
+	public void setStatusTime(Float statustime) {
+		this.statustime = statustime;
 	}
 	
 }

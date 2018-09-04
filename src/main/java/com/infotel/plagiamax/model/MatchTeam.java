@@ -2,60 +2,64 @@ package com.infotel.plagiamax.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.infotel.plagiamax.contract.MatchContract;
+//import com.infotel.plagiamax.contract.TeamContract;
+import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
 @Table(name = "matchteam")
-public class MatchTeam {
+public class MatchTeam extends DBItem {
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "idmatchteam", unique = true, nullable = false)
-	private Long idmatchteam;
-//	private Long idteam;
-//	private Long idmatch;
 	private Boolean ishometeam;
 	
+//Association a TEAM
+	@OneToOne(targetEntity=Team.class
+//			,mappedBy=TeamContract.ASSOCIATION_MATCHTEAM
+			)
+	private Team leftassociation;
+	
+//Association a MATCH
+	@OneToOne(targetEntity=Match.class,mappedBy=MatchContract.ASSOCIATION_MATCHTEAM)
+	private Match rightassociation;
+	
+	
+//Constructor
 	public MatchTeam() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	
-	public MatchTeam(Long idmatchteam, 
-//			Long idteam, Long idmatch, 
-			Boolean ishometeam) {
+	public MatchTeam(Team leftassociation, Match rightassociation, Boolean ishometeam) {
 		super();
-		this.idmatchteam = idmatchteam;
-//		this.idteam = idteam;
-//		this.idmatch = idmatch;
+		this.leftassociation = leftassociation;
+		this.rightassociation = rightassociation;
 		this.ishometeam = ishometeam;
 	}
 	
-	public Long getIdmatchteam() {
-		return idmatchteam;
+
+//Team
+	public Team getLeftAssociation() {
+		return leftassociation;
 	}
-	public void setIdmatchteam(Long idmatchteam) {
-		this.idmatchteam = idmatchteam;
+	public void setLeftAssociation(Team leftassociation) {
+		this.leftassociation = leftassociation;
 	}
 	
-//	public Long getIdteam() {
-//		return idteam;
-//	}
-//	public void setIdteam(Long idteam) {
-//		this.idteam = idteam;
-//	}
-//	
-//	public Long getIdmatch() {
-//		return idmatch;
-//	}
-//	public void setIdmatch(Long idmatch) {
-//		this.idmatch = idmatch;
-//	}
-	
+//Match
+	public Match getRightAssociation() {
+		return rightassociation;
+	}
+	public void setRightAssociation(Match rightassociation) {
+		this.rightassociation = rightassociation;
+	}
+
+//IsHomeTeam
 	public Boolean getIshometeam() {
 		return ishometeam;
 	}
