@@ -1,4 +1,4 @@
-package com.infotel.plagiamax.model;
+ypackage com.infotel.plagiamax.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 

@@ -14,7 +14,7 @@ import com.infotel.plagiamax.repository.UserCrudRepository;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-	@Autowired()
+	@Autowired() //récupérer et valider un bin dans notre classe, ne peut manipuler directement un élément de le constructeur de l'autowired
 	private UserCrudRepository userCrud;
 	private Gson gson = new Gson();
 
