@@ -9,5 +9,6 @@ import com.infotel.plagiamax.model.User;
 @RestController
 @RequestMapping(UserController.BASE_URL)
 public class UserController extends BaseRestController<User, Long> {
-	public static final String BASE_URL = "/User";
+
+    public static final String BASE_URL = "/user";
 }

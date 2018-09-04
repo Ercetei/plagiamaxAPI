@@ -1,17 +1,15 @@
 package com.infotel.plagiamax.model.base;
 
-
-import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public class DBItem {
+public abstract class DBItem {
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long id;
 
 	public Long getId() {

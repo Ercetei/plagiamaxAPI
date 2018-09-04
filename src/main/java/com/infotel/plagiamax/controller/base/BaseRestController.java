@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.infotel.plagiamax.repository.base.IBaseRepository;
 
-public abstract class BaseRestController <T,ID extends Serializable>{
-	
+public abstract class BaseRestController<T,ID extends Serializable> {
+
 	@Autowired
     IBaseRepository<T, ID> crudRepository;
 
