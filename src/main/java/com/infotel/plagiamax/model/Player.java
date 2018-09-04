@@ -27,7 +27,7 @@ public class Player extends DBItem {
 	@OneToOne(targetEntity = Period.class)
 	private Period period;
 	@OneToMany(targetEntity = Stat.class)
-	private List<Stat> stat;
+	private List<Stat> stats;
 
 	public String getFirstname() {
 		return firstname;
@@ -77,16 +77,16 @@ public class Player extends DBItem {
 		this.period = period;
 	}
 
-	public List<Stat> getStat() {
-		return stat;
+	public List<Stat> getStats() {
+		return stats;
 	}
 
-	public void setStat(List<Stat> stat) {
-		this.stat = stat;
+	public void setStats(List<Stat> stats) {
+		this.stats = stats;
 	}
 
 	public Player(Long id, String firstname, String lastname, Date birthdate, String status, Place place, Period period,
-			List<Stat> stat) {
+			List<Stat> stats) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
@@ -95,7 +95,7 @@ public class Player extends DBItem {
 		this.status = status;
 		this.place = place;
 		this.period = period;
-		this.stat = stat;
+		this.stats = stats;
 	}
 
 	public Player() {
