@@ -1,47 +1,48 @@
 package com.infotel.plagiamax.model;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.infotel.plagiamax.contract.MatchContract;
+
+import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
 @Table(name = "season")
-public class Season {
+public class Season extends DBItem {
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
-	private Long id;
 	@Column(nullable = false)
 	private Date startDate;
+
 	@Column(nullable = false)
 	private Date endDate;
+
 	@Column(nullable = false)
 	private Integer status;
+
+	@ManyToOne(targetEntity = Competition.class)
+	private Competition competition;
+
+	@OneToMany(targetEntity = Match.class, mappedBy = MatchContract.ID)
+	private List<Match> matchs;
 
 	public Season() {
 	}
 
-	public Season(Long id, Date startDate, Date endDate, Integer status) {
+	public Season(Long id, Date startDate, Date endDate, Integer status, Competition competition, List<Match> matchs) {
 		super();
-		this.id = id;
+		this.setId(id);
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.status = status;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+		this.competition = competition;
+		this.matchs = matchs;
 	}
 
 	public Date getStartDate() {
@@ -66,6 +67,22 @@ public class Season {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public Competition getCompetition() {
+		return competition;
+	}
+
+	public void setCompetition(Competition competition) {
+		this.competition = competition;
+	}
+
+	public List<Match> getMatchs() {
+		return matchs;
+	}
+
+	public void setMatchs(List<Match> matchs) {
+		this.matchs = matchs;
 	}
 
 }
