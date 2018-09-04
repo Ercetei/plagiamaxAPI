@@ -1,37 +1,26 @@
 package com.infotel.plagiamax.model;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.infotel.plagiamax.contract.PeriodContract;
+import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
 @Table(name = "period")
-public class Period {
+public class Period extends DBItem {
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	private Long id;
-	@Column(name = "player", nullable = false)
+	@OneToOne(targetEntity = Player.class, mappedBy = PeriodContract.PLAYER)
 	private Player player;
-	@Column(name = "team", nullable = false)
+	@OneToOne(targetEntity = Team.class, mappedBy = PeriodContract.TEAM)
 	private Team team;
 	@Column(name = "startdate", nullable = false)
 	private Date startdate;
 	private Date enddate;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public Player getPlayer() {
 		return player;
