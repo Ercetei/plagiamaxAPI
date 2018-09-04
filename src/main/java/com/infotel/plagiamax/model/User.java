@@ -3,16 +3,23 @@ package com.infotel.plagiamax.model;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User extends DBItem {
+	
+	@OneToMany(targetEntity=Bet.class)
+	private List<Bet> bet;
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -34,14 +41,17 @@ public class User {
 	private String cryptogram;
 	@Column(name = "birthdate", nullable = false)
 	private Date birthdate;
-
+	
+	
 	public User() {
 		super();
 	}
 
-	public User(Long id, String lastname, String firstname, String mail, String password, String username, Integer wallet,
-			String creditcard, String expirationdate, String cryptogram, Date birthdate) {
+	public User(List<Bet> bet, Long id, String lastname, String firstname, String mail, String password,
+			String username, Integer wallet, String creditcard, String expirationdate, String cryptogram,
+			Date birthdate) {
 		super();
+		this.bet = bet;
 		this.id = id;
 		this.lastname = lastname;
 		this.firstname = firstname;
@@ -141,6 +151,14 @@ public class User {
 
 	public void setBirthdate(Date birthdate) {
 		this.birthdate = birthdate;
+	}
+	
+	public List<Bet> getBet() {
+		return bet;
+	}
+
+	public void setBet(List<Bet> bet) {
+		this.bet = bet;
 	}
 
 }

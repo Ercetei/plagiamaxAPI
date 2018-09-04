@@ -2,14 +2,11 @@ package com.infotel.plagiamax.contract;
 
 public class BetContract {
 	
-	public static final String BET = "bet";
-	public static final String BetLineAssociation = "BetLineAssociation";
-
+	public static final String ASSOCIATION_TABLE_BETLINE = "BetLineAssociation";
+	
+	public static final String LABEL = "label";
+	public static final String BETDATE = "betdate";
+	public static final String BETAMOUNT = "betamount";
+	public static final String STATUS = "status";
+	
 }
-
-//package com.example.demo.contract;
-//
-//public class M51Contract {
-//	public static final String ATTM51= "attM51";
-//	public static final String ASSOCIATION_TABLE = "associationTable";
-//}

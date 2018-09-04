@@ -2,22 +2,27 @@ package com.infotel.plagiamax.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-import java.util.Collection;
-import java.util.Date;
 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.infotel.plagiamax.model.base.DBItem;
+
 @Entity
 @Table(name = "bet")
-public class Bet {
+public class Bet extends DBItem{
 	
-	@OneToOne(targetEntity=User.class)
-	private Collection<User> users;
+	@ManyToOne(targetEntity=User.class)
+	private User users;
+	
+	@OneToOne(targetEntity=BetLine.class)
+	private BetLine BetLineAssociation;
 	
 	
 	@Id
@@ -28,12 +33,23 @@ public class Bet {
 	private Date betdate;
 	private Float betamount;
 	private Integer status;
+	
+	public BetLine getBetLineAssociation() {
+		return BetLineAssociation;
+	}
+	public void setBetLineAssociation(BetLine betLineAssociation) {
+		BetLineAssociation = betLineAssociation;
+	}
+	
 	public Bet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	public Bet(Long id, String label, Date betdate, Float betamount, Integer status) {
+	
+	public Bet(User users, BetLine betLineAssociation, Long id, String label, Date betdate, Float betamount,
+			Integer status) {
 		super();
+		this.users = users;
+		BetLineAssociation = betLineAssociation;
 		this.id = id;
 		this.label = label;
 		this.betdate = betdate;
@@ -70,5 +86,11 @@ public class Bet {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	
+	public User getUsers() {
+		return users;
+	}
+	public void setUsers(User users) {
+		this.users = users;
+	}
+		
 }

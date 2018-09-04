@@ -4,11 +4,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.infotel.plagiamax.controller.base.BaseRestController;
-import com.infotel.plagiamax.model.Bet;
+import com.infotel.plagiamax.model.BetType;
 
 @RestController
-@RequestMapping(BetLineController.BASE_URL)
-public class BetController extends BaseRestController<Bet, Long>{
-	public static final String BASE_URL = "/Bet";
+@RequestMapping(UserController.BASE_URL)
+public class BetTypeController extends BaseRestController<BetType, Long>{
+	public static final String BASE_URL = "/BetType";
 }
-

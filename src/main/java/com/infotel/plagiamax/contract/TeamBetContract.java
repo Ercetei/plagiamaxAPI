@@ -1,10 +1,6 @@
 package com.infotel.plagiamax.contract;
 
-
-public class BetTypeContract {
-	
-	
-	public static final String ASSOCIATION_TABLE_BETLINE = "BetLineAssociation";
+public class TeamBetContract {
 	
 	public static final String INITIALODSS = "initialodds";
 	public static final String CURRENTODDSS = "currentodds";
