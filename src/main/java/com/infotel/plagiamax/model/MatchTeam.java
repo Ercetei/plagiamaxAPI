@@ -9,7 +9,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.infotel.plagiamax.contract.MatchContract;
-//import com.infotel.plagiamax.contract.TeamContract;
+import com.infotel.plagiamax.contract.TeamContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -21,9 +21,7 @@ public class MatchTeam extends DBItem {
 	private Boolean ishometeam;
 	
 //Association a TEAM
-	@OneToOne(targetEntity=Team.class
-//			,mappedBy=TeamContract.ASSOCIATION_MATCHTEAM
-			)
+	@OneToOne(targetEntity=Team.class, mappedBy=TeamContract.ASSOCIATION_MATCHTEAM)
 	private Team leftassociation;
 	
 //Association a MATCH

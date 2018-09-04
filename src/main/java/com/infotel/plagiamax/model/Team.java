@@ -27,6 +27,10 @@ public class Team extends DBItem {
 	@OneToMany(targetEntity = Stat.class)
 	private List<Stat> stats;
 
+//Association to MATCHTEAM
+	@OneToOne(targetEntity=MatchTeam.class)
+	private MatchTeam matchteam;
+		
 	public String getLabel() {
 		return label;
 	}
@@ -75,6 +79,15 @@ public class Team extends DBItem {
 		this.stats = stats;
 	}
 
+	
+//MatchTeam
+	public MatchTeam getMatchteam() {
+		return matchteam;
+	}
+	public void setMatchteam(MatchTeam matchteam) {
+		this.matchteam = matchteam;
+	}
+		
 	public Team(Long id, String label, Integer status, Date creationdate, Place place, Period period, List<Stat> stats) {
 		super();
 		this.id = id;

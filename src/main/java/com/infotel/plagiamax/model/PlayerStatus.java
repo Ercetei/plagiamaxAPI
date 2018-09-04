@@ -9,7 +9,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.infotel.plagiamax.contract.MatchContract;
-//import com.infotel.plagiamax.contract.PlayerContract;
+import com.infotel.plagiamax.contract.PlayerContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -22,9 +22,7 @@ public class PlayerStatus extends DBItem {
 	private Float statustime;
 	
 //Association a PLAYER
-	@OneToOne(targetEntity=Player.class
-//			,mappedBy=PlayerContract.ASSOCIATION_PLAYERSTATUS
-			)
+	@OneToOne(targetEntity=Player.class,mappedBy=PlayerContract.ASSOCIATION_PLAYERSTATUS)
 	private Player leftassociation;
 	
 //Association a MATCH

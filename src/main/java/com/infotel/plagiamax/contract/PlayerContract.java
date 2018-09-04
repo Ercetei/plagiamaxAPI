@@ -7,4 +7,7 @@ public class PlayerContract {
 	public static final String STATUS = "status";
 	public static final String PLACE = "place";
 	public static final String PERIOD = "period";
+	
+	public static final String ASSOCIATION_MATCHPLAYER = "matchplayer" ;
+	public static final String ASSOCIATION_PLAYERSTATUS = "playerstatus" ;
 }

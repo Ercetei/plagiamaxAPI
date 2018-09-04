@@ -29,6 +29,14 @@ public class Player extends DBItem {
 	@OneToMany(targetEntity = Stat.class)
 	private List<Stat> stats;
 
+//Association to MATCHPLAYER
+	@OneToOne(targetEntity=MatchPlayer.class)
+	private MatchPlayer matchplayer;
+	
+//Association to PLAYERSTATUS
+	@OneToOne(targetEntity=PlayerStatus.class)
+	private PlayerStatus playerstatus;
+		
 	public String getFirstname() {
 		return firstname;
 	}
@@ -84,7 +92,23 @@ public class Player extends DBItem {
 	public void setStats(List<Stat> stats) {
 		this.stats = stats;
 	}
+	
+	
+	public MatchPlayer getMatchplayer() {
+		return matchplayer;
+	}
+	public void setMatchplayer(MatchPlayer matchplayer) {
+		this.matchplayer = matchplayer;
+	}
 
+	public PlayerStatus getPlayerstatus() {
+		return playerstatus;
+	}
+	public void setPlayerstatus(PlayerStatus playerstatus) {
+		this.playerstatus = playerstatus;
+	}
+
+	
 	public Player(Long id, String firstname, String lastname, Date birthdate, String status, Place place, Period period,
 			List<Stat> stats) {
 		super();
