@@ -24,7 +24,7 @@ public class Competition extends DBItem {
 	@ManyToOne(targetEntity = Category.class)
 	private Category category;
 
-	@OneToOne(targetEntity = Place.class)
+	@OneToOne(targetEntity = Place.class, mappedBy = PlaceContract.ASSOCIATION_TABLE)
 	private Place place;
 
 	public Competition() {

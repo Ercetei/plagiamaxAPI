@@ -29,7 +29,7 @@ public class Season extends DBItem {
 	@ManyToOne(targetEntity = Competition.class)
 	private Competition competition;
 
-	@OneToMany(targetEntity = Match.class, mappedBy = MatchContract.ID)
+	@OneToMany(targetEntity = Match.class, mappedBy = MatchContract.ASSOCIATION_TABLE)
 	private List<Match> matchs;
 
 	public Season() {
