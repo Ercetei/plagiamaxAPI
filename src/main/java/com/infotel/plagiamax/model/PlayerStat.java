@@ -2,10 +2,11 @@ package com.infotel.plagiamax.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,9 +16,9 @@ public class PlayerStat {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private Long id;
-	@Column(name = "stat", nullable = false)
+	@OneToOne(targetEntity=Stat.class)
 	private Stat stat;
-	@Column(name = "player", nullable = false)
+	@OneToOne(targetEntity=Player.class)
 	private Player player;
 	private Float value;
 
