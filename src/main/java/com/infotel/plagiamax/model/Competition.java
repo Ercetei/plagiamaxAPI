@@ -1,48 +1,44 @@
 package com.infotel.plagiamax.model;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.infotel.plagiamax.contract.PlaceContract;
+import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
 @Table(name = "competition")
-public class Competition {
-	
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
-	private Long id;
+public class Competition extends DBItem {
+
 	@Column(nullable = false)
 	private String label;
+
 	@Column(nullable = false)
 	private Integer status;
+
 	@Column(nullable = false)
 	private Integer type;
-	@Column(nullable = false)
-	private String place;
+
+	@ManyToOne(targetEntity = Category.class)
+	private Category category;
+
+	@OneToOne(targetEntity = Place.class, mappedBy = PlaceContract.ASSOCIATION_COMPETITION)
+	private Place place;
 
 	public Competition() {
 	}
 
-	public Competition(Long id, String label, Integer status, Integer type, String place) {
+	public Competition(Long id, String label, Integer status, Integer type, Category category, Place place) {
 		super();
-		this.id = id;
+		this.setId(id);
 		this.label = label;
 		this.status = status;
 		this.type = type;
+		this.category = category;
 		this.place = place;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getLabel() {
@@ -69,12 +65,21 @@ public class Competition {
 		this.type = type;
 	}
 
-	public String getPlace() {
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public Place getPlace() {
 		return place;
 	}
 
-	public void setPlace(String place) {
+	public void setPlace(Place place) {
 		this.place = place;
 	}
 
+	
 }

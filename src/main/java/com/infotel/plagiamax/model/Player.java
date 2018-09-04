@@ -1,38 +1,42 @@
 package com.infotel.plagiamax.model;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
 @Table(name = "player")
-public class Player {
+public class Player extends DBItem {
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	private Long id;
 	private String firstname;
 	@Column(name = "lastname", nullable = false)
 	private String lastname;
 	private Date birthdate;
 	@Column(name = "status", nullable = false)
 	private String status;
+	@ManyToOne(targetEntity = Place.class)
 	private Place place;
+	@OneToOne(targetEntity = Period.class)
+	private Period period;
+	@OneToMany(targetEntity = Stat.class)
+	private List<Stat> stats;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
+//Association to MATCHPLAYER
+	@OneToOne(targetEntity=MatchPlayer.class)
+	private MatchPlayer matchplayer;
+	
+//Association to PLAYERSTATUS
+	@OneToOne(targetEntity=PlayerStatus.class)
+	private PlayerStatus playerstatus;
+		
 	public String getFirstname() {
 		return firstname;
 	}
@@ -73,7 +77,40 @@ public class Player {
 		this.place = place;
 	}
 
-	public Player(Long id, String firstname, String lastname, Date birthdate, String status, Place place) {
+	public Period getPeriod() {
+		return period;
+	}
+
+	public void setPeriod(Period period) {
+		this.period = period;
+	}
+
+	public List<Stat> getStats() {
+		return stats;
+	}
+
+	public void setStats(List<Stat> stats) {
+		this.stats = stats;
+	}
+	
+	
+	public MatchPlayer getMatchplayer() {
+		return matchplayer;
+	}
+	public void setMatchplayer(MatchPlayer matchplayer) {
+		this.matchplayer = matchplayer;
+	}
+
+	public PlayerStatus getPlayerstatus() {
+		return playerstatus;
+	}
+	public void setPlayerstatus(PlayerStatus playerstatus) {
+		this.playerstatus = playerstatus;
+	}
+
+	
+	public Player(Long id, String firstname, String lastname, Date birthdate, String status, Place place, Period period,
+			List<Stat> stats) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
@@ -81,6 +118,8 @@ public class Player {
 		this.birthdate = birthdate;
 		this.status = status;
 		this.place = place;
+		this.period = period;
+		this.stats = stats;
 	}
 
 	public Player() {

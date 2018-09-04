@@ -2,62 +2,64 @@ package com.infotel.plagiamax.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.infotel.plagiamax.contract.MatchContract;
+import com.infotel.plagiamax.contract.PlayerContract;
+import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
 @Table(name = "matchplayer")
-public class MatchPlayer {
+public class MatchPlayer extends DBItem {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "idmatchplayer", unique = true, nullable = false)
-	private Long idmatchplayer;
-//	private Long idplayer;
-//	private Long idmatch;
 	private Float enteringtime;
 	private Float exittime;
 	
+//Association to PLAYER
+	@OneToOne(targetEntity=Player.class,mappedBy=PlayerContract.ASSOCIATION_MATCHPLAYER)
+	private Player leftassociation;
+	
+//Association to MATCH
+	@OneToOne(targetEntity=Match.class,mappedBy=MatchContract.ASSOCIATION_MATCHPLAYER)
+	private Match rightassociation;
+	
+	
+//Constructor	
 	public MatchPlayer() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	
-	public MatchPlayer(Long idmatchplayer, 
-//			Long idplayer, Long idmatch, 
-			Float enteringtime, Float exittime) {
+	public MatchPlayer(Player leftassociation, Match rightassociation, Float enteringtime, Float exittime) {
 		super();
-		this.idmatchplayer = idmatchplayer;
-//		this.idplayer = idplayer;
-//		this.idmatch = idmatch;
+		this.leftassociation = leftassociation;
+		this.rightassociation = rightassociation;
 		this.enteringtime = enteringtime;
 		this.exittime = exittime;
 	}
 	
-	public Long getIdmatchplayer() {
-		return idmatchplayer;
+	
+//Player
+	public Player getLeftAssociation() {
+		return leftassociation;
 	}
-	public void setIdmatchplayer(Long idmatchplayer) {
-		this.idmatchplayer = idmatchplayer;
+	public void setLeftAssociation(Player leftassociation) {
+		this.leftassociation = leftassociation;
 	}
 	
-//	public Long getIdplayer() {
-//		return idplayer;
-//	}
-//	public void setIdplayer(Long idplayer) {
-//		this.idplayer = idplayer;
-//	}
-//	
-//	public Long getIdmatch() {
-//		return idmatch;
-//	}
-//	public void setIdmatch(Long idmatch) {
-//		this.idmatch = idmatch;
-//	}
+//Match
+	public Match getRightAssociation() {
+		return rightassociation;
+	}
+	public void setRightAssociation(Match rightassociation) {
+		this.rightassociation = rightassociation;
+	}
 	
+//EnteringTime
 	public Float getEnteringtime() {
 		return enteringtime;
 	}
@@ -65,6 +67,7 @@ public class MatchPlayer {
 		this.enteringtime = enteringtime;
 	}
 	
+//ExitTime
 	public Float getExittime() {
 		return exittime;
 	}
