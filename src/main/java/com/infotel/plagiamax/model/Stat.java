@@ -1,30 +1,61 @@
 package com.infotel.plagiamax.model;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
 @Table(name = "stat")
-public class Stat {
+public class Stat extends DBItem {
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	private Long id;
 	@Column(name = "label", nullable = false)
 	private String label;
+	private Float value;
+	@ManyToOne
 	private Stat parent;
+	@OneToMany
+	private List<Stat> children;
+	@ManyToOne(targetEntity = Team.class)
+	private Team team;
+	@ManyToOne(targetEntity = Player.class)
+	private Player player;
 
-	public Long getId() {
-		return id;
+	public Float getValue() {
+		return value;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setValue(Float value) {
+		this.value = value;
+	}
+
+	public Team getTeam() {
+		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	public List<Stat> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<Stat> children) {
+		this.children = children;
 	}
 
 	public String getLabel() {
@@ -43,11 +74,15 @@ public class Stat {
 		this.parent = parent;
 	}
 
-	public Stat(Long id, String label, Stat parent) {
+	public Stat(Long id, String label, Float value, Stat parent, List<Stat> children, Team team, Player player) {
 		super();
 		this.id = id;
 		this.label = label;
+		this.value = value;
 		this.parent = parent;
+		this.children = children;
+		this.team = team;
+		this.player = player;
 	}
 
 	public Stat() {
