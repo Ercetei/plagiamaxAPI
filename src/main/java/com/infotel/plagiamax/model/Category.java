@@ -1,42 +1,37 @@
 package com.infotel.plagiamax.model;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.infotel.plagiamax.contract.CompetitionContract;
+import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
 @Table(name = "category")
-public class Category {
+public class Category extends DBItem {
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
-	private Long id;
 	@Column(nullable = false)
 	private String label;
+
 	@Column(nullable = false)
 	private Integer status;
+
+	@OneToMany(targetEntity = Competition.class, mappedBy = CompetitionContract.ID)
+	private List<Competition> competitions;
 
 	public Category() {
 	}
 
-	public Category(Long id, String label, Integer status) {
+	public Category(Long id, String label, Integer status, List<Competition> competitions) {
 		super();
-		this.id = id;
+		this.setId(id);
 		this.label = label;
 		this.status = status;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+		this.competitions = competitions;
 	}
 
 	public String getLabel() {
@@ -55,4 +50,13 @@ public class Category {
 		this.status = status;
 	}
 
+	public List<Competition> getCompetitions() {
+		return competitions;
+	}
+
+	public void setCompetitions(List<Competition> competitions) {
+		this.competitions = competitions;
+	}
+
+	
 }
