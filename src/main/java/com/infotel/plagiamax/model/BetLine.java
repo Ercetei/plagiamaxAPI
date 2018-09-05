@@ -1,13 +1,9 @@
 package com.infotel.plagiamax.model;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.infotel.plagiamax.contract.BetTypeContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -19,8 +15,8 @@ public class BetLine extends DBItem {
 	@ManyToOne(targetEntity = Bet.class)
 	private Bet bet;
 
-	@OneToMany(targetEntity = BetType.class, mappedBy = BetTypeContract.ASSOCIATION_TABLE_BETLINE)
-	private List<BetType> bettypes;
+	@ManyToOne(targetEntity = BetType.class)
+	private BetType bettype;
 
 	public BetLine() {
 		super();
@@ -34,12 +30,12 @@ public class BetLine extends DBItem {
 		this.bet = bet;
 	}
 
-	public List<BetType> getBetTypes() {
-		return bettypes;
+	public BetType getBetType() {
+		return bettype;
 	}
 
-	public void setBetType(List<BetType> bettypes) {
-		this.bettypes = bettypes;
+	public void setBetType(BetType bettype) {
+		this.bettype = bettype;
 	}
 
 	public Long getMomentodds() {
@@ -50,12 +46,12 @@ public class BetLine extends DBItem {
 		this.momentodds = momentodds;
 	}
 
-	public BetLine(Long id, Long momentodds, Bet bet, List<BetType> bettypes) {
+	public BetLine(Long id, Long momentodds, Bet bet, BetType bettype) {
 		super();
 		this.id = id;
 		this.momentodds = momentodds;
 		this.bet = bet;
-		this.bettypes = bettypes;
+		this.bettype = bettype;
 	}
 
 }
