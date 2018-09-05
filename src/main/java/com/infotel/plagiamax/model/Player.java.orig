@@ -43,10 +43,15 @@ public class Player extends DBItem {
 	@JsonBackReference
 	private List<MatchPlayer> matchplayers;
 
-//Association to EVENT
+//Association to PLAYERSTATUS
+<<<<<<< HEAD
 	@OneToMany(targetEntity = Event.class, mappedBy = "player")
+	private List<Event> playerstatus;
+=======
+	@OneToMany(targetEntity = PlayerStatus.class, mappedBy = "player")
 	@JsonBackReference
-	private List<Event> events;
+	private List<PlayerStatus> playerstatus;
+>>>>>>> f9fa5592ea16a094ebc306b57f0f24e47b98d2ea
 
 	@OneToMany(targetEntity = PlayerBet.class, mappedBy = "player")
 	@JsonBackReference
@@ -101,6 +106,7 @@ public class Player extends DBItem {
 	}
 
 
+
 	public List<Stat> getStats() {
 		return stats;
 	}
@@ -110,6 +116,7 @@ public class Player extends DBItem {
 	}
 	
 	
+
 	public List<Period> getPeriods() {
 		return periods;
 	}
@@ -126,12 +133,12 @@ public class Player extends DBItem {
 		this.matchplayers = matchplayers;
 	}
 
-	public List<Event> getEvents() {
-		return events;
+	public List<Event> getPlayerstatus() {
+		return playerstatus;
 	}
 
-	public void setEvents(List<Event> events) {
-		this.events = events;
+	public void setPlayerstatus(List<Event> playerstatus) {
+		this.playerstatus = playerstatus;
 	}
 
 	public Player() {
@@ -139,7 +146,7 @@ public class Player extends DBItem {
 	}
 
 	public Player(Long id, String firstname, String lastname, Date birthdate, String status, Place place, List<Period> periods,
-			List<Stat> stats, List<MatchPlayer> matchplayers, List<Event> events,
+			List<Stat> stats, List<MatchPlayer> matchplayers, List<Event> playerstatus,
 			List<PlayerBet> playersbets) {
 		super();
 		this.id = id;
@@ -151,7 +158,7 @@ public class Player extends DBItem {
 		this.periods = periods;
 		this.stats = stats;
 		this.matchplayers = matchplayers;
-		this.events = events;
+		this.playerstatus = playerstatus;
 		this.playersbets = playersbets;
 	}
 	

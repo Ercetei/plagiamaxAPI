@@ -16,6 +16,7 @@ import com.infotel.plagiamax.model.base.DBItem;
 @Inheritance(strategy=InheritanceType.JOINED) 
 public abstract class BetType extends DBItem {
 
+	protected String label;
 	protected Float initialodds;
 	protected Float currentodds;
 	protected Integer status;
@@ -24,6 +25,14 @@ public abstract class BetType extends DBItem {
 	@OneToMany(targetEntity = BetLine.class, mappedBy="bettype")
 	@JsonBackReference
 	private List<BetLine> betlines;
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
 
 	public BetType() {
 		super();
@@ -69,9 +78,10 @@ public abstract class BetType extends DBItem {
 		this.status = status;
 	}
 
-	public BetType(Long id, Float initialodds, Float currentodds, Integer status, Integer type, List<BetLine> betlines) {
+	public BetType(Long id, String label, Float initialodds, Float currentodds, Integer status, Integer type, List<BetLine> betlines) {
 		super();
 		this.id = id;
+		this.label = label;
 		this.initialodds = initialodds;
 		this.currentodds = currentodds;
 		this.status = status;
