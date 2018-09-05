@@ -3,6 +3,8 @@ package com.infotel.plagiamax.model;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -10,11 +12,13 @@ import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
 @Table(name = "bettype")
+@Inheritance(strategy=InheritanceType.JOINED) 
 public abstract class BetType extends DBItem {
 
 	protected Float initialodds;
 	protected Float currentodds;
 	protected Integer status;
+	protected Integer type;
 
 	@OneToMany(targetEntity = BetLine.class, mappedBy="bettype")
 	private List<BetLine> betlines;
@@ -23,11 +27,19 @@ public abstract class BetType extends DBItem {
 		super();
 	}
 
-	public List<BetLine> getbetlines() {
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public List<BetLine> getBetlines() {
 		return betlines;
 	}
 
-	public void setbetline(List<BetLine> betlines) {
+	public void setBetlines(List<BetLine> betlines) {
 		this.betlines = betlines;
 	}
 
@@ -55,12 +67,13 @@ public abstract class BetType extends DBItem {
 		this.status = status;
 	}
 
-	public BetType(Long id, Float initialodds, Float currentodds, Integer status, List<BetLine> betlines) {
+	public BetType(Long id, Float initialodds, Float currentodds, Integer status, Integer type, List<BetLine> betlines) {
 		super();
 		this.id = id;
 		this.initialodds = initialodds;
 		this.currentodds = currentodds;
 		this.status = status;
+		this.type = type;
 		this.betlines = betlines;
 	}
 

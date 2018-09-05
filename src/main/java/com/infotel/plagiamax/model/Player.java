@@ -38,8 +38,8 @@ public class Player extends DBItem {
 	private List<MatchPlayer> matchplayers;
 
 //Association to PLAYERSTATUS
-	@OneToMany(targetEntity = PlayerStatus.class, mappedBy = "player")
-	private List<PlayerStatus> playerstatus;
+	@OneToMany(targetEntity = Event.class, mappedBy = "player")
+	private List<Event> playerstatus;
 
 	@OneToMany(targetEntity = PlayerBet.class, mappedBy = "player")
 	private List<PlayerBet> playersbets;
@@ -120,11 +120,11 @@ public class Player extends DBItem {
 		this.matchplayers = matchplayers;
 	}
 
-	public List<PlayerStatus> getPlayerstatus() {
+	public List<Event> getPlayerstatus() {
 		return playerstatus;
 	}
 
-	public void setPlayerstatus(List<PlayerStatus> playerstatus) {
+	public void setPlayerstatus(List<Event> playerstatus) {
 		this.playerstatus = playerstatus;
 	}
 
@@ -133,7 +133,7 @@ public class Player extends DBItem {
 	}
 
 	public Player(Long id, String firstname, String lastname, Date birthdate, String status, Place place, List<Period> periods,
-			List<Stat> stats, List<MatchPlayer> matchplayers, List<PlayerStatus> playerstatus,
+			List<Stat> stats, List<MatchPlayer> matchplayers, List<Event> playerstatus,
 			List<PlayerBet> playersbets) {
 		super();
 		this.id = id;

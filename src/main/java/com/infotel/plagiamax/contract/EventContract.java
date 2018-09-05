@@ -1,6 +1,6 @@
 package com.infotel.plagiamax.contract;
 
-public class PlayerStatusContract {
+public class EventContract {
 	
 	public static final String STATUS = "status" ;
 	public static final String STATUSTIME = "statustime" ;

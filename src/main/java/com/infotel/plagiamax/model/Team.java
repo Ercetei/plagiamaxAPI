@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -17,23 +18,29 @@ public class Team extends DBItem {
 
 	@Column(name = "label", nullable = false)
 	private String label;
-	
+
 	@Column(name = "status", nullable = false)
 	private Integer status;
 	private Date creationdate;
-	
+
 	@ManyToOne(targetEntity = Place.class)
 	private Place place;
-	
-	@OneToMany(targetEntity = Period.class, mappedBy="team")
+
+	@OneToMany(targetEntity = Period.class, mappedBy = "team")
 	private List<Period> periods;
-	
-	@OneToMany(targetEntity = Stat.class, mappedBy="team")
+
+	@OneToMany(targetEntity = Stat.class, mappedBy = "team")
 	private List<Stat> stats;
 
 //Association to MATCHTEAM
-	@OneToMany(targetEntity = MatchTeam.class, mappedBy="team")
+	@OneToMany(targetEntity = MatchTeam.class, mappedBy = "team")
 	private List<MatchTeam> matchteams;
+
+	@OneToMany(targetEntity = Event.class, mappedBy = "team")
+	private List<Event> events;
+
+	@ManyToMany(targetEntity = MatchBet.class, mappedBy = "teams")
+	private List<MatchBet> matchbets;
 
 	public String getLabel() {
 		return label;
@@ -91,8 +98,24 @@ public class Team extends DBItem {
 		this.matchteams = matchteams;
 	}
 
-	public Team(Long id, String label, Integer status, Date creationdate, Place place, List<Period> periods, List<Stat> stats,
-			List<MatchTeam> matchteams) {
+	public List<Event> getEvents() {
+		return events;
+	}
+
+	public void setEvents(List<Event> events) {
+		this.events = events;
+	}
+	
+	public List<MatchBet> getMatchbets() {
+		return matchbets;
+	}
+
+	public void setMatchbets(List<MatchBet> matchbets) {
+		this.matchbets = matchbets;
+	}
+
+	public Team(Long id, String label, Integer status, Date creationdate, Place place, List<Period> periods,
+			List<Stat> stats, List<MatchTeam> matchteams, List<Event> events, List<MatchBet> matchbets) {
 		super();
 		this.id = id;
 		this.label = label;
@@ -102,14 +125,12 @@ public class Team extends DBItem {
 		this.periods = periods;
 		this.stats = stats;
 		this.matchteams = matchteams;
+		this.events = events;
+		this.matchbets = matchbets;
 	}
 
 	public Team() {
 		super();
 	}
-
-	
-
-	
 
 }
