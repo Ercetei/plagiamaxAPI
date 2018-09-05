@@ -64,6 +64,14 @@ public class User extends DBItem {
 		this.birthdate = birthdate;
 	}
 
+	public List<Bet> getBets() {
+		return bets;
+	}
+
+	public void setBets(List<Bet> bets) {
+		this.bets = bets;
+	}
+
 	public String getLastname() {
 		return lastname;
 	}
@@ -143,13 +151,4 @@ public class User extends DBItem {
 	public void setBirthdate(Date birthdate) {
 		this.birthdate = birthdate;
 	}
-	
-	public List<Bet> getBets() {
-		return bets;
-	}
-
-	public void setBets(List<Bet> bets) {
-		this.bets = bets;
-	}
-
 }
