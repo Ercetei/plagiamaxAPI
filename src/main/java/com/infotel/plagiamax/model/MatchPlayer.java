@@ -1,11 +1,9 @@
 package com.infotel.plagiamax.model;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.infotel.plagiamax.contract.MatchContract;
-import com.infotel.plagiamax.contract.PlayerContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -16,11 +14,11 @@ public class MatchPlayer extends DBItem {
 	private Float exittime;
 
 //Association to PLAYER
-	@OneToOne(targetEntity = Player.class, mappedBy = PlayerContract.ASSOCIATION_MATCHPLAYER)
+	@ManyToOne(targetEntity = Player.class)
 	private Player player;
 
 //Association to MATCH
-	@OneToOne(targetEntity = Match.class, mappedBy = MatchContract.ASSOCIATION_MATCHPLAYER)
+	@ManyToOne(targetEntity = Match.class)
 	private Match match;
 
 //Constructor	

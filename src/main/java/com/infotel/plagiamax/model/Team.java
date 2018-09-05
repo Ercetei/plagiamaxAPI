@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.infotel.plagiamax.model.base.DBItem;
@@ -26,15 +25,15 @@ public class Team extends DBItem {
 	@ManyToOne(targetEntity = Place.class)
 	private Place place;
 	
-	@OneToOne(targetEntity = Period.class)
-	private Period period;
+	@OneToMany(targetEntity = Period.class, mappedBy="team")
+	private List<Period> periods;
 	
 	@OneToMany(targetEntity = Stat.class, mappedBy="team")
 	private List<Stat> stats;
 
 //Association to MATCHTEAM
-	@OneToOne(targetEntity = MatchTeam.class)
-	private MatchTeam matchteam;
+	@OneToMany(targetEntity = MatchTeam.class, mappedBy="team")
+	private List<MatchTeam> matchteams;
 
 	public String getLabel() {
 		return label;
@@ -68,14 +67,6 @@ public class Team extends DBItem {
 		this.place = place;
 	}
 
-	public Period getPeriod() {
-		return period;
-	}
-
-	public void setPeriod(Period period) {
-		this.period = period;
-	}
-
 	public List<Stat> getStats() {
 		return stats;
 	}
@@ -84,26 +75,40 @@ public class Team extends DBItem {
 		this.stats = stats;
 	}
 
-	public MatchTeam getMatchteam() {
-		return matchteam;
+	public List<Period> getPeriods() {
+		return periods;
 	}
 
-	public void setMatchteam(MatchTeam matchteam) {
-		this.matchteam = matchteam;
+	public void setPeriods(List<Period> periods) {
+		this.periods = periods;
 	}
 
-	public Team(Long id, String label, Integer status, Date creationdate, Place place, Period period, List<Stat> stats,
-			MatchTeam matchteam) {
+	public List<MatchTeam> getMatchteams() {
+		return matchteams;
+	}
+
+	public void setMatchteams(List<MatchTeam> matchteams) {
+		this.matchteams = matchteams;
+	}
+
+	public Team(Long id, String label, Integer status, Date creationdate, Place place, List<Period> periods, List<Stat> stats,
+			List<MatchTeam> matchteams) {
 		super();
 		this.id = id;
 		this.label = label;
 		this.status = status;
 		this.creationdate = creationdate;
 		this.place = place;
-		this.period = period;
+		this.periods = periods;
 		this.stats = stats;
-		this.matchteam = matchteam;
+		this.matchteams = matchteams;
 	}
+
+	public Team() {
+		super();
+	}
+
+	
 
 	
 

@@ -4,7 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.infotel.plagiamax.model.base.DBItem;
@@ -13,10 +13,10 @@ import com.infotel.plagiamax.model.base.DBItem;
 @Table(name = "period")
 public class Period extends DBItem {
 
-	@OneToOne(targetEntity = Player.class, mappedBy="period")
+	@ManyToOne(targetEntity = Player.class)
 	private Player player;
 	
-	@OneToOne(targetEntity = Team.class, mappedBy="period")
+	@ManyToOne(targetEntity = Team.class)
 	private Team team;
 	
 	@Column(name = "startdate", nullable = false)

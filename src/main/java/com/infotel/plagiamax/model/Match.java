@@ -5,13 +5,12 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
-@Table(name = "match")
+@Table(name = "match_vs")
 public class Match extends DBItem {
 
 	private String label;
@@ -22,22 +21,22 @@ public class Match extends DBItem {
 	private Place place;
 
 //Association to MATCHPLAYER
-	@OneToOne(targetEntity = MatchPlayer.class)
-	private MatchPlayer matchplayer;
+	@OneToMany(targetEntity = MatchPlayer.class, mappedBy = "match")
+	private List<MatchPlayer> matchplayers;
 
 //Association to PLAYERSTATUS
-	@OneToOne(targetEntity = PlayerStatus.class)
-	private PlayerStatus playerstatus;
+	@OneToMany(targetEntity = PlayerStatus.class, mappedBy = "match")
+	private List<PlayerStatus> playerstatus;
 
 //Association to MATCHTEAM
-	@OneToOne(targetEntity = MatchTeam.class)
-	private MatchTeam matchteam;
+	@OneToMany(targetEntity = MatchTeam.class, mappedBy = "match")
+	private List<MatchTeam> matchteams;
 
 //Association to SEASON
 	@ManyToOne(targetEntity = Season.class)
 	private Season season;
 
-	@OneToMany(targetEntity = MatchBet.class, mappedBy="match")
+	@OneToMany(targetEntity = MatchBet.class, mappedBy = "match")
 	private List<MatchBet> matchbets;
 
 //Constructor
@@ -45,15 +44,15 @@ public class Match extends DBItem {
 		super();
 	}
 
-	public Match(String label, Integer status, Place place, MatchPlayer matchplayer, PlayerStatus playerstatus,
-			MatchTeam matchteam, Season season, List<MatchBet> matchbets) {
+	public Match(String label, Integer status, Place place, List<MatchPlayer> matchplayers,
+			List<PlayerStatus> playerstatus, List<MatchTeam> matchteams, Season season, List<MatchBet> matchbets) {
 		super();
 		this.label = label;
 		this.status = status;
 		this.place = place;
-		this.matchplayer = matchplayer;
+		this.matchplayers = matchplayers;
 		this.playerstatus = playerstatus;
-		this.matchteam = matchteam;
+		this.matchteams = matchteams;
 		this.season = season;
 		this.matchbets = matchbets;
 	}
@@ -82,28 +81,28 @@ public class Match extends DBItem {
 		this.place = place;
 	}
 
-	public MatchPlayer getMatchplayer() {
-		return matchplayer;
+	public List<MatchPlayer> getMatchplayers() {
+		return matchplayers;
 	}
 
-	public void setMatchplayer(MatchPlayer matchplayer) {
-		this.matchplayer = matchplayer;
+	public void setMatchplayers(List<MatchPlayer> matchplayers) {
+		this.matchplayers = matchplayers;
 	}
 
-	public PlayerStatus getPlayerstatus() {
+	public List<PlayerStatus> getPlayerstatus() {
 		return playerstatus;
 	}
 
-	public void setPlayerstatus(PlayerStatus playerstatus) {
+	public void setPlayerstatus(List<PlayerStatus> playerstatus) {
 		this.playerstatus = playerstatus;
 	}
 
-	public MatchTeam getMatchteam() {
-		return matchteam;
+	public List<MatchTeam> getMatchteams() {
+		return matchteams;
 	}
 
-	public void setMatchteam(MatchTeam matchteam) {
-		this.matchteam = matchteam;
+	public void setMatchteams(List<MatchTeam> matchteams) {
+		this.matchteams = matchteams;
 	}
 
 	public Season getSeason() {

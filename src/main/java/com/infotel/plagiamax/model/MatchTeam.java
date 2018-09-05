@@ -1,11 +1,9 @@
 package com.infotel.plagiamax.model;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.infotel.plagiamax.contract.MatchContract;
-import com.infotel.plagiamax.contract.TeamContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -15,11 +13,11 @@ public class MatchTeam extends DBItem {
 	private Boolean ishometeam;
 
 //Association a TEAM
-	@OneToOne(targetEntity = Team.class, mappedBy = TeamContract.ASSOCIATION_MATCHTEAM)
+	@ManyToOne(targetEntity = Team.class)
 	private Team team;
 
 //Association a MATCH
-	@OneToOne(targetEntity = Match.class, mappedBy = MatchContract.ASSOCIATION_MATCHTEAM)
+	@ManyToOne(targetEntity = Match.class)
 	private Match match;
 
 //Constructor

@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.infotel.plagiamax.model.base.DBItem;
@@ -30,15 +29,15 @@ public class Place extends DBItem {
 	private List<Team> team;
 
 //Association to COMPETITION
-	@OneToOne(targetEntity = Competition.class)
-	private Competition competition;
+	@OneToMany(targetEntity = Competition.class, mappedBy="place")
+	private List<Competition> competitions;
 
 	public Place() {
 		super();
 	}
 
 	public Place(String country, String city, String stadium, List<Match> match, List<Player> player, List<Team> team,
-			Competition competition) {
+			List<Competition> competitions) {
 		super();
 		this.country = country;
 		this.city = city;
@@ -46,7 +45,7 @@ public class Place extends DBItem {
 		this.match = match;
 		this.player = player;
 		this.team = team;
-		this.competition = competition;
+		this.competitions = competitions;
 	}
 
 	public String getCountry() {
@@ -97,12 +96,12 @@ public class Place extends DBItem {
 		this.team = team;
 	}
 
-	public Competition getCompetition() {
-		return competition;
+	public List<Competition> getCompetitions() {
+		return competitions;
 	}
 
-	public void setCompetition(Competition competition) {
-		this.competition = competition;
+	public void setCompetitions(List<Competition> competitions) {
+		this.competitions = competitions;
 	}
 
 }

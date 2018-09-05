@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.infotel.plagiamax.model.base.DBItem;
@@ -28,21 +27,21 @@ public class Player extends DBItem {
 	@ManyToOne(targetEntity = Place.class)
 	private Place place;
 
-	@OneToOne(targetEntity = Period.class)
-	private Period period;
+	@OneToMany(targetEntity = Period.class)
+	private List<Period> periods;
 
 	@OneToMany(targetEntity = Stat.class, mappedBy = "player")
 	private List<Stat> stats;
 
 //Association to MATCHPLAYER
-	@OneToOne(targetEntity = MatchPlayer.class)
-	private MatchPlayer matchplayer;
+	@OneToMany(targetEntity = MatchPlayer.class, mappedBy = "player")
+	private List<MatchPlayer> matchplayers;
 
 //Association to PLAYERSTATUS
-	@OneToOne(targetEntity = PlayerStatus.class)
-	private PlayerStatus playerstatus;
+	@OneToMany(targetEntity = PlayerStatus.class, mappedBy = "player")
+	private List<PlayerStatus> playerstatus;
 
-	@OneToMany(targetEntity = PlayerBet.class)
+	@OneToMany(targetEntity = PlayerBet.class, mappedBy = "player")
 	private List<PlayerBet> playersbets;
 
 	public List<PlayerBet> getPlayersbets() {
@@ -93,13 +92,7 @@ public class Player extends DBItem {
 		this.place = place;
 	}
 
-	public Period getPeriod() {
-		return period;
-	}
 
-	public void setPeriod(Period period) {
-		this.period = period;
-	}
 
 	public List<Stat> getStats() {
 		return stats;
@@ -108,25 +101,40 @@ public class Player extends DBItem {
 	public void setStats(List<Stat> stats) {
 		this.stats = stats;
 	}
+	
+	
 
-	public MatchPlayer getMatchplayer() {
-		return matchplayer;
+	public List<Period> getPeriods() {
+		return periods;
 	}
 
-	public void setMatchplayer(MatchPlayer matchplayer) {
-		this.matchplayer = matchplayer;
+	public void setPeriods(List<Period> periods) {
+		this.periods = periods;
 	}
 
-	public PlayerStatus getPlayerstatus() {
+	public List<MatchPlayer> getMatchplayers() {
+		return matchplayers;
+	}
+
+	public void setMatchplayers(List<MatchPlayer> matchplayers) {
+		this.matchplayers = matchplayers;
+	}
+
+	public List<PlayerStatus> getPlayerstatus() {
 		return playerstatus;
 	}
 
-	public void setPlayerstatus(PlayerStatus playerstatus) {
+	public void setPlayerstatus(List<PlayerStatus> playerstatus) {
 		this.playerstatus = playerstatus;
 	}
 
-	public Player(Long id, String firstname, String lastname, Date birthdate, String status, Place place, Period period,
-			List<Stat> stats, MatchPlayer matchplayer, PlayerStatus playerstatus, List<PlayerBet> playersbets) {
+	public Player() {
+		super();
+	}
+
+	public Player(Long id, String firstname, String lastname, Date birthdate, String status, Place place, List<Period> periods,
+			List<Stat> stats, List<MatchPlayer> matchplayers, List<PlayerStatus> playerstatus,
+			List<PlayerBet> playersbets) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
@@ -134,15 +142,13 @@ public class Player extends DBItem {
 		this.birthdate = birthdate;
 		this.status = status;
 		this.place = place;
-		this.period = period;
+		this.periods = periods;
 		this.stats = stats;
-		this.matchplayer = matchplayer;
+		this.matchplayers = matchplayers;
 		this.playerstatus = playerstatus;
 		this.playersbets = playersbets;
 	}
-
-	public Player() {
-		super();
-	}
+	
+	
 
 }
