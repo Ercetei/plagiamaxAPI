@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.infotel.plagiamax.model.base.DBItem;
@@ -28,19 +29,12 @@ public class Competition extends DBItem {
 
 	@ManyToOne(targetEntity = Place.class)
 	private Place place;
+	
+	@OneToMany(targetEntity = Season.class, mappedBy="competition")
+	private List<Season> season;
 
 	public Competition() {
 		super();
-	}
-
-	public Competition(Long id, String label, Integer status, Integer type, List<Category> categories, Place place) {
-		super();
-		this.id = id;
-		this.label = label;
-		this.status = status;
-		this.type = type;
-		this.categories = categories;
-		this.place = place;
 	}
 
 	public String getLabel() {
@@ -82,5 +76,27 @@ public class Competition extends DBItem {
 	public void setPlace(Place place) {
 		this.place = place;
 	}
+
+	public List<Season> getSeason() {
+		return season;
+	}
+
+	public void setSeason(List<Season> season) {
+		this.season = season;
+	}
+
+	public Competition(Long id, String label, Integer status, Integer type, List<Category> categories, Place place,
+			List<Season> season) {
+		super();
+		this.id = id;
+		this.label = label;
+		this.status = status;
+		this.type = type;
+		this.categories = categories;
+		this.place = place;
+		this.season = season;
+	}
+
+	
 
 }

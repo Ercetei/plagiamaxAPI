@@ -8,5 +8,6 @@ import com.infotel.plagiamax.repository.base.IBaseRepository;
 @Repository
 public interface UserCrudRepository extends IBaseRepository<User, Long>{
 	
+	User findByMailAndPassword(String mail, String password);
 
 }

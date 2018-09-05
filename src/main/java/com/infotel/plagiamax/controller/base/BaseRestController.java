@@ -16,7 +16,7 @@ import com.infotel.plagiamax.repository.base.IBaseRepository;
 public abstract class BaseRestController<T,ID extends Serializable> {
 
 	@Autowired
-    IBaseRepository<T, ID> crudRepository;
+	private IBaseRepository<T, ID> crudRepository;
 
     @RequestMapping(path={"/", ""}, method=RequestMethod.GET)
     public ResponseEntity<Iterable<T>> index() {

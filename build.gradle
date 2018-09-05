@@ -36,6 +36,9 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-jdbc')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	
+	// Security
+    compile('org.springframework.boot:spring-boot-starter-security')
+	
 	// Database
 	runtime('mysql:mysql-connector-java')
 	
