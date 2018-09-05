@@ -7,17 +7,18 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.infotel.plagiamax.contract.PeriodContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
 @Table(name = "period")
 public class Period extends DBItem {
 
-	@OneToOne(targetEntity = Player.class, mappedBy = PeriodContract.PLAYER)
+	@OneToOne(targetEntity = Player.class, mappedBy="period")
 	private Player player;
-	@OneToOne(targetEntity = Team.class, mappedBy = PeriodContract.TEAM)
+	
+	@OneToOne(targetEntity = Team.class, mappedBy="period")
 	private Team team;
+	
 	@Column(name = "startdate", nullable = false)
 	private Date startdate;
 	private Date enddate;

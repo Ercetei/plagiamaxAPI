@@ -4,36 +4,34 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="playerbet")
 public class PlayerBet extends BetType {
 	
-	@ManyToMany(targetEntity=BetType.class)
-	private List<BetType> bettype;
+	@ManyToOne(targetEntity=Player.class)
+	private Player player;
 	
 	public PlayerBet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public List<BetType> getBettype() {
-		return bettype;
-	}
-
-	public void setBettype(List<BetType> bettype) {
-		this.bettype = bettype;
-	}
-
-	public PlayerBet(List<BetType> bettype, Long id, Float initialodds, Float currentodds, Integer status) {
+	public PlayerBet(Player player) {
 		super();
-		this.bettype = bettype;
-		this.id = id;
-		this.initialodds = initialodds;
-		this.currentodds = currentodds;
-		this.status = status;
+		this.player = player;
 	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
 	
+
 	
 }

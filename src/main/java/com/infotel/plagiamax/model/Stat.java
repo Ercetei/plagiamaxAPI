@@ -17,12 +17,16 @@ public class Stat extends DBItem {
 	@Column(name = "label", nullable = false)
 	private String label;
 	private Float value;
-	@ManyToOne
+	
+	@ManyToOne(targetEntity=Stat.class)
 	private Stat parent;
-	@OneToMany
+	
+	@OneToMany(targetEntity=Stat.class)
 	private List<Stat> children;
+	
 	@ManyToOne(targetEntity = Team.class)
 	private Team team;
+	
 	@ManyToOne(targetEntity = Player.class)
 	private Player player;
 

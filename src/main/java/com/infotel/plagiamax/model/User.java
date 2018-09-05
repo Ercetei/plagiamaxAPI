@@ -1,14 +1,10 @@
 package com.infotel.plagiamax.model;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -18,27 +14,28 @@ import com.infotel.plagiamax.model.base.DBItem;
 @Table(name = "user")
 public class User extends DBItem {
 	
-	@OneToMany(targetEntity=Bet.class)
-	private List<Bet> bet;
+	@OneToMany(targetEntity=Bet.class, mappedBy = "user")
+	private List<Bet> bets;
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
-	private Long id;
 	@Column(name = "lastname", nullable = false)
 	private String lastname;
+	
 	@Column(name = "firstname", nullable = false)
 	private String firstname;
+	
 	@Column(name = "mail", nullable = false)
 	private String mail;
+	
 	@Column(name = "password", nullable = false)
 	private String password;
+	
 	@Column(name = "username", nullable = false)
 	private String username;
 	private Integer wallet;
 	private String creditcard;
 	private String expirationdate;
 	private String cryptogram;
+	
 	@Column(name = "birthdate", nullable = false)
 	private Date birthdate;
 	
@@ -47,11 +44,11 @@ public class User extends DBItem {
 		super();
 	}
 
-	public User(List<Bet> bet, Long id, String lastname, String firstname, String mail, String password,
+	public User(Long id, List<Bet> bets, String lastname, String firstname, String mail, String password,
 			String username, Integer wallet, String creditcard, String expirationdate, String cryptogram,
 			Date birthdate) {
 		super();
-		this.bet = bet;
+		this.bets = bets;
 		this.id = id;
 		this.lastname = lastname;
 		this.firstname = firstname;
@@ -63,14 +60,6 @@ public class User extends DBItem {
 		this.expirationdate = expirationdate;
 		this.cryptogram = cryptogram;
 		this.birthdate = birthdate;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getLastname() {
@@ -153,12 +142,12 @@ public class User extends DBItem {
 		this.birthdate = birthdate;
 	}
 	
-	public List<Bet> getBet() {
-		return bet;
+	public List<Bet> getBets() {
+		return bets;
 	}
 
-	public void setBet(List<Bet> bet) {
-		this.bet = bet;
+	public void setBets(List<Bet> bets) {
+		this.bets = bets;
 	}
 
 }

@@ -1,43 +1,35 @@
 package com.infotel.plagiamax.model;
 
-import java.util.List;
-
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="matchbet")
+@Table(name = "matchbet")
 public class MatchBet extends BetType {
-	
-	
-	@ManyToMany(targetEntity=BetType.class)
-	private List<BetType> bettype;
-	
+
+	@ManyToOne(targetEntity = Match.class)
+	private Match match;
+
 	public MatchBet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-
-	public List<BetType> getBettype() {
-		return bettype;
+	public Match getMatch() {
+		return match;
 	}
 
-
-	public void setBettype(List<BetType> bettype) {
-		this.bettype = bettype;
+	public void setMatch(Match match) {
+		this.match = match;
 	}
 
-
-	public MatchBet(List<BetType> bettype, Long id, Float initialodds, Float currentodds, Integer status) {
+	public MatchBet(Long id, Match match, Float initialodds, Float currentodds, Integer status) {
 		super();
-		this.bettype = bettype;
 		this.id = id;
+		this.match = match;
 		this.initialodds = initialodds;
 		this.currentodds = currentodds;
 		this.status = status;
 	}
-	
-	
+
 }

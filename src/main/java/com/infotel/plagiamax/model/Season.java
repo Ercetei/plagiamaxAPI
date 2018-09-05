@@ -9,8 +9,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.infotel.plagiamax.contract.MatchContract;
-
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -29,15 +27,16 @@ public class Season extends DBItem {
 	@ManyToOne(targetEntity = Competition.class)
 	private Competition competition;
 
-	@OneToMany(targetEntity = Match.class, mappedBy = MatchContract.ASSOCIATION_SEASON)
+	@OneToMany(targetEntity = Match.class, mappedBy="season")
 	private List<Match> matchs;
 
 	public Season() {
+		super();
 	}
 
 	public Season(Long id, Date startDate, Date endDate, Integer status, Competition competition, List<Match> matchs) {
 		super();
-		this.setId(id);
+		this.id = id;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.status = status;

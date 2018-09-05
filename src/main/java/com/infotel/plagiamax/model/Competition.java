@@ -1,7 +1,10 @@
 package com.infotel.plagiamax.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -22,22 +25,23 @@ public class Competition extends DBItem {
 	@Column(nullable = false)
 	private Integer type;
 
-	@ManyToOne(targetEntity = Category.class)
-	private Category category;
+	@ManyToMany(targetEntity = Category.class)
+	private List<Category> categories;
 
 	@OneToOne(targetEntity = Place.class, mappedBy = PlaceContract.ASSOCIATION_COMPETITION)
 	private Place place;
 
 	public Competition() {
+		super();
 	}
 
-	public Competition(Long id, String label, Integer status, Integer type, Category category, Place place) {
+	public Competition(Long id, String label, Integer status, Integer type, List<Category> categories, Place place) {
 		super();
-		this.setId(id);
+		this.id = id;
 		this.label = label;
 		this.status = status;
 		this.type = type;
-		this.category = category;
+		this.categories = categories;
 		this.place = place;
 	}
 
@@ -65,12 +69,12 @@ public class Competition extends DBItem {
 		this.type = type;
 	}
 
-	public Category getCategory() {
-		return category;
+	public List<Category> getCategories() {
+		return categories;
 	}
 
-	public void setCategory(Category category) {
-		this.category = category;
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
 	}
 
 	public Place getPlace() {
@@ -81,5 +85,4 @@ public class Competition extends DBItem {
 		this.place = place;
 	}
 
-	
 }

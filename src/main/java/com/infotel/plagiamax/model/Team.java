@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -17,20 +18,24 @@ public class Team extends DBItem {
 
 	@Column(name = "label", nullable = false)
 	private String label;
+	
 	@Column(name = "status", nullable = false)
 	private Integer status;
 	private Date creationdate;
-	@OneToMany(targetEntity = Place.class)
+	
+	@ManyToOne(targetEntity = Place.class)
 	private Place place;
+	
 	@OneToOne(targetEntity = Period.class)
 	private Period period;
-	@OneToMany(targetEntity = Stat.class)
+	
+	@OneToMany(targetEntity = Stat.class, mappedBy="team")
 	private List<Stat> stats;
 
 //Association to MATCHTEAM
-	@OneToOne(targetEntity=MatchTeam.class)
+	@OneToOne(targetEntity = MatchTeam.class)
 	private MatchTeam matchteam;
-		
+
 	public String getLabel() {
 		return label;
 	}
@@ -79,16 +84,16 @@ public class Team extends DBItem {
 		this.stats = stats;
 	}
 
-	
-//MatchTeam
 	public MatchTeam getMatchteam() {
 		return matchteam;
 	}
+
 	public void setMatchteam(MatchTeam matchteam) {
 		this.matchteam = matchteam;
 	}
-		
-	public Team(Long id, String label, Integer status, Date creationdate, Place place, Period period, List<Stat> stats) {
+
+	public Team(Long id, String label, Integer status, Date creationdate, Place place, Period period, List<Stat> stats,
+			MatchTeam matchteam) {
 		super();
 		this.id = id;
 		this.label = label;
@@ -97,10 +102,9 @@ public class Team extends DBItem {
 		this.place = place;
 		this.period = period;
 		this.stats = stats;
+		this.matchteam = matchteam;
 	}
 
-	public Team() {
-		super();
-	}
+	
 
 }

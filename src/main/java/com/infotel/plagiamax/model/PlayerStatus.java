@@ -1,10 +1,6 @@
 package com.infotel.plagiamax.model;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -16,53 +12,54 @@ import com.infotel.plagiamax.model.base.DBItem;
 @Table(name = "playerstatus")
 public class PlayerStatus extends DBItem {
 
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
 	private Integer status;
 	private Float statustime;
-	
+
 //Association a PLAYER
-	@OneToOne(targetEntity=Player.class,mappedBy=PlayerContract.ASSOCIATION_PLAYERSTATUS)
-	private Player leftassociation;
-	
+	@OneToOne(targetEntity = Player.class, mappedBy = PlayerContract.ASSOCIATION_PLAYERSTATUS)
+	private Player player;
+
 //Association a MATCH
-	@OneToOne(targetEntity=Match.class,mappedBy=MatchContract.ASSOCIATION_PLAYERSTATUS)
-	private Match rightassociation;
-	
-	
+	@OneToOne(targetEntity = Match.class, mappedBy = MatchContract.ASSOCIATION_PLAYERSTATUS)
+	private Match match;
+
 //Constructor
 	public PlayerStatus() {
 		super();
 	}
-	public PlayerStatus(Player leftassociation, Match rightassociation, Integer status, Float statustime) {
+
+	public PlayerStatus(Long id, Player player, Match match, Integer status, Float statustime) {
 		super();
-		this.leftassociation = leftassociation;
-		this.rightassociation = rightassociation;
+		this.id = id;
+		this.player = player;
+		this.match = match;
 		this.status = status;
 		this.statustime = statustime;
 	}
 
-	
 //Player
 	public Player getLeftAssociation() {
-		return leftassociation;
+		return player;
 	}
-	public void setLeftAssociation(Player leftassociation) {
-		this.leftassociation = leftassociation;
+
+	public void setLeftAssociation(Player player) {
+		this.player = player;
 	}
-	
+
 //Match
 	public Match getRightAssociation() {
-		return rightassociation;
+		return match;
 	}
-	public void setRightAssociation(Match rightassociation) {
-		this.rightassociation = rightassociation;
+
+	public void setRightAssociation(Match match) {
+		this.match = match;
 	}
 
 //Status
 	public Integer getStatus() {
 		return status;
 	}
+
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
@@ -71,8 +68,9 @@ public class PlayerStatus extends DBItem {
 	public Float getStatusTime() {
 		return statustime;
 	}
+
 	public void setStatusTime(Float statustime) {
 		this.statustime = statustime;
 	}
-	
+
 }

@@ -6,7 +6,6 @@ import com.infotel.plagiamax.model.BetType;
 import com.infotel.plagiamax.repository.base.IBaseRepository;
 
 @Repository
-public interface BetTypeCrudRepository extends IBaseRepository<BetType, Long>{
+public interface BetTypeCrudRepository extends IBaseRepository<BetType, Long> {
 
 }
-

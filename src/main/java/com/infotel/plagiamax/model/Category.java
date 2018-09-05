@@ -4,10 +4,9 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.infotel.plagiamax.contract.CompetitionContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -20,15 +19,16 @@ public class Category extends DBItem {
 	@Column(nullable = false)
 	private Integer status;
 
-	@OneToMany(targetEntity = Competition.class, mappedBy = CompetitionContract.ID)
+	@ManyToMany(targetEntity = Competition.class, mappedBy="categories")
 	private List<Competition> competitions;
 
 	public Category() {
+		super();
 	}
 
 	public Category(Long id, String label, Integer status, List<Competition> competitions) {
 		super();
-		this.setId(id);
+		this.id = id;
 		this.label = label;
 		this.status = status;
 		this.competitions = competitions;

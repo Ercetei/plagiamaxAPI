@@ -1,62 +1,45 @@
 package com.infotel.plagiamax.model;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.infotel.plagiamax.contract.BetContract;
 import com.infotel.plagiamax.contract.BetTypeContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
 @Table(name = "betline")
 public class BetLine extends DBItem {
-	
-	
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
-	private Long id;
-	private Long momentodds;
-	
 
-	@OneToOne(targetEntity=Bet.class,mappedBy=BetContract.ASSOCIATION_TABLE_BETLINE)
-	private Bet leftAssociation;
-	
-	@OneToOne(targetEntity=BetType.class,mappedBy=BetTypeContract.ASSOCIATION_TABLE_BETLINE)
-	private BetType rightAssociation;
-	
+	private Long momentodds;
+
+	@ManyToOne(targetEntity = Bet.class)
+	private Bet bet;
+
+	@OneToMany(targetEntity = BetType.class, mappedBy = BetTypeContract.ASSOCIATION_TABLE_BETLINE)
+	private List<BetType> bettypes;
+
 	public BetLine() {
 		super();
 	}
 
-	public Long getId() {
-		return id;
+	public Bet getBet() {
+		return bet;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setBet(Bet bet) {
+		this.bet = bet;
 	}
 
-	public Bet getLeftAssociation() {
-		return leftAssociation;
+	public List<BetType> getBetTypes() {
+		return bettypes;
 	}
 
-	public void setLeftAssociation(Bet leftAssociation) {
-		this.leftAssociation = leftAssociation;
-	}
-
-	public BetType getRightAssociation() {
-		return rightAssociation;
-	}
-
-	public void setRightAssociation(BetType rightAssociation) {
-		this.rightAssociation = rightAssociation;
+	public void setBetType(List<BetType> bettypes) {
+		this.bettypes = bettypes;
 	}
 
 	public Long getMomentodds() {
@@ -66,16 +49,13 @@ public class BetLine extends DBItem {
 	public void setMomentodds(Long momentodds) {
 		this.momentodds = momentodds;
 	}
-	
-	public BetLine(Long id, Long momentodds, Bet leftAssociation, BetType rightAssociation) {
+
+	public BetLine(Long id, Long momentodds, Bet bet, List<BetType> bettypes) {
 		super();
 		this.id = id;
 		this.momentodds = momentodds;
-		this.leftAssociation = leftAssociation;
-		this.rightAssociation = rightAssociation;
+		this.bet = bet;
+		this.bettypes = bettypes;
 	}
-	
-	
-	
 
 }
