@@ -10,6 +10,6 @@ import com.infotel.plagiamax.model.BetLine;
 @RestController
 @RequestMapping(BetLineController.BASE_URL)
 public class BetLineController extends BaseRestController<BetLine, Long>{
-	public static final String BASE_URL = "/BetLine";
+	public static final String BASE_URL = "/betline";
 }
 

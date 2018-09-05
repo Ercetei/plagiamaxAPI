@@ -9,5 +9,5 @@ import com.infotel.plagiamax.model.MatchBet;
 @RestController
 @RequestMapping(MatchBetController.BASE_URL)
 public class MatchBetController extends BaseRestController<MatchBet, Long>{
-	public static final String BASE_URL = "/MatchBet";
+	public static final String BASE_URL = "/matchbet";
 }
