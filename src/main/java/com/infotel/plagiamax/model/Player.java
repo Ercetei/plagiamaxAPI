@@ -9,6 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -25,23 +27,29 @@ public class Player extends DBItem {
 	private String status;
 
 	@ManyToOne(targetEntity = Place.class)
+	@JsonManagedReference
 	private Place place;
 
-	@OneToMany(targetEntity = Period.class)
+	@OneToMany(targetEntity = Period.class, mappedBy = "player")
+	@JsonBackReference
 	private List<Period> periods;
 
 	@OneToMany(targetEntity = Stat.class, mappedBy = "player")
+	@JsonBackReference
 	private List<Stat> stats;
 
 //Association to MATCHPLAYER
 	@OneToMany(targetEntity = MatchPlayer.class, mappedBy = "player")
+	@JsonBackReference
 	private List<MatchPlayer> matchplayers;
 
-//Association to PLAYERSTATUS
+//Association to EVENT
 	@OneToMany(targetEntity = Event.class, mappedBy = "player")
-	private List<Event> playerstatus;
+	@JsonBackReference
+	private List<Event> events;
 
 	@OneToMany(targetEntity = PlayerBet.class, mappedBy = "player")
+	@JsonBackReference
 	private List<PlayerBet> playersbets;
 
 	public List<PlayerBet> getPlayersbets() {
@@ -93,7 +101,6 @@ public class Player extends DBItem {
 	}
 
 
-
 	public List<Stat> getStats() {
 		return stats;
 	}
@@ -103,7 +110,6 @@ public class Player extends DBItem {
 	}
 	
 	
-
 	public List<Period> getPeriods() {
 		return periods;
 	}
@@ -120,12 +126,12 @@ public class Player extends DBItem {
 		this.matchplayers = matchplayers;
 	}
 
-	public List<Event> getPlayerstatus() {
-		return playerstatus;
+	public List<Event> getEvents() {
+		return events;
 	}
 
-	public void setPlayerstatus(List<Event> playerstatus) {
-		this.playerstatus = playerstatus;
+	public void setEvents(List<Event> events) {
+		this.events = events;
 	}
 
 	public Player() {
@@ -133,7 +139,7 @@ public class Player extends DBItem {
 	}
 
 	public Player(Long id, String firstname, String lastname, Date birthdate, String status, Place place, List<Period> periods,
-			List<Stat> stats, List<MatchPlayer> matchplayers, List<Event> playerstatus,
+			List<Stat> stats, List<MatchPlayer> matchplayers, List<Event> events,
 			List<PlayerBet> playersbets) {
 		super();
 		this.id = id;

@@ -7,6 +7,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -18,25 +20,31 @@ public class Match extends DBItem {
 
 //Association to PLACE
 	@ManyToOne(targetEntity = Place.class)
+	@JsonManagedReference
 	private Place place;
 
 //Association to MATCHPLAYER
 	@OneToMany(targetEntity = MatchPlayer.class, mappedBy = "match")
+	@JsonBackReference
 	private List<MatchPlayer> matchplayers;
 
 //Association to PLAYERSTATUS
 	@OneToMany(targetEntity = Event.class, mappedBy = "match")
+	@JsonBackReference	
 	private List<Event> playerstatus;
 
 //Association to MATCHTEAM
 	@OneToMany(targetEntity = MatchTeam.class, mappedBy = "match")
+	@JsonBackReference
 	private List<MatchTeam> matchteams;
 
 //Association to SEASON
 	@ManyToOne(targetEntity = Season.class)
+	@JsonManagedReference
 	private Season season;
 
 	@OneToMany(targetEntity = MatchBet.class, mappedBy = "match")
+	@JsonBackReference
 	private List<MatchBet> matchbets;
 
 //Constructor
@@ -45,13 +53,13 @@ public class Match extends DBItem {
 	}
 
 	public Match(String label, Integer status, Place place, List<MatchPlayer> matchplayers,
-			List<Event> playerstatus, List<MatchTeam> matchteams, Season season, List<MatchBet> matchbets) {
+			List<Event> events, List<MatchTeam> matchteams, Season season, List<MatchBet> matchbets) {
 		super();
 		this.label = label;
 		this.status = status;
 		this.place = place;
 		this.matchplayers = matchplayers;
-		this.playerstatus = playerstatus;
+		this.events = events;
 		this.matchteams = matchteams;
 		this.season = season;
 		this.matchbets = matchbets;
@@ -89,12 +97,12 @@ public class Match extends DBItem {
 		this.matchplayers = matchplayers;
 	}
 
-	public List<Event> getPlayerstatus() {
-		return playerstatus;
+	public List<Event> getEvent() {
+		return events;
 	}
 
-	public void setPlayerstatus(List<Event> playerstatus) {
-		this.playerstatus = playerstatus;
+	public void setEvent(List<Event> events) {
+		this.events = events;
 	}
 
 	public List<MatchTeam> getMatchteams() {

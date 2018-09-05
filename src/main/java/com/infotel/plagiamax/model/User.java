@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -15,6 +16,7 @@ import com.infotel.plagiamax.model.base.DBItem;
 public class User extends DBItem {
 	
 	@OneToMany(targetEntity=Bet.class, mappedBy = "user")
+	@JsonBackReference
 	private List<Bet> bets;
 
 	@Column(name = "lastname", nullable = false)

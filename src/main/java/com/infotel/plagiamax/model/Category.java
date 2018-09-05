@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -20,6 +21,7 @@ public class Category extends DBItem {
 	private Integer status;
 
 	@ManyToMany(targetEntity = Competition.class, mappedBy="categories")
+	@JsonBackReference
 	private List<Competition> competitions;
 
 	public Category() {

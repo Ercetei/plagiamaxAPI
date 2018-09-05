@@ -8,6 +8,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -19,15 +21,19 @@ public class Stat extends DBItem {
 	private Float value;
 	
 	@ManyToOne(targetEntity=Stat.class)
+	@JsonManagedReference
 	private Stat parent;
 	
 	@OneToMany(targetEntity=Stat.class)
+	@JsonBackReference
 	private List<Stat> children;
 	
 	@ManyToOne(targetEntity = Team.class)
+	@JsonManagedReference
 	private Team team;
 	
 	@ManyToOne(targetEntity = Player.class)
+	@JsonManagedReference
 	private Player player;
 
 	public Float getValue() {

@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -13,9 +14,11 @@ public class BetLine extends DBItem {
 	private Long momentodds;
 
 	@ManyToOne(targetEntity = Bet.class)
+	@JsonManagedReference
 	private Bet bet;
 
 	@ManyToOne(targetEntity = BetType.class)
+	@JsonManagedReference
 	private BetType bettype;
 
 	public BetLine() {
