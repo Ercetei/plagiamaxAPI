@@ -8,6 +8,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -15,9 +17,11 @@ import com.infotel.plagiamax.model.base.DBItem;
 public class Bet extends DBItem {
 
 	@ManyToOne(targetEntity = User.class)
+	@JsonManagedReference
 	private User user;
 
 	@OneToMany(targetEntity = BetLine.class, mappedBy="bet")
+	@JsonBackReference
 	private List<BetLine> betlines;
 
 	private String label;

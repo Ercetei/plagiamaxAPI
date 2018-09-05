@@ -9,6 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -25,12 +27,15 @@ public class Competition extends DBItem {
 	private Integer type;
 
 	@ManyToMany(targetEntity = Category.class)
+	@JsonManagedReference
 	private List<Category> categories;
 
 	@ManyToOne(targetEntity = Place.class)
+	@JsonManagedReference
 	private Place place;
 	
 	@OneToMany(targetEntity = Season.class, mappedBy="competition")
+	@JsonBackReference
 	private List<Season> season;
 
 	public Competition() {

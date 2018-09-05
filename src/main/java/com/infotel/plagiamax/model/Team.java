@@ -9,6 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -23,16 +25,19 @@ public class Team extends DBItem {
 	private Date creationdate;
 	
 	@ManyToOne(targetEntity = Place.class)
+	@JsonManagedReference
 	private Place place;
 	
 	@OneToMany(targetEntity = Period.class, mappedBy="team")
+	@JsonBackReference
 	private List<Period> periods;
 	
 	@OneToMany(targetEntity = Stat.class, mappedBy="team")
+	@JsonBackReference
 	private List<Stat> stats;
 
-//Association to MATCHTEAM
 	@OneToMany(targetEntity = MatchTeam.class, mappedBy="team")
+	@JsonBackReference
 	private List<MatchTeam> matchteams;
 
 	public String getLabel() {

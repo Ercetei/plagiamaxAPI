@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -16,20 +17,20 @@ public class Place extends DBItem {
 	private String city;
 	private String stadium;
 
-//Association to MATCH
 	@OneToMany(targetEntity = Match.class, mappedBy="place")
+	@JsonBackReference
 	private List<Match> match;
 
-//Association to PLAYER
 	@OneToMany(targetEntity = Player.class, mappedBy="place")
+	@JsonBackReference
 	private List<Player> player;
 
-//Association to TEAM
 	@OneToMany(targetEntity = Team.class, mappedBy="place")
+	@JsonBackReference
 	private List<Team> team;
 
-//Association to COMPETITION
 	@OneToMany(targetEntity = Competition.class, mappedBy="place")
+	@JsonBackReference
 	private List<Competition> competitions;
 
 	public Place() {

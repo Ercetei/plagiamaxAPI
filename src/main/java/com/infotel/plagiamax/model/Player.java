@@ -9,6 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -25,23 +27,29 @@ public class Player extends DBItem {
 	private String status;
 
 	@ManyToOne(targetEntity = Place.class)
+	@JsonManagedReference
 	private Place place;
 
-	@OneToMany(targetEntity = Period.class)
+	@OneToMany(targetEntity = Period.class, mappedBy = "player")
+	@JsonBackReference
 	private List<Period> periods;
 
 	@OneToMany(targetEntity = Stat.class, mappedBy = "player")
+	@JsonBackReference
 	private List<Stat> stats;
 
 //Association to MATCHPLAYER
 	@OneToMany(targetEntity = MatchPlayer.class, mappedBy = "player")
+	@JsonBackReference
 	private List<MatchPlayer> matchplayers;
 
 //Association to PLAYERSTATUS
 	@OneToMany(targetEntity = PlayerStatus.class, mappedBy = "player")
+	@JsonBackReference
 	private List<PlayerStatus> playerstatus;
 
 	@OneToMany(targetEntity = PlayerBet.class, mappedBy = "player")
+	@JsonBackReference
 	private List<PlayerBet> playersbets;
 
 	public List<PlayerBet> getPlayersbets() {

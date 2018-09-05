@@ -4,11 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "matchbet")
 public class MatchBet extends BetType {
 
 	@ManyToOne(targetEntity = Match.class)
+	@JsonManagedReference
 	private Match match;
 
 	public MatchBet() {

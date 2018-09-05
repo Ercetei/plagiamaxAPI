@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -14,10 +15,12 @@ public class MatchTeam extends DBItem {
 
 //Association a TEAM
 	@ManyToOne(targetEntity = Team.class)
+	@JsonManagedReference
 	private Team team;
 
 //Association a MATCH
 	@ManyToOne(targetEntity = Match.class)
+	@JsonManagedReference
 	private Match match;
 
 //Constructor

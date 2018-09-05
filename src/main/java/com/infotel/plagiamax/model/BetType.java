@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -17,6 +18,7 @@ public abstract class BetType extends DBItem {
 	protected Integer status;
 
 	@OneToMany(targetEntity = BetLine.class, mappedBy="bettype")
+	@JsonBackReference
 	private List<BetLine> betlines;
 
 	public BetType() {
