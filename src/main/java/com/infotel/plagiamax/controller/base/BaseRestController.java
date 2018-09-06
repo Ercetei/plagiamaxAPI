@@ -5,14 +5,19 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.infotel.plagiamax.repository.base.IBaseRepository;
 
+@RestController
 public abstract class BaseRestController<T,ID extends Serializable> {
 
 	@Autowired
@@ -40,6 +45,7 @@ public abstract class BaseRestController<T,ID extends Serializable> {
     }
 
     @RequestMapping(path={"/", ""}, method=RequestMethod.PUT)
+    @Secured("ROLE_USER")
     public ResponseEntity<T> updateItem(@RequestBody T item) {
     	crudRepository.save(item);
     	new ResponseEntity<T>(HttpStatus.OK);
@@ -47,6 +53,7 @@ public abstract class BaseRestController<T,ID extends Serializable> {
     }
     
     @RequestMapping(path={"/", ""}, method=RequestMethod.DELETE)
+    @Secured("ROLE_USER")
     public ResponseEntity<T> deleteItem(@RequestBody T item) {
     	crudRepository.delete(item);
         new ResponseEntity<T>(HttpStatus.OK);

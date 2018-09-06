@@ -37,10 +37,13 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	
 	// Security
-    compile('org.springframework.boot:spring-boot-starter-security')
+	compile('org.springframework.boot:spring-boot-starter-security')
 	
 	// Database
 	runtime('mysql:mysql-connector-java')
+	
+	// Crypt
+	compile group: 'commons-codec', name: 'commons-codec', version: '1.5'
 	
 	// Test project embeded elements
 	testCompile('org.springframework.boot:spring-boot-starter-test')
