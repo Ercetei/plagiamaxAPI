@@ -12,6 +12,11 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.infotel.plagiamax.contract.EventContract;
+import com.infotel.plagiamax.contract.MatchBetContract;
+import com.infotel.plagiamax.contract.MatchTeamContract;
+import com.infotel.plagiamax.contract.PeriodContract;
+import com.infotel.plagiamax.contract.StatContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -29,23 +34,23 @@ public class Team extends DBItem {
 	@JsonManagedReference
 	private Place place;
 
-	@OneToMany(targetEntity = Period.class, mappedBy = "team")
+	@OneToMany(targetEntity = Period.class, mappedBy = PeriodContract.ASSOCIATION_TEAM)
 	@JsonBackReference	
 	private List<Period> periods;
 
-	@OneToMany(targetEntity = Stat.class, mappedBy = "team")
+	@OneToMany(targetEntity = Stat.class, mappedBy = StatContract.ASSOCIATION_TEAM)
 	@JsonBackReference	
 	private List<Stat> stats;
 
 //Association to MATCHTEAM
-	@OneToMany(targetEntity = MatchTeam.class, mappedBy = "team")
+	@OneToMany(targetEntity = MatchTeam.class, mappedBy = MatchTeamContract.ASSOCIATION_TEAM)
 	@JsonBackReference	
 	private List<MatchTeam> matchteams;
 
-	@OneToMany(targetEntity = Event.class, mappedBy = "team")
+	@OneToMany(targetEntity = Event.class, mappedBy = EventContract.ASSOCIATION_TEAM)
 	private List<Event> events;
 
-	@ManyToMany(targetEntity = MatchBet.class, mappedBy = "teams")
+	@ManyToMany(targetEntity = MatchBet.class, mappedBy = MatchBetContract.ASSOCIATION_TEAM)
 	private List<MatchBet> matchbets;
 
 	public String getLabel() {

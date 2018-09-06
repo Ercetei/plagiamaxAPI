@@ -1,8 +1,8 @@
 package com.infotel.plagiamax.contract;
 
 public class BetLineContract {
-	public static final String LEFT_ASSOCIATION = "leftAssociation";
-	public static final String RIGHT_ASSOCIATION = "rightAssociation";
+	public static final String ASSOCIATION_BET = "bet";
+	public static final String ASSOCIATION_BETTYPE = "bettype";
 	public static final String MOMENTODDS = "momentodds";
 
 }

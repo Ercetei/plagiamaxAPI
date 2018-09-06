@@ -9,39 +9,39 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.infotel.plagiamax.contract.BetContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
 @Table(name = "user")
 public class User extends DBItem {
-	
-	@OneToMany(targetEntity=Bet.class, mappedBy = "user")
+
+	@OneToMany(targetEntity = Bet.class, mappedBy = BetContract.ASSOCIATION_USER)
 	@JsonBackReference
 	private List<Bet> bets;
 
 	@Column(name = "lastname", nullable = false)
 	private String lastname;
-	
+
 	@Column(name = "firstname", nullable = false)
 	private String firstname;
-	
+
 	@Column(name = "mail", nullable = false)
 	private String mail;
-	
+
 	@Column(name = "password", nullable = false)
 	private String password;
-	
+
 	@Column(name = "username", nullable = false)
 	private String username;
 	private Integer wallet;
 	private String creditcard;
 	private String expirationdate;
 	private String cryptogram;
-	
+
 	@Column(name = "birthdate", nullable = false)
 	private Date birthdate;
-	
-	
+
 	public User() {
 		super();
 	}

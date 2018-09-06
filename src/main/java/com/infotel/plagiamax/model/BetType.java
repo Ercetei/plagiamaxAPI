@@ -9,11 +9,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.infotel.plagiamax.contract.BetLineContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
 @Table(name = "bettype")
-@Inheritance(strategy=InheritanceType.JOINED) 
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class BetType extends DBItem {
 
 	protected String label;
@@ -22,7 +23,7 @@ public abstract class BetType extends DBItem {
 	protected Integer status;
 	protected Integer type;
 
-	@OneToMany(targetEntity = BetLine.class, mappedBy="bettype")
+	@OneToMany(targetEntity = BetLine.class, mappedBy = BetLineContract.ASSOCIATION_BETTYPE)
 	@JsonBackReference
 	private List<BetLine> betlines;
 
@@ -78,7 +79,8 @@ public abstract class BetType extends DBItem {
 		this.status = status;
 	}
 
-	public BetType(Long id, String label, Float initialodds, Float currentodds, Integer status, Integer type, List<BetLine> betlines) {
+	public BetType(Long id, String label, Float initialodds, Float currentodds, Integer status, Integer type,
+			List<BetLine> betlines) {
 		super();
 		this.id = id;
 		this.label = label;

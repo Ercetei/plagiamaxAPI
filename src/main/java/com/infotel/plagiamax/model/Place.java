@@ -7,6 +7,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.infotel.plagiamax.contract.CompetitionContract;
+import com.infotel.plagiamax.contract.MatchContract;
+import com.infotel.plagiamax.contract.PlayerContract;
+import com.infotel.plagiamax.contract.TeamContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -17,19 +21,19 @@ public class Place extends DBItem {
 	private String city;
 	private String stadium;
 
-	@OneToMany(targetEntity = Match.class, mappedBy="place")
+	@OneToMany(targetEntity = Match.class, mappedBy = MatchContract.ASSOCIATION_PLACE)
 	@JsonBackReference
-	private List<Match> match;
+	private List<Match> matchs;
 
-	@OneToMany(targetEntity = Player.class, mappedBy="place")
+	@OneToMany(targetEntity = Player.class, mappedBy = PlayerContract.ASSOCIATION_PLACE)
 	@JsonBackReference
-	private List<Player> player;
+	private List<Player> players;
 
-	@OneToMany(targetEntity = Team.class, mappedBy="place")
+	@OneToMany(targetEntity = Team.class, mappedBy = TeamContract.ASSOCIATION_PLACE)
 	@JsonBackReference
-	private List<Team> team;
+	private List<Team> teams;
 
-	@OneToMany(targetEntity = Competition.class, mappedBy="place")
+	@OneToMany(targetEntity = Competition.class, mappedBy = CompetitionContract.ASSOCIATION_PLACE)
 	@JsonBackReference
 	private List<Competition> competitions;
 
@@ -37,15 +41,15 @@ public class Place extends DBItem {
 		super();
 	}
 
-	public Place(String country, String city, String stadium, List<Match> match, List<Player> player, List<Team> team,
-			List<Competition> competitions) {
+	public Place(String country, String city, String stadium, List<Match> matchs, List<Player> players,
+			List<Team> teams, List<Competition> competitions) {
 		super();
 		this.country = country;
 		this.city = city;
 		this.stadium = stadium;
-		this.match = match;
-		this.player = player;
-		this.team = team;
+		this.matchs = matchs;
+		this.players = players;
+		this.teams = teams;
 		this.competitions = competitions;
 	}
 
@@ -73,28 +77,28 @@ public class Place extends DBItem {
 		this.stadium = stadium;
 	}
 
-	public List<Match> getMatch() {
-		return match;
+	public List<Match> getMatchs() {
+		return matchs;
 	}
 
-	public void setMatch(List<Match> match) {
-		this.match = match;
+	public void setMatchs(List<Match> matchs) {
+		this.matchs = matchs;
 	}
 
-	public List<Player> getPlayer() {
-		return player;
+	public List<Player> getPlayers() {
+		return players;
 	}
 
-	public void setPlayer(List<Player> player) {
-		this.player = player;
+	public void setPlayers(List<Player> players) {
+		this.players = players;
 	}
 
-	public List<Team> getTeam() {
-		return team;
+	public List<Team> getTeams() {
+		return teams;
 	}
 
-	public void setTeam(List<Team> team) {
-		this.team = team;
+	public void setTeams(List<Team> teams) {
+		this.teams = teams;
 	}
 
 	public List<Competition> getCompetitions() {

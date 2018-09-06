@@ -10,6 +10,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.infotel.plagiamax.contract.BetLineContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -20,7 +21,7 @@ public class Bet extends DBItem {
 	@JsonManagedReference
 	private User user;
 
-	@OneToMany(targetEntity = BetLine.class, mappedBy="bet")
+	@OneToMany(targetEntity = BetLine.class, mappedBy = BetLineContract.ASSOCIATION_BET)
 	@JsonBackReference
 	private List<BetLine> betlines;
 

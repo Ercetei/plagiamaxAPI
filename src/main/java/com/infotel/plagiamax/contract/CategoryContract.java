@@ -4,5 +4,6 @@ public class CategoryContract {
 	public static final String ID = "id";
 	public static final String STATUS = "status";
 	public static final String TYPE = "type";
+	public static final String ASSOCIATION_COMPETITION = "competitions";
 
 }

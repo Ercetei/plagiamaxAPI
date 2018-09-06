@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.infotel.plagiamax.contract.MatchContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -30,7 +31,7 @@ public class Season extends DBItem {
 	@JsonManagedReference
 	private Competition competition;
 
-	@OneToMany(targetEntity = Match.class, mappedBy="season")
+	@OneToMany(targetEntity = Match.class, mappedBy = MatchContract.ASSOCIATION_SEASON)
 	@JsonBackReference
 	private List<Match> matchs;
 

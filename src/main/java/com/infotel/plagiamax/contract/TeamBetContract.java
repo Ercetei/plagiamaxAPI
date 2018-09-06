@@ -6,4 +6,5 @@ public class TeamBetContract {
 	public static final String CURRENTODDSS = "currentodds";
 	public static final String STATUS = "status";
 	
+	public static final String ASSOCIATION_TEAM = "team";
 }
