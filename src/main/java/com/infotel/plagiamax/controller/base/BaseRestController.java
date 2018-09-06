@@ -37,7 +37,7 @@ public abstract class BaseRestController<T,ID extends Serializable> {
 		return ResponseEntity.ok(item);
     }
 
-    @RequestMapping(path={"/", ""}, method=RequestMethod.POST)
+    @RequestMapping(path={"/", ""}, method=RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<T> postItem(@RequestBody T item) {
     	crudRepository.save(item);
     	new ResponseEntity<T>(HttpStatus.OK);
