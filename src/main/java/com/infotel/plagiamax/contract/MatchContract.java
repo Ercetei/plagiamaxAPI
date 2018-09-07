@@ -5,12 +5,11 @@ public class MatchContract {
 	public static final String LABEL = "label" ;
 	public static final String STATUS = "status" ;
 	
-	public static final String ASSOCIATION_PLACE = "place" ;
-	
-	public static final String ASSOCIATION_MATCHPLAYER = "matchplayer" ;
-	public static final String ASSOCIATION_PLAYERSTATUS = "playerstatus" ;
-	public static final String ASSOCIATION_MATCHTEAM = "matchteam" ;
+	public static final String ASSOCIATION_MATCHPLAYER = "matchplayers" ;
+	public static final String ASSOCIATION_MATCHTEAM = "matchteams" ;
+	public static final String ASSOCIATION_MATCHBET = "matchbets" ;
+	public static final String ASSOCIATION_EVENT = "events";
 	
 	public static final String ASSOCIATION_SEASON = "season" ;
-
+	public static final String ASSOCIATION_PLACE = "place" ;
 }

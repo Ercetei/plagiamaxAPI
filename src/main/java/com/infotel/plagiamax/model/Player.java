@@ -11,6 +11,11 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.infotel.plagiamax.contract.EventContract;
+import com.infotel.plagiamax.contract.MatchPlayerContract;
+import com.infotel.plagiamax.contract.PeriodContract;
+import com.infotel.plagiamax.contract.PlayerBetContract;
+import com.infotel.plagiamax.contract.StatContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -30,25 +35,25 @@ public class Player extends DBItem {
 	@JsonManagedReference
 	private Place place;
 
-	@OneToMany(targetEntity = Period.class, mappedBy = "player")
+	@OneToMany(targetEntity = Period.class, mappedBy = PeriodContract.ASSOCIATION_PLAYER)
 	@JsonBackReference
 	private List<Period> periods;
 
-	@OneToMany(targetEntity = Stat.class, mappedBy = "player")
+	@OneToMany(targetEntity = Stat.class, mappedBy = StatContract.ASSOCIATION_PLAYER)
 	@JsonBackReference
 	private List<Stat> stats;
 
 //Association to MATCHPLAYER
-	@OneToMany(targetEntity = MatchPlayer.class, mappedBy = "player")
+	@OneToMany(targetEntity = MatchPlayer.class, mappedBy = MatchPlayerContract.ASSOCIATION_PLAYER)
 	@JsonBackReference
 	private List<MatchPlayer> matchplayers;
 
 //Association to EVENT
-	@OneToMany(targetEntity = Event.class, mappedBy = "player")
+	@OneToMany(targetEntity = Event.class, mappedBy = EventContract.ASSOCIATION_PLAYER)
 	@JsonBackReference
 	private List<Event> events;
 
-	@OneToMany(targetEntity = PlayerBet.class, mappedBy = "player")
+	@OneToMany(targetEntity = PlayerBet.class, mappedBy = PlayerBetContract.ASSOCIATION_PLAYER)
 	@JsonBackReference
 	private List<PlayerBet> playersbets;
 

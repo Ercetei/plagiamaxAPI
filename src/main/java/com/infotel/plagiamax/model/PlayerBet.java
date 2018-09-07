@@ -7,13 +7,13 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name="playerbet")
+@Table(name = "playerbet")
 public class PlayerBet extends BetType {
-	
-	@ManyToOne(targetEntity=Player.class)
+
+	@ManyToOne(targetEntity = Player.class)
 	@JsonManagedReference
 	private Player player;
-	
+
 	public PlayerBet() {
 		super();
 	}
@@ -31,7 +31,4 @@ public class PlayerBet extends BetType {
 		this.player = player;
 	}
 
-	
-
-	
 }

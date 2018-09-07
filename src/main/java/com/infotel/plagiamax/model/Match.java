@@ -9,6 +9,10 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.infotel.plagiamax.contract.EventContract;
+import com.infotel.plagiamax.contract.MatchBetContract;
+import com.infotel.plagiamax.contract.MatchPlayerContract;
+import com.infotel.plagiamax.contract.MatchTeamContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -24,17 +28,17 @@ public class Match extends DBItem {
 	private Place place;
 
 //Association to MATCHPLAYER
-	@OneToMany(targetEntity = MatchPlayer.class, mappedBy = "match")
+	@OneToMany(targetEntity = MatchPlayer.class, mappedBy = MatchPlayerContract.ASSOCIATION_MATCH)
 	@JsonBackReference
 	private List<MatchPlayer> matchplayers;
 
 //Association to PLAYERSTATUS
-	@OneToMany(targetEntity = Event.class, mappedBy = "match")
+	@OneToMany(targetEntity = Event.class, mappedBy = EventContract.ASSOCIATION_MATCH)
 	@JsonBackReference	
 	private List<Event> events;
 
 //Association to MATCHTEAM
-	@OneToMany(targetEntity = MatchTeam.class, mappedBy = "match")
+	@OneToMany(targetEntity = MatchTeam.class, mappedBy = MatchTeamContract.ASSOCIATION_MATCH)
 	@JsonBackReference
 	private List<MatchTeam> matchteams;
 
@@ -43,7 +47,7 @@ public class Match extends DBItem {
 	@JsonManagedReference
 	private Season season;
 
-	@OneToMany(targetEntity = MatchBet.class, mappedBy = "match")
+	@OneToMany(targetEntity = MatchBet.class, mappedBy = MatchBetContract.ASSOCIATION_MATCH)
 	@JsonBackReference
 	private List<MatchBet> matchbets;
 

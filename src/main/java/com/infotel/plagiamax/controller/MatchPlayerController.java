@@ -4,13 +4,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.infotel.plagiamax.controller.base.BaseRestController;
-import com.infotel.plagiamax.model.Match;
+import com.infotel.plagiamax.model.MatchPlayer;
 
 @RestController
-@RequestMapping(MatchController.BASE_URL)
-public class MatchController extends BaseRestController<Match, Long> {
-
-    public static final String BASE_URL = "/match";
-    
-
+@RequestMapping(MatchPlayerController.BASE_URL)
+public class MatchPlayerController extends BaseRestController<MatchPlayer, Long>{
+	public static final String BASE_URL = "/matchplayer";
 }

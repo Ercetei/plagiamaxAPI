@@ -12,4 +12,6 @@ public class UserContract {
 	public static final String CRYPTOGRAM = "cryptogram";
 	public static final String BIRTHDATE = "birthdate";
 	
+	public static final String ASSOCIATION_BET = "bets";
+	
 }
