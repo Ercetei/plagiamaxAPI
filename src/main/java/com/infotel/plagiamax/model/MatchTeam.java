@@ -37,20 +37,20 @@ public class MatchTeam extends DBItem {
 	}
 
 //Team
-	public Team getLeftAssociation() {
+	public Team getTeam() {
 		return team;
 	}
 
-	public void setLeftAssociation(Team team) {
+	public void setTeam(Team team) {
 		this.team = team;
 	}
 
 //Match
-	public Match getRightAssociation() {
+	public Match getMatch() {
 		return match;
 	}
 
-	public void setRightAssociation(Match match) {
+	public void setMatch(Match match) {
 		this.match = match;
 	}
 
