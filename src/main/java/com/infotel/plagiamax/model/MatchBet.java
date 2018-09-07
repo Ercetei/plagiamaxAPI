@@ -14,7 +14,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class MatchBet extends BetType {
 
 	@ManyToOne(targetEntity = Match.class)
-	@JsonManagedReference
 	private Match match;
 	
 	@ManyToMany(targetEntity = Team.class)
@@ -32,13 +31,12 @@ public class MatchBet extends BetType {
 		this.match = match;
 	}
 
-	public MatchBet(Long id, Match match, Float initialodds, Float currentodds, Integer status) {
-		super();
-		this.id = id;
-		this.match = match;
-		this.initialodds = initialodds;
-		this.currentodds = currentodds;
-		this.status = status;
+	public List<Team> getTeams() {
+		return teams;
+	}
+
+	public void setTeams(List<Team> teams) {
+		this.teams = teams;
 	}
 
 }

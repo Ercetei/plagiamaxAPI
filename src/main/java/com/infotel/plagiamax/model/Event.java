@@ -32,16 +32,6 @@ public class Event extends DBItem {
 		super();
 	}
 
-	public Event(Long id, Player player, Match match, Team team, Integer status, Float statustime) {
-		super();
-		this.id = id;
-		this.player = player;
-		this.match = match;
-		this.team = team;
-		this.status = status;
-		this.statustime = statustime;
-	}
-
 //Status
 	public Integer getStatus() {
 		return status;

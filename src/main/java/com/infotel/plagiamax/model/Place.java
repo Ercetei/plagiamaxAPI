@@ -3,10 +3,13 @@ package com.infotel.plagiamax.model;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonRootName;
 import com.infotel.plagiamax.contract.CompetitionContract;
 import com.infotel.plagiamax.contract.MatchContract;
 import com.infotel.plagiamax.contract.PlayerContract;
@@ -22,35 +25,19 @@ public class Place extends DBItem {
 	private String stadium;
 
 	@OneToMany(targetEntity = Match.class, mappedBy = MatchContract.ASSOCIATION_PLACE)
-	@JsonBackReference
 	private List<Match> matchs;
 
 	@OneToMany(targetEntity = Player.class, mappedBy = PlayerContract.ASSOCIATION_PLACE)
-	@JsonBackReference
 	private List<Player> players;
 
-	@OneToMany(targetEntity = Team.class, mappedBy = TeamContract.ASSOCIATION_PLACE)
-	@JsonBackReference
+	@OneToMany(targetEntity = Team.class, mappedBy = TeamContract.ASSOCIATION_PLACE, fetch = FetchType.LAZY)
 	private List<Team> teams;
 
 	@OneToMany(targetEntity = Competition.class, mappedBy = CompetitionContract.ASSOCIATION_PLACE)
-	@JsonBackReference
 	private List<Competition> competitions;
 
 	public Place() {
 		super();
-	}
-
-	public Place(String country, String city, String stadium, List<Match> matchs, List<Player> players,
-			List<Team> teams, List<Competition> competitions) {
-		super();
-		this.country = country;
-		this.city = city;
-		this.stadium = stadium;
-		this.matchs = matchs;
-		this.players = players;
-		this.teams = teams;
-		this.competitions = competitions;
 	}
 
 	public String getCountry() {

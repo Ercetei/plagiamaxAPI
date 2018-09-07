@@ -5,12 +5,16 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.infotel.plagiamax.contract.EventContract;
 import com.infotel.plagiamax.contract.MatchBetContract;
@@ -21,7 +25,6 @@ import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
 @Table(name = "team")
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id")
 public class Team extends DBItem {
 
 	@Column(name = "label", nullable = false)
@@ -31,7 +34,8 @@ public class Team extends DBItem {
 	private Integer status;
 	private Date creationdate;
 
-	@ManyToOne(targetEntity = Place.class)
+	@ManyToOne(targetEntity = Place.class, fetch=FetchType.LAZY)
+	@JoinColumn(name="place_id")
 	private Place place;
 
 	@OneToMany(targetEntity = Period.class, mappedBy = PeriodContract.ASSOCIATION_TEAM)
@@ -80,61 +84,46 @@ public class Team extends DBItem {
 	public void setPlace(Place place) {
 		this.place = place;
 	}
-
-	public List<Stat> getStats() {
-		return stats;
-	}
-
-	public void setStats(List<Stat> stats) {
-		this.stats = stats;
-	}
-
-	public List<Period> getPeriods() {
-		return periods;
-	}
-
-	public void setPeriods(List<Period> periods) {
-		this.periods = periods;
-	}
-
-	public List<MatchTeam> getMatchteams() {
-		return matchteams;
-	}
-
-	public void setMatchteams(List<MatchTeam> matchteams) {
-		this.matchteams = matchteams;
-	}
-
-	public List<Event> getEvents() {
-		return events;
-	}
-
-	public void setEvents(List<Event> events) {
-		this.events = events;
-	}
-
-	public List<MatchBet> getMatchbets() {
-		return matchbets;
-	}
-
-	public void setMatchbets(List<MatchBet> matchbets) {
-		this.matchbets = matchbets;
-	}
-
-	public Team(Long id, String label, Integer status, Date creationdate, Place place, List<Period> periods,
-			List<Stat> stats, List<MatchTeam> matchteams, List<Event> events, List<MatchBet> matchbets) {
-		super();
-		this.id = id;
-		this.label = label;
-		this.status = status;
-		this.creationdate = creationdate;
-		this.place = place;
-		this.periods = periods;
-		this.stats = stats;
-		this.matchteams = matchteams;
-		this.events = events;
-		this.matchbets = matchbets;
-	}
+//
+//	public List<Stat> getStats() {
+//		return stats;
+//	}
+//
+//	public void setStats(List<Stat> stats) {
+//		this.stats = stats;
+//	}
+//
+//	public List<Period> getPeriods() {
+//		return periods;
+//	}
+//
+//	public void setPeriods(List<Period> periods) {
+//		this.periods = periods;
+//	}
+//
+//	public List<MatchTeam> getMatchteams() {
+//		return matchteams;
+//	}
+//
+//	public void setMatchteams(List<MatchTeam> matchteams) {
+//		this.matchteams = matchteams;
+//	}
+//
+//	public List<Event> getEvents() {
+//		return events;
+//	}
+//
+//	public void setEvents(List<Event> events) {
+//		this.events = events;
+//	}
+//
+//	public List<MatchBet> getMatchbets() {
+//		return matchbets;
+//	}
+//
+//	public void setMatchbets(List<MatchBet> matchbets) {
+//		this.matchbets = matchbets;
+//	}
 
 	public Team() {
 		super();

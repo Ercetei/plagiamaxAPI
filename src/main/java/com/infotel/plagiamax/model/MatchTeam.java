@@ -15,7 +15,6 @@ public class MatchTeam extends DBItem {
 
 //Association a TEAM
 	@ManyToOne(targetEntity = Team.class)
-	@JsonManagedReference
 	private Team team;
 
 //Association a MATCH
@@ -26,14 +25,6 @@ public class MatchTeam extends DBItem {
 //Constructor
 	public MatchTeam() {
 		super();
-	}
-
-	public MatchTeam(Long id, Team team, Match match, Boolean ishometeam) {
-		super();
-		this.id = id;
-		this.team = team;
-		this.match = match;
-		this.ishometeam = ishometeam;
 	}
 
 //Team

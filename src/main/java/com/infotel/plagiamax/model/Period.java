@@ -15,11 +15,9 @@ import com.infotel.plagiamax.model.base.DBItem;
 public class Period extends DBItem {
 
 	@ManyToOne(targetEntity = Player.class)
-	@JsonManagedReference
 	private Player player;
 	
 	@ManyToOne(targetEntity = Team.class)
-	@JsonManagedReference
 	private Team team;
 	
 	@Column(name = "startdate", nullable = false)
@@ -55,15 +53,6 @@ public class Period extends DBItem {
 	}
 
 	public void setEnddate(Date enddate) {
-		this.enddate = enddate;
-	}
-
-	public Period(Long id, Player player, Team team, Date startdate, Date enddate) {
-		super();
-		this.id = id;
-		this.player = player;
-		this.team = team;
-		this.startdate = startdate;
 		this.enddate = enddate;
 	}
 

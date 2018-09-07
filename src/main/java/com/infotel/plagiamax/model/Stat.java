@@ -29,7 +29,6 @@ public class Stat extends DBItem {
 	private List<Stat> children;
 	
 	@ManyToOne(targetEntity = Team.class)
-	@JsonManagedReference
 	private Team team;
 	
 	@ManyToOne(targetEntity = Player.class)
@@ -82,17 +81,6 @@ public class Stat extends DBItem {
 
 	public void setParent(Stat parent) {
 		this.parent = parent;
-	}
-
-	public Stat(Long id, String label, Float value, Stat parent, List<Stat> children, Team team, Player player) {
-		super();
-		this.id = id;
-		this.label = label;
-		this.value = value;
-		this.parent = parent;
-		this.children = children;
-		this.team = team;
-		this.player = player;
 	}
 
 	public Stat() {
