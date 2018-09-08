@@ -15,26 +15,22 @@ import com.infotel.plagiamax.model.security.SecurityUser;
 @Table(name = "user")
 public class User extends SecurityUser {
 
-	@OneToMany(targetEntity = Bet.class, mappedBy = BetContract.ASSOCIATION_USER)
+	@OneToMany(mappedBy = BetContract.ASSOCIATION_USER)
 	private List<Bet> bets;
 
-	@Column(name = "lastname", nullable = false)
+	@Column(nullable = false)
 	private String lastname;
 
-	@Column(name = "firstname", nullable = false)
+	@Column(nullable = false)
 	private String firstname;
 
-	@Column(name = "mail", nullable = false)
+	@Column(nullable = false)
 	private String mail;
 
 	private Integer wallet;
 
-	@Column(name = "birthdate", nullable = false)
+	@Column(nullable = false)
 	private Date birthdate;
-
-	public User() {
-		super();
-	}
 
 	public List<Bet> getBets() {
 		return bets;
@@ -84,4 +80,7 @@ public class User extends SecurityUser {
 		this.birthdate = birthdate;
 	}
 
+	public User() {
+		super();
+	}
 }

@@ -5,14 +5,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @MappedSuperclass
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public abstract class DBItem {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonProperty("id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long id;
 
 	public Long getId() {

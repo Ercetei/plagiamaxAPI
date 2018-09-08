@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -14,31 +13,12 @@ public class MatchPlayer extends DBItem {
 	private Float enteringtime;
 	private Float exittime;
 
-//Association to PLAYER
-	@ManyToOne(targetEntity = Player.class)
-	@JsonManagedReference
+	@ManyToOne
 	private Player player;
 
-//Association to MATCH
-	@ManyToOne(targetEntity = Match.class)
-	@JsonManagedReference
+	@ManyToOne
 	private Match match;
 
-//Constructor	
-	public MatchPlayer() {
-		super();
-	}
-
-	public MatchPlayer(Long id, Player player, Match match, Float enteringtime, Float exittime) {
-		super();
-		this.id = id;
-		this.player = player;
-		this.match = match;
-		this.enteringtime = enteringtime;
-		this.exittime = exittime;
-	}
-
-//Player
 	public Player getLeftAssociation() {
 		return player;
 	}
@@ -47,7 +27,6 @@ public class MatchPlayer extends DBItem {
 		this.player = player;
 	}
 
-//Match
 	public Match getRightAssociation() {
 		return match;
 	}
@@ -56,7 +35,6 @@ public class MatchPlayer extends DBItem {
 		this.match = match;
 	}
 
-//EnteringTime
 	public Float getEnteringtime() {
 		return enteringtime;
 	}
@@ -65,7 +43,6 @@ public class MatchPlayer extends DBItem {
 		this.enteringtime = enteringtime;
 	}
 
-//ExitTime
 	public Float getExittime() {
 		return exittime;
 	}
@@ -74,4 +51,7 @@ public class MatchPlayer extends DBItem {
 		this.exittime = exittime;
 	}
 
+	public MatchPlayer() {
+		super();
+	}
 }

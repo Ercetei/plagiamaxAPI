@@ -2,15 +2,15 @@ package com.infotel.plagiamax.model;
 
 import java.util.List;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.infotel.plagiamax.contract.CategoryContract;
 import com.infotel.plagiamax.contract.SeasonContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
@@ -18,30 +18,23 @@ import com.infotel.plagiamax.model.base.DBItem;
 @Table(name = "competition")
 public class Competition extends DBItem {
 
-	@Column(nullable = false)
 	private String label;
 
-	@Column(nullable = false)
 	private Integer status;
 
-	@Column(nullable = false)
 	private Integer type;
 
-	@ManyToMany(targetEntity = Category.class)
-	@JsonManagedReference
+	@ManyToMany(mappedBy = CategoryContract.ASSOCIATION_COMPETITION)
+	@JsonIgnoreProperties({ "competitions" })
 	private List<Category> categories;
 
-	@ManyToOne(targetEntity = Place.class)
-	@JsonManagedReference
+	@ManyToOne(cascade = CascadeType.DETACH)
+	@JsonIgnoreProperties({ "matchs", "teams", "players" })
 	private Place place;
 
-	@OneToMany(targetEntity = Season.class, mappedBy = SeasonContract.ASSOCIATION_COMPETITION)
-	@JsonBackReference
-	private List<Season> season;
-
-	public Competition() {
-		super();
-	}
+	@JsonIgnoreProperties({ "matchdays" })
+	@OneToMany(mappedBy = SeasonContract.ASSOCIATION_COMPETITION)
+	private List<Season> seasons;
 
 	public String getLabel() {
 		return label;
@@ -83,24 +76,15 @@ public class Competition extends DBItem {
 		this.place = place;
 	}
 
-	public List<Season> getSeason() {
-		return season;
+	public List<Season> getSeasons() {
+		return seasons;
 	}
 
-	public void setSeason(List<Season> season) {
-		this.season = season;
+	public void setSeasons(List<Season> seasons) {
+		this.seasons = seasons;
 	}
 
-	public Competition(Long id, String label, Integer status, Integer type, List<Category> categories, Place place,
-			List<Season> season) {
+	public Competition() {
 		super();
-		this.id = id;
-		this.label = label;
-		this.status = status;
-		this.type = type;
-		this.categories = categories;
-		this.place = place;
-		this.season = season;
 	}
-
 }

@@ -4,19 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 @Table(name = "playerbet")
 public class PlayerBet extends BetType {
 
-	@ManyToOne(targetEntity = Player.class)
-	@JsonManagedReference
+	@ManyToOne
 	private Player player;
-
-	public PlayerBet() {
-		super();
-	}
 
 	public PlayerBet(Player player) {
 		super();
@@ -31,4 +24,7 @@ public class PlayerBet extends BetType {
 		this.player = player;
 	}
 
+	public PlayerBet() {
+		super();
+	}
 }

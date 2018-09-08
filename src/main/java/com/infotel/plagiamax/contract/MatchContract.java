@@ -10,6 +10,6 @@ public class MatchContract {
 	public static final String ASSOCIATION_MATCHBET = "matchbets" ;
 	public static final String ASSOCIATION_EVENT = "events";
 	
-	public static final String ASSOCIATION_SEASON = "season" ;
+	public static final String ASSOCIATION_MATCHDAY = "matchday" ;
 	public static final String ASSOCIATION_PLACE = "place" ;
 }

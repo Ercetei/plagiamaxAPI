@@ -54,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 					//.logoutSuccessUrl("/login")
 			.and()
 				.csrf()
-					.ignoringAntMatchers("/team/**")
+					.ignoringAntMatchers("/**")
 			.and()
         		.httpBasic()
         	.and()

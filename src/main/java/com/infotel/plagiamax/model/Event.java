@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -14,25 +13,15 @@ public class Event extends DBItem {
 	private Integer status;
 	private Float statustime;
 
-//Association a PLAYER
-	@ManyToOne(targetEntity = Player.class)
-	@JsonManagedReference
+	@ManyToOne
 	private Player player;
 
-//Association a MATCH
-	@ManyToOne(targetEntity = Match.class)
-	@JsonManagedReference
+	@ManyToOne
 	private Match match;
 	
-	@ManyToOne(targetEntity = Team.class)
+	@ManyToOne
 	private Team team;
 
-//Constructor
-	public Event() {
-		super();
-	}
-
-//Status
 	public Integer getStatus() {
 		return status;
 	}
@@ -73,5 +62,7 @@ public class Event extends DBItem {
 		this.team = team;
 	}
 
-	
+	public Event() {
+		super();
+	}
 }

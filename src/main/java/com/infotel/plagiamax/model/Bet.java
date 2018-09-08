@@ -8,8 +8,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.infotel.plagiamax.contract.BetLineContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
@@ -17,12 +15,10 @@ import com.infotel.plagiamax.model.base.DBItem;
 @Table(name = "bet")
 public class Bet extends DBItem {
 
-	@ManyToOne(targetEntity = User.class)
-	@JsonManagedReference
+	@ManyToOne
 	private User user;
 
-	@OneToMany(targetEntity = BetLine.class, mappedBy = BetLineContract.ASSOCIATION_BET)
-	@JsonBackReference
+	@OneToMany(mappedBy = BetLineContract.ASSOCIATION_BET)
 	private List<BetLine> betlines;
 
 	private String label;
@@ -36,22 +32,6 @@ public class Bet extends DBItem {
 
 	public void setBetlines(List<BetLine> betlines) {
 		this.betlines = betlines;
-	}
-
-	public Bet() {
-		super();
-	}
-
-	public Bet(Long id, User user, List<BetLine> betlines, String label, Date betdate, Float betamount,
-			Integer status) {
-		super();
-		this.user = user;
-		this.betlines = betlines;
-		this.id = id;
-		this.label = label;
-		this.betdate = betdate;
-		this.betamount = betamount;
-		this.status = status;
 	}
 
 	public Long getid() {
@@ -101,5 +81,8 @@ public class Bet extends DBItem {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
+	
+	public Bet() {
+		super();
+	}
 }

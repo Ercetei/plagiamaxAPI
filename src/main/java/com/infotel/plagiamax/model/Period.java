@@ -7,20 +7,19 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
 @Table(name = "period")
 public class Period extends DBItem {
 
-	@ManyToOne(targetEntity = Player.class)
+	@ManyToOne
 	private Player player;
 	
-	@ManyToOne(targetEntity = Team.class)
+	@ManyToOne
 	private Team team;
 	
-	@Column(name = "startdate", nullable = false)
+	@Column(nullable = false)
 	private Date startdate;
 	private Date enddate;
 

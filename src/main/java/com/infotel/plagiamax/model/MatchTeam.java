@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -13,21 +12,12 @@ public class MatchTeam extends DBItem {
 
 	private Boolean ishometeam;
 
-//Association a TEAM
-	@ManyToOne(targetEntity = Team.class)
+	@ManyToOne
 	private Team team;
 
-//Association a MATCH
-	@ManyToOne(targetEntity = Match.class)
-	@JsonManagedReference
+	@ManyToOne
 	private Match match;
 
-//Constructor
-	public MatchTeam() {
-		super();
-	}
-
-//Team
 	public Team getLeftAssociation() {
 		return team;
 	}
@@ -36,7 +26,6 @@ public class MatchTeam extends DBItem {
 		this.team = team;
 	}
 
-//Match
 	public Match getRightAssociation() {
 		return match;
 	}
@@ -45,7 +34,6 @@ public class MatchTeam extends DBItem {
 		this.match = match;
 	}
 
-//IsHomeTeam
 	public Boolean getIshometeam() {
 		return ishometeam;
 	}
@@ -54,4 +42,7 @@ public class MatchTeam extends DBItem {
 		this.ishometeam = ishometeam;
 	}
 
+	public MatchTeam() {
+		super();
+	}
 }

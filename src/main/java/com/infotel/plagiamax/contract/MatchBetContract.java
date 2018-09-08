@@ -8,5 +8,5 @@ public class MatchBetContract {
 	
 	public static final String ASSOCIATION_MATCH = "match";
 	
-	public static final String ASSOCIATION_TEAM = "teams";
+	public static final String ASSOCIATION_TEAM = "team";
 }

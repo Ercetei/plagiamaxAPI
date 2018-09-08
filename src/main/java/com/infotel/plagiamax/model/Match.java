@@ -7,8 +7,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.infotel.plagiamax.contract.EventContract;
 import com.infotel.plagiamax.contract.MatchBetContract;
 import com.infotel.plagiamax.contract.MatchPlayerContract;
@@ -22,52 +20,23 @@ public class Match extends DBItem {
 	private String label;
 	private Integer status;
 
-//Association to PLACE
-	@ManyToOne(targetEntity = Place.class)
-	@JsonManagedReference
+	@ManyToOne
 	private Place place;
 
-//Association to MATCHPLAYER
-	@OneToMany(targetEntity = MatchPlayer.class, mappedBy = MatchPlayerContract.ASSOCIATION_MATCH)
-	@JsonBackReference
+	@OneToMany(mappedBy = MatchPlayerContract.ASSOCIATION_MATCH)
 	private List<MatchPlayer> matchplayers;
 
-//Association to PLAYERSTATUS
-	@OneToMany(targetEntity = Event.class, mappedBy = EventContract.ASSOCIATION_MATCH)
-	@JsonBackReference	
+	@OneToMany(mappedBy = EventContract.ASSOCIATION_MATCH)
 	private List<Event> events;
 
-//Association to MATCHTEAM
-	@OneToMany(targetEntity = MatchTeam.class, mappedBy = MatchTeamContract.ASSOCIATION_MATCH)
-	@JsonBackReference
+	@OneToMany(mappedBy = MatchTeamContract.ASSOCIATION_MATCH)
 	private List<MatchTeam> matchteams;
 
-//Association to SEASON
-	@ManyToOne(targetEntity = Season.class)
-	@JsonManagedReference
-	private Season season;
+	@ManyToOne
+	private MatchDay matchday;
 
-	@OneToMany(targetEntity = MatchBet.class, mappedBy = MatchBetContract.ASSOCIATION_MATCH)
-	@JsonBackReference
+	@OneToMany(mappedBy = MatchBetContract.ASSOCIATION_MATCH)
 	private List<MatchBet> matchbets;
-
-//Constructor
-	public Match() {
-		super();
-	}
-
-	public Match(String label, Integer status, Place place, List<MatchPlayer> matchplayers,
-			List<Event> events, List<MatchTeam> matchteams, Season season, List<MatchBet> matchbets) {
-		super();
-		this.label = label;
-		this.status = status;
-		this.place = place;
-		this.matchplayers = matchplayers;
-		this.events = events;
-		this.matchteams = matchteams;
-		this.season = season;
-		this.matchbets = matchbets;
-	}
 
 	public String getLabel() {
 		return label;
@@ -117,12 +86,12 @@ public class Match extends DBItem {
 		this.matchteams = matchteams;
 	}
 
-	public Season getSeason() {
-		return season;
+	public MatchDay getMatchday() {
+		return matchday;
 	}
 
-	public void setSeason(Season season) {
-		this.season = season;
+	public void setMatchday(MatchDay matchday) {
+		this.matchday = matchday;
 	}
 
 	public List<MatchBet> getMatchbets() {
@@ -132,5 +101,8 @@ public class Match extends DBItem {
 	public void setMatchbets(List<MatchBet> matchbets) {
 		this.matchbets = matchbets;
 	}
-
+	
+	public Match() {
+		super();
+	}
 }

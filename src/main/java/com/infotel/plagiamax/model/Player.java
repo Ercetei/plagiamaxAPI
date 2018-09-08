@@ -9,8 +9,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.infotel.plagiamax.contract.EventContract;
 import com.infotel.plagiamax.contract.MatchPlayerContract;
 import com.infotel.plagiamax.contract.PeriodContract;
@@ -24,37 +22,29 @@ public class Player extends DBItem {
 
 	private String firstname;
 
-	@Column(name = "lastname", nullable = false)
+	@Column(nullable = false)
 	private String lastname;
 	private Date birthdate;
 
-	@Column(name = "status", nullable = false)
+	@Column(nullable = false)
 	private String status;
 
-	@ManyToOne(targetEntity = Place.class)
-	@JsonManagedReference
+	@ManyToOne
 	private Place place;
 
-	@OneToMany(targetEntity = Period.class, mappedBy = PeriodContract.ASSOCIATION_PLAYER)
-	@JsonBackReference
+	@OneToMany(mappedBy = PeriodContract.ASSOCIATION_PLAYER)
 	private List<Period> periods;
 
-	@OneToMany(targetEntity = Stat.class, mappedBy = StatContract.ASSOCIATION_PLAYER)
-	@JsonBackReference
+	@OneToMany(mappedBy = StatContract.ASSOCIATION_PLAYER)
 	private List<Stat> stats;
 
-//Association to MATCHPLAYER
-	@OneToMany(targetEntity = MatchPlayer.class, mappedBy = MatchPlayerContract.ASSOCIATION_PLAYER)
-	@JsonBackReference
+	@OneToMany(mappedBy = MatchPlayerContract.ASSOCIATION_PLAYER)
 	private List<MatchPlayer> matchplayers;
 
-//Association to EVENT
-	@OneToMany(targetEntity = Event.class, mappedBy = EventContract.ASSOCIATION_PLAYER)
-	@JsonBackReference
+	@OneToMany(mappedBy = EventContract.ASSOCIATION_PLAYER)
 	private List<Event> events;
 
-	@OneToMany(targetEntity = PlayerBet.class, mappedBy = PlayerBetContract.ASSOCIATION_PLAYER)
-	@JsonBackReference
+	@OneToMany(mappedBy = PlayerBetContract.ASSOCIATION_PLAYER)
 	private List<PlayerBet> playersbets;
 
 	public List<PlayerBet> getPlayersbets() {
@@ -142,24 +132,4 @@ public class Player extends DBItem {
 	public Player() {
 		super();
 	}
-
-	public Player(Long id, String firstname, String lastname, Date birthdate, String status, Place place, List<Period> periods,
-			List<Stat> stats, List<MatchPlayer> matchplayers, List<Event> events,
-			List<PlayerBet> playersbets) {
-		super();
-		this.id = id;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.birthdate = birthdate;
-		this.status = status;
-		this.place = place;
-		this.periods = periods;
-		this.stats = stats;
-		this.matchplayers = matchplayers;
-		this.events = events;
-		this.playersbets = playersbets;
-	}
-	
-	
-
 }

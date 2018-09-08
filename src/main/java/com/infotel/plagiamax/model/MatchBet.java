@@ -1,27 +1,20 @@
 package com.infotel.plagiamax.model;
 
-import java.util.List;
-
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "matchbet")
 public class MatchBet extends BetType {
 
-	@ManyToOne(targetEntity = Match.class)
+	@ManyToOne
 	private Match match;
 	
-	@ManyToMany(targetEntity = Team.class)
-	private List<Team> teams;
+	@ManyToOne
+	private Team team;
 
-	public MatchBet() {
-		super();
-	}
 
 	public Match getMatch() {
 		return match;
@@ -31,12 +24,15 @@ public class MatchBet extends BetType {
 		this.match = match;
 	}
 
-	public List<Team> getTeams() {
-		return teams;
+	public Team getTeam() {
+		return team;
 	}
 
-	public void setTeams(List<Team> teams) {
-		this.teams = teams;
+	public void setTeam(Team team) {
+		this.team = team;
 	}
 
+	public MatchBet() {
+		super();
+	}
 }
