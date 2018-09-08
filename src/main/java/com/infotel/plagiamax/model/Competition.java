@@ -25,14 +25,14 @@ public class Competition extends DBItem {
 	private Integer type;
 
 	@ManyToMany(mappedBy = CategoryContract.ASSOCIATION_COMPETITION)
-	@JsonIgnoreProperties({ "competitions" })
+	@JsonIgnoreProperties({"competitions"})
 	private List<Category> categories;
 
 	@ManyToOne(cascade = CascadeType.DETACH)
-	@JsonIgnoreProperties({ "matchs", "teams", "players" })
+	@JsonIgnoreProperties({ "competitions", "matchs", "teams", "players" })
 	private Place place;
 
-	@JsonIgnoreProperties({ "matchdays" })
+	@JsonIgnoreProperties({ "competition", "matchdays" })
 	@OneToMany(mappedBy = SeasonContract.ASSOCIATION_COMPETITION)
 	private List<Season> seasons;
 
