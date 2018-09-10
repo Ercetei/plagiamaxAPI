@@ -32,8 +32,9 @@ public class Competition extends DBItem {
 	@JsonIgnoreProperties({ "competitions", "matchs", "teams", "players" })
 	private Place place;
 
-	@JsonIgnoreProperties({ "matchdays" })
+	
 	@OneToMany(cascade=CascadeType.PERSIST,mappedBy = SeasonContract.ASSOCIATION_COMPETITION)
+	@JsonIgnoreProperties({ "matchdays" })
 	private List<Season> seasons;
 
 	public String getLabel() {

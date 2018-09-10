@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infotel.plagiamax.contract.MatchDayContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
@@ -30,6 +31,7 @@ public class Season extends DBItem {
 	private Competition competition;
 
 	@OneToMany(cascade=CascadeType.REMOVE, mappedBy = MatchDayContract.ASSOCIATION_SEASON)
+	@JsonIgnoreProperties({"matchs"})
 	private List<MatchDay> matchdays;
 
 	public Date getStartDate() {

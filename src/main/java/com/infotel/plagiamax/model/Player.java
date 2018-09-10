@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infotel.plagiamax.contract.EventContract;
 import com.infotel.plagiamax.contract.MatchPlayerContract;
 import com.infotel.plagiamax.contract.PeriodContract;
@@ -37,6 +38,7 @@ public class Player extends DBItem {
 	private List<Period> periods;
 
 	@OneToMany(cascade=CascadeType.REMOVE, orphanRemoval=true, mappedBy = StatContract.ASSOCIATION_PLAYER)
+	@JsonIgnoreProperties({"children"})
 	private List<Stat> stats;
 
 	@OneToMany(cascade=CascadeType.REMOVE,mappedBy = MatchPlayerContract.ASSOCIATION_PLAYER)

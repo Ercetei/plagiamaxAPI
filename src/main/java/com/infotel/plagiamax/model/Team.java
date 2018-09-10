@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infotel.plagiamax.contract.EventContract;
 import com.infotel.plagiamax.contract.MatchBetContract;
 import com.infotel.plagiamax.contract.MatchTeamContract;
@@ -37,6 +38,7 @@ public class Team extends DBItem {
 	private List<Period> periods;
 
 	@OneToMany(cascade=CascadeType.REMOVE, mappedBy = StatContract.ASSOCIATION_TEAM)
+	@JsonIgnoreProperties({"children"})
 	private List<Stat> stats;
 
 	@OneToMany(cascade=CascadeType.REMOVE, mappedBy = MatchTeamContract.ASSOCIATION_TEAM)

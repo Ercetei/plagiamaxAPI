@@ -7,6 +7,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infotel.plagiamax.contract.MatchContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
@@ -20,6 +21,7 @@ public class MatchDay extends DBItem {
 	private Season season;
 
 	@OneToMany(mappedBy = MatchContract.ASSOCIATION_MATCHDAY)
+	@JsonIgnoreProperties({"matchplayers", "events", "matchteams"})
 	private List<Match> matchs;
 
 	public String getLabel() {
