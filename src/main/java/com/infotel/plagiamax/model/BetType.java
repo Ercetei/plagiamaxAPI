@@ -2,6 +2,7 @@ package com.infotel.plagiamax.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -22,7 +23,7 @@ public abstract class BetType extends DBItem {
 	protected Integer status;
 	protected Integer type;
 
-	@OneToMany(mappedBy = BetLineContract.ASSOCIATION_BETTYPE)
+	@OneToMany(cascade=CascadeType.DETACH, mappedBy = BetLineContract.ASSOCIATION_BETTYPE)
 	private List<BetLine> betlines;
 
 	public String getLabel() {
