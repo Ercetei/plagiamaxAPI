@@ -31,7 +31,7 @@ public class Season extends DBItem {
 	private Competition competition;
 
 	@OneToMany(cascade=CascadeType.REMOVE, mappedBy = MatchDayContract.ASSOCIATION_SEASON)
-	@JsonIgnoreProperties({"matchs"})
+	@JsonIgnoreProperties({"matchs", "season"})
 	private List<MatchDay> matchdays;
 
 	public Date getStartDate() {

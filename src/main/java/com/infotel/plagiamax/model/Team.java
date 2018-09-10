@@ -35,16 +35,19 @@ public class Team extends DBItem {
 	private Place place;
 
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy = PeriodContract.ASSOCIATION_TEAM)
+	@JsonIgnoreProperties({"team","player"})
 	private List<Period> periods;
 
 	@OneToMany(cascade=CascadeType.REMOVE, mappedBy = StatContract.ASSOCIATION_TEAM)
-	@JsonIgnoreProperties({"children"})
+	@JsonIgnoreProperties({"children","parent", "team", "player"})
 	private List<Stat> stats;
 
 	@OneToMany(cascade=CascadeType.REMOVE, mappedBy = MatchTeamContract.ASSOCIATION_TEAM)
+	@JsonIgnoreProperties({"team", "match"})
 	private List<MatchTeam> matchteams;
 
 	@OneToMany(cascade=CascadeType.REMOVE, mappedBy = EventContract.ASSOCIATION_TEAM)
+	@JsonIgnoreProperties({"team", "match", "player"})
 	private List<Event> events;
 
 	@OneToMany(cascade=CascadeType.REMOVE, mappedBy = MatchBetContract.ASSOCIATION_TEAM)

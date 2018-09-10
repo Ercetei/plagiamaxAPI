@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infotel.plagiamax.contract.EventContract;
 import com.infotel.plagiamax.contract.MatchBetContract;
 import com.infotel.plagiamax.contract.MatchPlayerContract;
@@ -21,22 +22,26 @@ public class Match extends DBItem {
 	private String label;
 	private Integer status;
 
-	@ManyToOne(cascade = CascadeType.DETACH)
+	@ManyToOne
 	private Place place;
 
 	@OneToMany(cascade={CascadeType.PERSIST}, mappedBy = MatchPlayerContract.ASSOCIATION_MATCH)
+	@JsonIgnoreProperties({ "match", "player" })
 	private List<MatchPlayer> matchplayers;
 
 	@OneToMany(cascade={CascadeType.PERSIST}, mappedBy = EventContract.ASSOCIATION_MATCH)
+	@JsonIgnoreProperties({ "match", "player", "team" })
 	private List<Event> events;
 
 	@OneToMany(cascade={CascadeType.PERSIST}, mappedBy = MatchTeamContract.ASSOCIATION_MATCH)
+	@JsonIgnoreProperties({ "match", "team" })
 	private List<MatchTeam> matchteams;
 
-	@ManyToOne(cascade = CascadeType.DETACH)
+	@ManyToOne
 	private MatchDay matchday;
 
 	@OneToMany(mappedBy = MatchBetContract.ASSOCIATION_MATCH)
+	@JsonIgnoreProperties({ "match", "team" })
 	private List<MatchBet> matchbets;
 
 	public String getLabel() {

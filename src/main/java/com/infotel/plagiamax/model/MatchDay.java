@@ -21,7 +21,7 @@ public class MatchDay extends DBItem {
 	private Season season;
 
 	@OneToMany(mappedBy = MatchContract.ASSOCIATION_MATCHDAY)
-	@JsonIgnoreProperties({"matchplayers", "events", "matchteams"})
+	@JsonIgnoreProperties({"place", "matchplayers", "events", "matchteams", "matchday", "matchbets"})
 	private List<Match> matchs;
 
 	public String getLabel() {
