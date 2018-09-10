@@ -3,6 +3,7 @@ package com.infotel.plagiamax.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -10,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infotel.plagiamax.contract.EventContract;
 import com.infotel.plagiamax.contract.MatchBetContract;
 import com.infotel.plagiamax.contract.MatchTeamContract;
@@ -28,23 +30,24 @@ public class Team extends DBItem {
 	private Integer status;
 	private Date creationdate;
 
-	@ManyToOne
+	@ManyToOne (cascade=CascadeType.PERSIST)
 	@JoinColumn(name = "place_id")
 	private Place place;
 
-	@OneToMany(mappedBy = PeriodContract.ASSOCIATION_TEAM)
+	@OneToMany(cascade=CascadeType.PERSIST, mappedBy = PeriodContract.ASSOCIATION_TEAM)
 	private List<Period> periods;
 
-	@OneToMany(mappedBy = StatContract.ASSOCIATION_TEAM)
+	@OneToMany(cascade=CascadeType.REMOVE, mappedBy = StatContract.ASSOCIATION_TEAM)
+	@JsonIgnoreProperties({"children"})
 	private List<Stat> stats;
 
-	@OneToMany(mappedBy = MatchTeamContract.ASSOCIATION_TEAM)
+	@OneToMany(cascade=CascadeType.REMOVE, mappedBy = MatchTeamContract.ASSOCIATION_TEAM)
 	private List<MatchTeam> matchteams;
 
-	@OneToMany(mappedBy = EventContract.ASSOCIATION_TEAM)
+	@OneToMany(cascade=CascadeType.REMOVE, mappedBy = EventContract.ASSOCIATION_TEAM)
 	private List<Event> events;
 
-	@OneToMany(mappedBy = MatchBetContract.ASSOCIATION_TEAM)
+	@OneToMany(cascade=CascadeType.REMOVE, mappedBy = MatchBetContract.ASSOCIATION_TEAM)
 	private List<MatchBet> matchbets;
 
 	public String getLabel() {

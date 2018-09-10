@@ -3,6 +3,7 @@ package com.infotel.plagiamax.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -18,7 +19,7 @@ public class Bet extends DBItem {
 	@ManyToOne
 	private User user;
 
-	@OneToMany(mappedBy = BetLineContract.ASSOCIATION_BET)
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REMOVE}, orphanRemoval=true, mappedBy = BetLineContract.ASSOCIATION_BET)
 	private List<BetLine> betlines;
 
 	private String label;

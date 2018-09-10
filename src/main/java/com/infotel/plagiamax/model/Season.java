@@ -3,6 +3,7 @@ package com.infotel.plagiamax.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -11,6 +12,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infotel.plagiamax.contract.MatchDayContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
@@ -32,7 +34,8 @@ public class Season extends DBItem {
 	@ManyToOne
 	private Competition competition;
 
-	@OneToMany(mappedBy = MatchDayContract.ASSOCIATION_SEASON)
+	@OneToMany(cascade=CascadeType.REMOVE, mappedBy = MatchDayContract.ASSOCIATION_SEASON)
+	@JsonIgnoreProperties({"matchs"})
 	private List<MatchDay> matchdays;
 
 	public Date getStartDate() {

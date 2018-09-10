@@ -3,11 +3,13 @@ package com.infotel.plagiamax.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infotel.plagiamax.contract.BetContract;
 import com.infotel.plagiamax.model.security.SecurityUser;
 
@@ -15,9 +17,10 @@ import com.infotel.plagiamax.model.security.SecurityUser;
 @Table(name = "user")
 public class User extends SecurityUser {
 
-	@OneToMany(mappedBy = BetContract.ASSOCIATION_USER)
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval=true, mappedBy = BetContract.ASSOCIATION_USER)
+	@JsonIgnoreProperties({ "betline"})
 	private List<Bet> bets;
-
+	
 	@Column(nullable = false)
 	private String lastname;
 

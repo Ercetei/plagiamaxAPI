@@ -21,7 +21,11 @@ public class Category extends DBItem {
 	@Column(nullable = false)
 	private Integer status;
 
+<<<<<<< HEAD
 	@ManyToMany(cascade = {CascadeType.DETACH})
+=======
+	@ManyToMany(cascade = CascadeType.REMOVE)
+>>>>>>> 21b68fda62e0a1906bd8de9a9dd636047401df33
 	@JsonIgnoreProperties({"seasons", "place", "categories"})
 	private List<Competition> competitions;
 
@@ -51,5 +55,9 @@ public class Category extends DBItem {
 
 	public Category() {
 		super();
+	}
+	
+	public Category(Integer id) {
+		this.id = id.longValue();
 	}
 }
