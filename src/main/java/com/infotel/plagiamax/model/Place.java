@@ -2,6 +2,7 @@ package com.infotel.plagiamax.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -20,16 +21,16 @@ public class Place extends DBItem {
 	private String city;
 	private String stadium;
 
-	@OneToMany(mappedBy = MatchContract.ASSOCIATION_PLACE)
+	@OneToMany(cascade={CascadeType.PERSIST}, mappedBy = MatchContract.ASSOCIATION_PLACE)
 	private List<Match> matchs;
 
-	@OneToMany(mappedBy = PlayerContract.ASSOCIATION_PLACE)
+	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = PlayerContract.ASSOCIATION_PLACE)
 	private List<Player> players;
 
-	@OneToMany(mappedBy = TeamContract.ASSOCIATION_PLACE)
+	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = TeamContract.ASSOCIATION_PLACE)
 	private List<Team> teams;
 
-	@OneToMany(mappedBy = CompetitionContract.ASSOCIATION_PLACE)
+	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = CompetitionContract.ASSOCIATION_PLACE)
 	private List<Competition> competitions;
 
 	public String getCountry() {

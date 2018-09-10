@@ -3,6 +3,7 @@ package com.infotel.plagiamax.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -32,19 +33,19 @@ public class Player extends DBItem {
 	@ManyToOne
 	private Place place;
 
-	@OneToMany(mappedBy = PeriodContract.ASSOCIATION_PLAYER)
+	@OneToMany(cascade=CascadeType.PERSIST, mappedBy = PeriodContract.ASSOCIATION_PLAYER)
 	private List<Period> periods;
 
-	@OneToMany(mappedBy = StatContract.ASSOCIATION_PLAYER)
+	@OneToMany(cascade=CascadeType.REMOVE, orphanRemoval=true, mappedBy = StatContract.ASSOCIATION_PLAYER)
 	private List<Stat> stats;
 
-	@OneToMany(mappedBy = MatchPlayerContract.ASSOCIATION_PLAYER)
+	@OneToMany(cascade=CascadeType.REMOVE,mappedBy = MatchPlayerContract.ASSOCIATION_PLAYER)
 	private List<MatchPlayer> matchplayers;
 
-	@OneToMany(mappedBy = EventContract.ASSOCIATION_PLAYER)
+	@OneToMany(cascade=CascadeType.REMOVE, mappedBy = EventContract.ASSOCIATION_PLAYER)
 	private List<Event> events;
 
-	@OneToMany(mappedBy = PlayerBetContract.ASSOCIATION_PLAYER)
+	@OneToMany(cascade=CascadeType.REMOVE,mappedBy = PlayerBetContract.ASSOCIATION_PLAYER)
 	private List<PlayerBet> playersbets;
 
 	public List<PlayerBet> getPlayersbets() {

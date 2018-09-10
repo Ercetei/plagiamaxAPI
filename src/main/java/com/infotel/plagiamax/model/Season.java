@@ -3,6 +3,7 @@ package com.infotel.plagiamax.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -28,7 +29,7 @@ public class Season extends DBItem {
 	@ManyToOne
 	private Competition competition;
 
-	@OneToMany(mappedBy = MatchDayContract.ASSOCIATION_SEASON)
+	@OneToMany(cascade=CascadeType.REMOVE, mappedBy = MatchDayContract.ASSOCIATION_SEASON)
 	private List<MatchDay> matchdays;
 
 	public Date getStartDate() {

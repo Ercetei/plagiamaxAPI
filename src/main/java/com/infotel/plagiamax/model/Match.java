@@ -2,6 +2,7 @@ package com.infotel.plagiamax.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -20,19 +21,19 @@ public class Match extends DBItem {
 	private String label;
 	private Integer status;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.DETACH)
 	private Place place;
 
-	@OneToMany(mappedBy = MatchPlayerContract.ASSOCIATION_MATCH)
+	@OneToMany(cascade={CascadeType.PERSIST}, mappedBy = MatchPlayerContract.ASSOCIATION_MATCH)
 	private List<MatchPlayer> matchplayers;
 
-	@OneToMany(mappedBy = EventContract.ASSOCIATION_MATCH)
+	@OneToMany(cascade={CascadeType.PERSIST}, mappedBy = EventContract.ASSOCIATION_MATCH)
 	private List<Event> events;
 
-	@OneToMany(mappedBy = MatchTeamContract.ASSOCIATION_MATCH)
+	@OneToMany(cascade={CascadeType.PERSIST}, mappedBy = MatchTeamContract.ASSOCIATION_MATCH)
 	private List<MatchTeam> matchteams;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.DETACH)
 	private MatchDay matchday;
 
 	@OneToMany(mappedBy = MatchBetContract.ASSOCIATION_MATCH)
