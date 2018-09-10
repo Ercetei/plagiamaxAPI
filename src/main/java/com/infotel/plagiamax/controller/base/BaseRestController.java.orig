@@ -39,19 +39,36 @@ public abstract class BaseRestController<T, ID extends Serializable> {
 	@RequestMapping(path = { "/", "" }, method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE,
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<T> postItem(@RequestBody T item) {
+		T created = crudRepository.save(item);
 		new ResponseEntity<T>(HttpStatus.OK);
-		return ResponseEntity.ok(crudRepository.save(item));
+		return ResponseEntity.ok(created);
 	}
 
 	@RequestMapping(path = { "/{index}", "" }, method = RequestMethod.PUT)
-	public ResponseEntity<T> updateItem(@PathVariable("index") ID index, @RequestBody T item) {
-		((DBItem) item).setId((Long)index);
+<<<<<<< HEAD
+	public ResponseEntity<T> updateByIndex(@PathVariable("index") ID index, @RequestBody T item) {
+		((DBItem)item).setId((Long)index);
+		T updated = crudRepository.save(item);
 		new ResponseEntity<T>(HttpStatus.OK);
-		return ResponseEntity.ok(crudRepository.save(item));
+		return ResponseEntity.ok(updated);
 	}
 	
 	@RequestMapping(path = { "/", "" }, method = RequestMethod.PUT)
 	public ResponseEntity<T> updateItem(@RequestBody T item) {
+		T updated = crudRepository.save(item);
+		new ResponseEntity<T>(HttpStatus.OK);
+		return ResponseEntity.ok(updated);
+	}
+
+	@RequestMapping(path = { "/{index}", "" }, method = RequestMethod.DELETE)
+	public ResponseEntity<ID> deleteByIndex(@PathVariable("index") ID index) {
+		Optional<T> item = crudRepository.findById(index);
+		crudRepository.delete(item.get());
+		new ResponseEntity<T>(HttpStatus.OK);
+		return ResponseEntity.ok(index);
+=======
+	public ResponseEntity<T> updateItem(@PathVariable("index") ID index, @RequestBody T item) {
+		((DBItem) item).setId((Long)index);
 		new ResponseEntity<T>(HttpStatus.OK);
 		return ResponseEntity.ok(crudRepository.save(item));
 	}
@@ -60,5 +77,6 @@ public abstract class BaseRestController<T, ID extends Serializable> {
 	public void deleteItem(@PathVariable("index") ID index) {
 		crudRepository.delete(crudRepository.findById(index).get());
 		new ResponseEntity<T>(HttpStatus.NO_CONTENT);
+>>>>>>> a36f9cb0d57ae50c339fcd7f880c390efab19309
 	}
 }
