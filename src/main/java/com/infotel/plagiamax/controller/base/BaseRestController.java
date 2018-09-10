@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.infotel.plagiamax.model.base.DBItem;
 import com.infotel.plagiamax.repository.base.IBaseRepository;
 
 @RestController
@@ -38,23 +39,31 @@ public abstract class BaseRestController<T, ID extends Serializable> {
 	@RequestMapping(path = { "/", "" }, method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE,
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<T> postItem(@RequestBody T item) {
-		crudRepository.save(item);
+		T created = crudRepository.save(item);
 		new ResponseEntity<T>(HttpStatus.OK);
-		return ResponseEntity.ok(item);
+		return ResponseEntity.ok(created);
 	}
 
+	@RequestMapping(path = { "/{index}", "" }, method = RequestMethod.PUT)
+	public ResponseEntity<T> updateByIndex(@PathVariable("index") ID index, @RequestBody T item) {
+		((DBItem)item).setId((Long)index);
+		T updated = crudRepository.save(item);
+		new ResponseEntity<T>(HttpStatus.OK);
+		return ResponseEntity.ok(updated);
+	}
+	
 	@RequestMapping(path = { "/", "" }, method = RequestMethod.PUT)
 	public ResponseEntity<T> updateItem(@RequestBody T item) {
-		crudRepository.save(item);
+		T updated = crudRepository.save(item);
 		new ResponseEntity<T>(HttpStatus.OK);
-		return ResponseEntity.ok(item);
+		return ResponseEntity.ok(updated);
 	}
 
 	@RequestMapping(path = { "/{index}", "" }, method = RequestMethod.DELETE)
-	public ResponseEntity<T> deleteItem(@PathVariable("index") ID index) {
+	public ResponseEntity<ID> deleteByIndex(@PathVariable("index") ID index) {
 		Optional<T> item = crudRepository.findById(index);
 		crudRepository.delete(item.get());
 		new ResponseEntity<T>(HttpStatus.OK);
-		return ResponseEntity.ok(item.get());
+		return ResponseEntity.ok(index);
 	}
 }

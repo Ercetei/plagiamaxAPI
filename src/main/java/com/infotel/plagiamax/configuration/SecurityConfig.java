@@ -84,7 +84,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 	    config.addAllowedMethod("*");
 	    config.addExposedHeader("WWW-Authenticate");
 	    source.registerCorsConfiguration("/**", config);
-	    FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+	    FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<CorsFilter>(new CorsFilter(source));
 	    bean.setOrder(0);
 	    return new CorsFilter(source);
 	}

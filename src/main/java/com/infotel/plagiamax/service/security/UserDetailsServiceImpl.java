@@ -35,7 +35,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
     	
         Set<GrantedAuthority> grantedAuthorities = new HashSet<GrantedAuthority>();
 
-        if (user.getEnable()) {
+        if (user.getStatus()) {
 
             for (SecurityRole role : user.getRoles()){
                 grantedAuthorities.add(new SimpleGrantedAuthority(role.getRole()));

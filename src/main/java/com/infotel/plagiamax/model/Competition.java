@@ -87,4 +87,8 @@ public class Competition extends DBItem {
 	public Competition() {
 		super();
 	}
+	
+	public Competition(Integer id) {
+		this.id = id.longValue();
+	}
 }

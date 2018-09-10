@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.infotel.plagiamax.contract.MatchDayContract;
 import com.infotel.plagiamax.model.base.DBItem;
@@ -16,9 +18,11 @@ import com.infotel.plagiamax.model.base.DBItem;
 @Table(name = "season")
 public class Season extends DBItem {
 
+	@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
 	private Date startDate;
 
+	@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
 	private Date endDate;
 
