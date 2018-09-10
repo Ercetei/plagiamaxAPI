@@ -21,7 +21,7 @@ public class Category extends DBItem {
 	@Column(nullable = false)
 	private Integer status;
 
-	@ManyToMany(cascade = CascadeType.DETACH)
+	@ManyToMany(cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties({"seasons", "place", "categories"})
 	private List<Competition> competitions;
 

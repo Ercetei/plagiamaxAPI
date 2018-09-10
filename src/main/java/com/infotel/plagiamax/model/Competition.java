@@ -28,12 +28,13 @@ public class Competition extends DBItem {
 	@JsonIgnoreProperties({"competitions"})
 	private List<Category> categories;
 
-	@ManyToOne(cascade = CascadeType.DETACH)
+	@ManyToOne
 	@JsonIgnoreProperties({ "competitions", "matchs", "teams", "players" })
 	private Place place;
 
-	@JsonIgnoreProperties({ "competition", "matchdays" })
-	@OneToMany(mappedBy = SeasonContract.ASSOCIATION_COMPETITION)
+	
+	@OneToMany(cascade=CascadeType.PERSIST,mappedBy = SeasonContract.ASSOCIATION_COMPETITION)
+	@JsonIgnoreProperties({ "matchdays" })
 	private List<Season> seasons;
 
 	public String getLabel() {
