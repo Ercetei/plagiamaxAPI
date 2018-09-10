@@ -34,13 +34,15 @@ dependencies {
 	// Database
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-jdbc')
-	compile('org.springframework.boot:spring-boot-starter-web')
+	
+	// Database
+	runtime('mysql:mysql-connector-java')
 	
 	// Security
 	compile('org.springframework.boot:spring-boot-starter-security')
 	
-	// Database
-	runtime('mysql:mysql-connector-java')
+	// View
+	compile('org.springframework.boot:spring-boot-starter-freemarker')
 	
 	// Crypt
 	compile group: 'commons-codec', name: 'commons-codec', version: '1.5'
