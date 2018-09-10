@@ -19,7 +19,8 @@ public class Bet extends DBItem {
 	@ManyToOne
 	private User user;
 
-	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REMOVE}, orphanRemoval=true, mappedBy = BetLineContract.ASSOCIATION_BET)
+	@OneToMany(cascade = { CascadeType.PERSIST,
+			CascadeType.REMOVE }, orphanRemoval = true, mappedBy = BetLineContract.ASSOCIATION_BET)
 	private List<BetLine> betlines;
 
 	private String label;
@@ -82,7 +83,7 @@ public class Bet extends DBItem {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
 	public Bet() {
 		super();
 	}

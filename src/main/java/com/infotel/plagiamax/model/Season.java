@@ -25,17 +25,17 @@ public class Season extends DBItem {
 	private Date startDate;
 
 	@Temporal(TemporalType.DATE)
-	@Column(nullable = false)
 	private Date endDate;
 
 	@Column(nullable = false)
 	private Integer status;
 
 	@ManyToOne
+	@JsonIgnoreProperties({ "categories", "place", "seasons" })
 	private Competition competition;
 
-	@OneToMany(cascade=CascadeType.REMOVE, mappedBy = MatchDayContract.ASSOCIATION_SEASON)
-	@JsonIgnoreProperties({"matchs"})
+	@OneToMany(mappedBy = MatchDayContract.ASSOCIATION_SEASON, cascade = CascadeType.REMOVE, orphanRemoval = true)
+	@JsonIgnoreProperties({ "matchs", "season" })
 	private List<MatchDay> matchdays;
 
 	public Date getStartDate() {

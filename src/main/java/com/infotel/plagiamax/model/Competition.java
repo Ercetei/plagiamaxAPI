@@ -24,17 +24,16 @@ public class Competition extends DBItem {
 
 	private Integer type;
 
-	@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.REMOVE},mappedBy = CategoryContract.ASSOCIATION_COMPETITION)
-	@JsonIgnoreProperties({"competitions"})
+	@ManyToMany(mappedBy = CategoryContract.ASSOCIATION_COMPETITION)
+	@JsonIgnoreProperties({ "competitions" })
 	private List<Category> categories;
 
 	@ManyToOne
 	@JsonIgnoreProperties({ "competitions", "matchs", "teams", "players" })
 	private Place place;
 
-	
-	@OneToMany(cascade=CascadeType.PERSIST,mappedBy = SeasonContract.ASSOCIATION_COMPETITION)
-	@JsonIgnoreProperties({ "matchdays" })
+	@OneToMany(mappedBy = SeasonContract.ASSOCIATION_COMPETITION, cascade = CascadeType.REMOVE, orphanRemoval = true)
+	@JsonIgnoreProperties({ "matchdays", "competition" })
 	private List<Season> seasons;
 
 	public String getLabel() {
@@ -88,7 +87,7 @@ public class Competition extends DBItem {
 	public Competition() {
 		super();
 	}
-	
+
 	public Competition(Integer id) {
 		this.id = id.longValue();
 	}
