@@ -24,7 +24,7 @@ public class Competition extends DBItem {
 
 	private Integer type;
 
-	@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.REMOVE},mappedBy = CategoryContract.ASSOCIATION_COMPETITION)
+	@ManyToMany(mappedBy = CategoryContract.ASSOCIATION_COMPETITION)
 	@JsonIgnoreProperties({"competitions"})
 	private List<Category> categories;
 
