@@ -15,6 +15,7 @@ import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.infotel.plagiamax.model.User;
 import com.infotel.plagiamax.model.security.SecurityRole;
 import com.infotel.plagiamax.model.security.SecurityUser;
 import com.infotel.plagiamax.repository.UserCrudRepository;
@@ -31,7 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    	SecurityUser user = userRepository.findByUsername(username);
+    	User user = userRepository.findByUsername(username);
     	
         Set<GrantedAuthority> grantedAuthorities = new HashSet<GrantedAuthority>();
 

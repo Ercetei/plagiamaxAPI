@@ -16,15 +16,15 @@ import com.infotel.plagiamax.repository.UserCrudRepository;
 @RequestMapping(UserController.BASE_URL)
 public class UserController extends BaseRestController<User, Long> {
 
-    public static final String BASE_URL = "/user";
-    
-    @Autowired
+	public static final String BASE_URL = "/user";
+
+	@Autowired
 	private UserCrudRepository userCrudRepository;
-    
-    @RequestMapping(path={"/connect"}, method=RequestMethod.POST)
-    public ResponseEntity<User> connectUser(@RequestBody User user) {
-        User userToConnect = userCrudRepository.findByMailAndPassword(user.getMail(), user.getPassword());
-    	new ResponseEntity<User>(HttpStatus.OK);
+
+	@RequestMapping(path = { "/connect" }, method = RequestMethod.POST)
+	public ResponseEntity<User> connectUser(@RequestBody User user) {
+		User userToConnect = userCrudRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+		new ResponseEntity<User>(HttpStatus.OK);
 		return ResponseEntity.ok(userToConnect);
-    }
+	}
 }

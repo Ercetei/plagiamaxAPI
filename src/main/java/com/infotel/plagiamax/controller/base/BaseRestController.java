@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.infotel.plagiamax.model.base.DBItem;
 import com.infotel.plagiamax.repository.base.IBaseRepository;
 
 @RestController
@@ -43,18 +44,16 @@ public abstract class BaseRestController<T, ID extends Serializable> {
 		return ResponseEntity.ok(item);
 	}
 
-	@RequestMapping(path = { "/", "" }, method = RequestMethod.PUT)
-	public ResponseEntity<T> updateItem(@RequestBody T item) {
-		crudRepository.save(item);
+	@RequestMapping(path = { "/{index}", "" }, method = RequestMethod.PUT)
+	public ResponseEntity<T> updateItem(@PathVariable("index") ID index, @RequestBody T item) {
+		((DBItem) item).setId((Long)index);
 		new ResponseEntity<T>(HttpStatus.OK);
-		return ResponseEntity.ok(item);
+		return ResponseEntity.ok(crudRepository.save(item));
 	}
 
 	@RequestMapping(path = { "/{index}", "" }, method = RequestMethod.DELETE)
-	public ResponseEntity<T> deleteItem(@PathVariable("index") ID index) {
-		Optional<T> item = crudRepository.findById(index);
-		crudRepository.delete(item.get());
-		new ResponseEntity<T>(HttpStatus.OK);
-		return ResponseEntity.ok(item.get());
+	public void deleteItem(@PathVariable("index") ID index) {
+		crudRepository.delete(crudRepository.findById(index).get());
+		new ResponseEntity<T>(HttpStatus.NO_CONTENT);
 	}
 }

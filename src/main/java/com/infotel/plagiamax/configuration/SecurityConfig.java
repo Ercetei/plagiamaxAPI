@@ -4,6 +4,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -37,12 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 
 		//httpSecurity.csrf().disable();
 		httpSecurity
-				.authorizeRequests()
+			.authorizeRequests()
 				.anyRequest()
-				.anonymous()
-				.antMatchers("/**")
-				.permitAll()
-				//.authenticated()
+				.authenticated()
 			.and()
 				.formLogin()
 					.loginPage("/login")
@@ -51,22 +49,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 			.and()
 				.logout()
 					.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-					//.logoutSuccessUrl("/login")
+					.logoutSuccessUrl("/login")
 			.and()
 				.csrf()
-					.ignoringAntMatchers("/**")
+					.ignoringAntMatchers("/team/**")
+					.ignoringAntMatchers("/match/**")
+					.ignoringAntMatchers("/category/**")
+					.ignoringAntMatchers("/competition/**")
 			.and()
         		.httpBasic()
         	.and()
-        		.cors()
-        
-				
-        	;
+        		.cors();
 	}
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-	    web.ignoring().antMatchers("/register","/register/**");
+	    web.ignoring().antMatchers("/user/connect","/user/connect/**");
+	    //web.ignoring().antMatchers(HttpMethod.GET);
+	    //web.ignoring().antMatchers("/login", "/login/**");
 	}
 	
 	@Bean
