@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -14,9 +15,11 @@ import com.infotel.plagiamax.model.base.DBItem;
 public class Period extends DBItem {
 
 	@ManyToOne
+	@JsonIgnoreProperties({"place", "periods", "stats","matchplayers", "events", "playersbets"})
 	private Player player;
 	
 	@ManyToOne
+	@JsonIgnoreProperties({"place", "periods", "stats", "matchteams", "events", "matchbets"})
 	private Team team;
 	
 	@Column(nullable = false)

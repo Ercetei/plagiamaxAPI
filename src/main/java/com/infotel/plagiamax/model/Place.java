@@ -23,19 +23,19 @@ public class Place extends DBItem {
 	private String stadium;
 
 	@OneToMany(cascade={CascadeType.PERSIST}, mappedBy = MatchContract.ASSOCIATION_PLACE)
-	@JsonIgnoreProperties({"matchbets", "matchteams" , "matchplayers", "events"})
+	@JsonIgnoreProperties({"place", "matchplayers", "events", "matchteams", "matchday", "matchbets"})
 	private List<Match> matchs;
 
 	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = PlayerContract.ASSOCIATION_PLACE)
-	@JsonIgnoreProperties({"periods", "stats" , "matchplayers", "events", "playersbets"})
+	@JsonIgnoreProperties({"place", "periods", "stats","matchplayers", "events", "playersbets"})
 	private List<Player> players;
 
 	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = TeamContract.ASSOCIATION_PLACE)
-	@JsonIgnoreProperties({"periods", "stats" , "matchteams", "events", "playersbets"})
+	@JsonIgnoreProperties({"place", "periods", "stats", "matchteams", "events", "matchbets"})
 	private List<Team> teams;
 
 	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = CompetitionContract.ASSOCIATION_PLACE)
-	@JsonIgnoreProperties({"categories", "seasons"})
+	@JsonIgnoreProperties({"categories", "place", "seasons"})
 	private List<Competition> competitions;
 
 	public String getCountry() {

@@ -13,11 +13,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class MatchBet extends BetType {
 
 	@ManyToOne
-	@JsonIgnoreProperties({ "matchday", "matchbets", "matchteams", "matchplayers", "place", "events" })
+	@JsonIgnoreProperties({"place", "matchplayers", "events", "matchteams", "matchday", "matchbets"})
 	private Match match;
 	
 	@ManyToOne
-	@JsonIgnoreProperties({ "periods", "matchbets", "place", "stats", "events", "matchteams"})
+	@JsonIgnoreProperties({"place", "periods", "stats", "matchteams", "events", "matchbets"})
 	private Team team;
 
 

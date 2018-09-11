@@ -25,7 +25,7 @@ public class Match extends DBItem {
 	private Integer status;
 
 	@ManyToOne
-	cascade={CascadeType.REMOVE}
+	@JsonIgnoreProperties({ "matchs", "players", "teams", "competitions"})
 	private Place place;
 
 	@OneToMany(cascade={CascadeType.REMOVE}, mappedBy = MatchPlayerContract.ASSOCIATION_MATCH)
@@ -115,4 +115,5 @@ public class Match extends DBItem {
 	public Match() {
 		super();
 	}
+
 }
