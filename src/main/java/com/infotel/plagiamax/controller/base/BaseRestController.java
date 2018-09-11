@@ -44,7 +44,6 @@ public abstract class BaseRestController<T, ID extends Serializable> {
 		return ResponseEntity.ok(crudRepository.save(item));
 	}
 	
-	@Secured({"USER", "ADMIN"})
 	@RequestMapping(path = { "/{index}", "" }, method = RequestMethod.PUT)
 	public ResponseEntity<T> updateItem(@PathVariable("index") ID index, @RequestBody T item) {
 		((DBItem) item).setId((Long)index);
@@ -52,14 +51,6 @@ public abstract class BaseRestController<T, ID extends Serializable> {
 		return ResponseEntity.ok(crudRepository.save(item));
 	}
 	
-	@Secured({"USER", "ADMIN"})
-	@RequestMapping(path = { "/", "" }, method = RequestMethod.PUT)
-	public ResponseEntity<T> updateItem(@RequestBody T item) {
-		new ResponseEntity<T>(HttpStatus.OK);
-		return ResponseEntity.ok(crudRepository.save(item));
-	}
-	
-	@Secured({"USER", "ADMIN"})
 	@RequestMapping(path = { "/{index}", "" }, method = RequestMethod.DELETE)
 	public void deleteItem(@PathVariable("index") ID index) {
 		crudRepository.delete(crudRepository.findById(index).get());
