@@ -2,16 +2,35 @@ package com.infotel.plagiamax.configuration.login.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.security.core.userdetails.User;
+import com.infotel.plagiamax.repository.UserCrudRepository;
 
 @Controller
 public class LoginController {
 	private static final String LOGIN = "login/login";
+	
+	@Autowired
+	UserCrudRepository userCrud;
 
 	@RequestMapping(path = "/login", method = RequestMethod.GET)
 	public String loginGet(HttpSession session) {
 		return LOGIN;
+	}
+	
+	@RequestMapping(path = "/loginResult", method = RequestMethod.GET)
+	public ResponseEntity<com.infotel.plagiamax.model.User> loginPost() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User userDetails = (User)auth.getPrincipal();
+		com.infotel.plagiamax.model.User user = userCrud.findByUsername(userDetails.getUsername());
+		user.setPassword(null);
+        return ResponseEntity.ok(user);
 	}
 }

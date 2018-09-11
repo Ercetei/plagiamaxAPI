@@ -39,23 +39,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 		//httpSecurity.csrf().disable();
 		httpSecurity
 			.authorizeRequests()
-				.anyRequest()
-				.authenticated()
+				.antMatchers(HttpMethod.GET,"/team").permitAll()
+				.antMatchers(HttpMethod.GET,"/match").permitAll()
+				.antMatchers(HttpMethod.GET,"/category").permitAll()
+				.antMatchers(HttpMethod.GET,"/competition").permitAll()
+				.antMatchers(HttpMethod.GET,"/matchbet").permitAll()
+				.anyRequest().authenticated()
 			.and()
 				.formLogin()
 					.loginPage("/login")
 					.usernameParameter("username").passwordParameter("password")
+					.defaultSuccessUrl("/loginResult", true)
 					.permitAll()
 			.and()
 				.logout()
 					.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-					.logoutSuccessUrl("/login")
+					//.logoutSuccessUrl("/login")
 			.and()
 				.csrf()
-					.ignoringAntMatchers("/team/**")
+					.ignoringAntMatchers("/team/**", "/team")
 					.ignoringAntMatchers("/match/**")
 					.ignoringAntMatchers("/category/**")
 					.ignoringAntMatchers("/competition/**")
+					.ignoringAntMatchers("/login")
 			.and()
         		.httpBasic()
         	.and()
@@ -64,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-	    web.ignoring().antMatchers("/user/connect","/user/connect/**");
+	    //web.ignoring().antMatchers("/user/connect","/user/connect/**");
 	    //web.ignoring().antMatchers(HttpMethod.GET);
 	    //web.ignoring().antMatchers("/login", "/login/**");
 	}

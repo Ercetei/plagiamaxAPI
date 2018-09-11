@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,14 +44,16 @@ public abstract class BaseRestController<T, ID extends Serializable> {
 		new ResponseEntity<T>(HttpStatus.OK);
 		return ResponseEntity.ok(item);
 	}
-
+	
+	@Secured({"USER", "ADMIN"})
 	@RequestMapping(path = { "/{index}", "" }, method = RequestMethod.PUT)
 	public ResponseEntity<T> updateItem(@PathVariable("index") ID index, @RequestBody T item) {
 		((DBItem) item).setId((Long)index);
 		new ResponseEntity<T>(HttpStatus.OK);
 		return ResponseEntity.ok(crudRepository.save(item));
 	}
-
+	
+	@Secured({"USER", "ADMIN"})
 	@RequestMapping(path = { "/{index}", "" }, method = RequestMethod.DELETE)
 	public void deleteItem(@PathVariable("index") ID index) {
 		crudRepository.delete(crudRepository.findById(index).get());
