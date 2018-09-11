@@ -7,7 +7,7 @@ public class TeamContract {
 	
 	public static final String ASSOCIATION_PLACE = "place";
 	
-	public static final String ASSOCIATION_MATCHTEAM = "matchteam" ;
+	public static final String ASSOCIATION_MATCHTEAM = "matchteams" ;
 	public static final String ASSOCIATION_PERIOD = "periods" ;
 	public static final String ASSOCIATION_STATS = "stats" ;
 	public static final String ASSOCIATION_EVENT = "events" ;

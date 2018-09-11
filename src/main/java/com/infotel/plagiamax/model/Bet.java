@@ -9,7 +9,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infotel.plagiamax.contract.BetLineContract;
+import com.infotel.plagiamax.contract.UserContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -17,9 +19,11 @@ import com.infotel.plagiamax.model.base.DBItem;
 public class Bet extends DBItem {
 
 	@ManyToOne
+	@JsonIgnoreProperties({ UserContract.ASSOCIATION_BET, UserContract.ASSOCIATION_SECURITY_ROLE })
 	private User user;
 
-	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REMOVE}, orphanRemoval=true, mappedBy = BetLineContract.ASSOCIATION_BET)
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, mappedBy = BetLineContract.ASSOCIATION_BET)
+	@JsonIgnoreProperties({ BetLineContract.ASSOCIATION_BET, BetLineContract.ASSOCIATION_BETTYPE })
 	private List<BetLine> betlines;
 
 	private String label;
@@ -82,7 +86,7 @@ public class Bet extends DBItem {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
 	public Bet() {
 		super();
 	}

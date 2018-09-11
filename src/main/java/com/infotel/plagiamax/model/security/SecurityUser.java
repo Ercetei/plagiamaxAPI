@@ -8,9 +8,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infotel.plagiamax.converter.CryptoConverter;
 import com.infotel.plagiamax.model.base.DBItem;
-
 
 // If abstract
 @MappedSuperclass
@@ -20,25 +21,23 @@ import com.infotel.plagiamax.model.base.DBItem;
 public abstract class SecurityUser extends DBItem {
 
 	private String username;
-	@Convert(converter=CryptoConverter.class)
+	@Convert(converter = CryptoConverter.class)
 	private String password;
-	private Boolean enable;
+	private Boolean status;
 
-	@ManyToMany(targetEntity=SecurityRole.class)
-	@JoinTable(name = "users_securityroles",
-		joinColumns = @JoinColumn(name = "user_id"),
-		inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@ManyToMany(targetEntity = SecurityRole.class)
+	@JoinTable(name = "users_securityroles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@JsonIgnoreProperties({ "users" })
 	private Set<SecurityRole> roles;
-	
-	@Convert(converter=CryptoConverter.class)
+
+	@Convert(converter = CryptoConverter.class)
 	private String creditcard;
-	
-	@Convert(converter=CryptoConverter.class)
+
+	@Convert(converter = CryptoConverter.class)
 	private String expirationdate;
-	
-	@Convert(converter=CryptoConverter.class)
+
+	@Convert(converter = CryptoConverter.class)
 	private String cryptogram;
-	
 
 	/**
 	 * @return the login
@@ -48,8 +47,7 @@ public abstract class SecurityUser extends DBItem {
 	}
 
 	/**
-	 * @param login
-	 *            the login to set
+	 * @param login the login to set
 	 */
 	public void setUsername(String login) {
 		this.username = login;
@@ -63,8 +61,7 @@ public abstract class SecurityUser extends DBItem {
 	}
 
 	/**
-	 * @param password
-	 *            the password to set
+	 * @param password the password to set
 	 */
 	public void setPassword(String password) {
 		this.password = password;
@@ -73,15 +70,15 @@ public abstract class SecurityUser extends DBItem {
 	/**
 	 * @return the enable
 	 */
-	public Boolean getEnable() {
-		return enable;
+	public Boolean getStatus() {
+		return status;
 	}
 
 	/**
 	 * @param enable the enable to set
 	 */
-	public void setEnable(Boolean enable) {
-		this.enable = enable;
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 
 	/**

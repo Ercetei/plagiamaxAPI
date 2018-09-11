@@ -45,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 				.antMatchers(HttpMethod.GET,"/competition").permitAll()
 				.antMatchers(HttpMethod.GET,"/matchbet").permitAll()
 				.anyRequest().authenticated()
+
 			.and()
 				.formLogin()
 					.loginPage("/login")
@@ -70,9 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-	    //web.ignoring().antMatchers("/user/connect","/user/connect/**");
-	    //web.ignoring().antMatchers(HttpMethod.GET);
-	    //web.ignoring().antMatchers("/login", "/login/**");
+
 	}
 	
 	@Bean
@@ -90,7 +89,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 	    config.addAllowedMethod("*");
 	    config.addExposedHeader("WWW-Authenticate");
 	    source.registerCorsConfiguration("/**", config);
-	    FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+	    FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<CorsFilter>(new CorsFilter(source));
 	    bean.setOrder(0);
 	    return new CorsFilter(source);
 	}

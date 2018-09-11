@@ -9,6 +9,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infotel.plagiamax.contract.BetLineContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
@@ -23,8 +24,9 @@ public abstract class BetType extends DBItem {
 	protected Integer status;
 	protected Integer type;
 
-	@OneToMany(cascade=CascadeType.DETACH, mappedBy = BetLineContract.ASSOCIATION_BETTYPE)
-	private List<BetLine> betlines;
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = BetLineContract.ASSOCIATION_BETTYPE)
+	@JsonIgnoreProperties({ BetLineContract.ASSOCIATION_BET, BetLineContract.ASSOCIATION_BETTYPE })
+	protected List<BetLine> betlines;
 
 	public String getLabel() {
 		return label;

@@ -16,6 +16,7 @@ import com.infotel.plagiamax.contract.EventContract;
 import com.infotel.plagiamax.contract.MatchBetContract;
 import com.infotel.plagiamax.contract.MatchTeamContract;
 import com.infotel.plagiamax.contract.PeriodContract;
+import com.infotel.plagiamax.contract.PlaceContract;
 import com.infotel.plagiamax.contract.StatContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
@@ -30,24 +31,32 @@ public class Team extends DBItem {
 	private Integer status;
 	private Date creationdate;
 
-	@ManyToOne (cascade=CascadeType.PERSIST)
+	@ManyToOne
 	@JoinColumn(name = "place_id")
+	@JsonIgnoreProperties({ PlaceContract.ASSOCIATION_COMPETITION, PlaceContract.ASSOCIATION_MATCH,
+			PlaceContract.ASSOCIATION_PLAYER, PlaceContract.ASSOCIATION_TEAM })
 	private Place place;
 
-	@OneToMany(cascade=CascadeType.PERSIST, mappedBy = PeriodContract.ASSOCIATION_TEAM)
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = PeriodContract.ASSOCIATION_TEAM)
+	@JsonIgnoreProperties({ PeriodContract.ASSOCIATION_PLAYER, PeriodContract.ASSOCIATION_TEAM })
 	private List<Period> periods;
 
-	@OneToMany(cascade=CascadeType.REMOVE, mappedBy = StatContract.ASSOCIATION_TEAM)
-	@JsonIgnoreProperties({"children"})
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = StatContract.ASSOCIATION_TEAM)
+	@JsonIgnoreProperties({ StatContract.ASSOCIATION_CHILDREN, StatContract.ASSOCIATION_PARENT,
+			StatContract.ASSOCIATION_PLAYER, StatContract.ASSOCIATION_TEAM })
 	private List<Stat> stats;
 
-	@OneToMany(cascade=CascadeType.REMOVE, mappedBy = MatchTeamContract.ASSOCIATION_TEAM)
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = MatchTeamContract.ASSOCIATION_TEAM)
+	@JsonIgnoreProperties({ MatchTeamContract.ASSOCIATION_MATCH, MatchTeamContract.ASSOCIATION_TEAM })
 	private List<MatchTeam> matchteams;
 
-	@OneToMany(cascade=CascadeType.REMOVE, mappedBy = EventContract.ASSOCIATION_TEAM)
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = EventContract.ASSOCIATION_TEAM)
+	@JsonIgnoreProperties({ EventContract.ASSOCIATION_MATCH, EventContract.ASSOCIATION_PLAYER,
+			EventContract.ASSOCIATION_TEAM })
 	private List<Event> events;
 
-	@OneToMany(cascade=CascadeType.REMOVE, mappedBy = MatchBetContract.ASSOCIATION_TEAM)
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = MatchBetContract.ASSOCIATION_TEAM)
+	@JsonIgnoreProperties({ MatchBetContract.ASSOCIATION_MATCH, MatchBetContract.ASSOCIATION_TEAM })
 	private List<MatchBet> matchbets;
 
 	public String getLabel() {
