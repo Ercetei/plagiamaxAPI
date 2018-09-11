@@ -32,6 +32,7 @@ public class Player extends DBItem {
 	private String status;
 
 	@ManyToOne
+	@JsonIgnoreProperties({ "matchs", "players", "teams", "competitions"})
 	private Place place;
 
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy = PeriodContract.ASSOCIATION_PLAYER)

@@ -29,7 +29,7 @@ public class Competition extends DBItem {
 	private List<Category> categories;
 
 	@ManyToOne
-	//@JsonIgnoreProperties({ "competitions", "matchs", "teams", "players" })//
+	@JsonIgnoreProperties({ "matchs", "players", "teams", "competitions"})
 	private Place place;
 
 	

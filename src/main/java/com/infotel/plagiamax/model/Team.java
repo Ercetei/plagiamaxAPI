@@ -32,6 +32,7 @@ public class Team extends DBItem {
 
 	@ManyToOne (cascade=CascadeType.PERSIST)
 	@JoinColumn(name = "place_id")
+	@JsonIgnoreProperties({ "matchs", "players", "teams", "competitions"})
 	private Place place;
 
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy = PeriodContract.ASSOCIATION_TEAM)
@@ -51,6 +52,7 @@ public class Team extends DBItem {
 	private List<Event> events;
 
 	@OneToMany(cascade=CascadeType.REMOVE, mappedBy = MatchBetContract.ASSOCIATION_TEAM)
+	@JsonIgnoreProperties({"team", "match"})
 	private List<MatchBet> matchbets;
 
 	public String getLabel() {

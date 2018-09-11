@@ -23,6 +23,7 @@ public class Match extends DBItem {
 	private Integer status;
 
 	@ManyToOne
+	@JsonIgnoreProperties({ "matchs", "players", "teams", "competitions"})
 	private Place place;
 
 	@OneToMany(cascade={CascadeType.PERSIST}, mappedBy = MatchPlayerContract.ASSOCIATION_MATCH)
@@ -38,6 +39,7 @@ public class Match extends DBItem {
 	private List<MatchTeam> matchteams;
 
 	@ManyToOne
+	@JsonIgnoreProperties({"matchs", "season"})
 	private MatchDay matchday;
 
 	@OneToMany(mappedBy = MatchBetContract.ASSOCIATION_MATCH)

@@ -28,6 +28,7 @@ public class Season extends DBItem {
 	private Integer status;
 
 	@ManyToOne
+	@JsonIgnoreProperties({"categories", "place", "seasons"})
 	private Competition competition;
 
 	@OneToMany(cascade=CascadeType.REMOVE, mappedBy = MatchDayContract.ASSOCIATION_SEASON)

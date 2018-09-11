@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -14,12 +15,15 @@ public class Event extends DBItem {
 	private Float statustime;
 
 	@ManyToOne
+	@JsonIgnoreProperties({"periods", "place", "stats", "matchplayers", "events", "playersbets"})
 	private Player player;
 
 	@ManyToOne
+	@JsonIgnoreProperties({"place", "matchplayers", "events", "matchteams", "matchday", "matchbets"})
 	private Match match;
 	
 	@ManyToOne
+	@JsonIgnoreProperties({"place", "periods", "stats", "matchteams", "events", "matchbets"})
 	private Team team;
 
 	public Integer getStatus() {
