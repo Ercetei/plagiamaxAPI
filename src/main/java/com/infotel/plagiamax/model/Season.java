@@ -13,6 +13,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.infotel.plagiamax.contract.CompetitionContract;
 import com.infotel.plagiamax.contract.MatchDayContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
@@ -31,11 +32,12 @@ public class Season extends DBItem {
 	private Integer status;
 
 	@ManyToOne
-	@JsonIgnoreProperties({ "categories", "place", "seasons" })
+	@JsonIgnoreProperties({ CompetitionContract.ASSOCIATION_CATEGORY, CompetitionContract.ASSOCIATION_PLACE,
+			CompetitionContract.ASSOCIATION_SEASON })
 	private Competition competition;
 
 	@OneToMany(mappedBy = MatchDayContract.ASSOCIATION_SEASON, cascade = CascadeType.REMOVE, orphanRemoval = true)
-	@JsonIgnoreProperties({ "matchs", "season" })
+	@JsonIgnoreProperties({ MatchDayContract.ASSOCIATION_MATCH, MatchDayContract.ASSOCIATION_SEASON })
 	private List<MatchDay> matchdays;
 
 	public Date getStartDate() {

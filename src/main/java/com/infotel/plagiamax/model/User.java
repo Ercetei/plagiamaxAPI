@@ -17,10 +17,10 @@ import com.infotel.plagiamax.model.security.SecurityUser;
 @Table(name = "user")
 public class User extends SecurityUser {
 
-	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval=true, mappedBy = BetContract.ASSOCIATION_USER)
-	@JsonIgnoreProperties({ "user", "betlines"})
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, mappedBy = BetContract.ASSOCIATION_USER)
+	@JsonIgnoreProperties({ BetContract.ASSOCIATION_USER, BetContract.ASSOCIATION_BETLINE })
 	private List<Bet> bets;
-	
+
 	@Column(nullable = false)
 	private String lastname;
 

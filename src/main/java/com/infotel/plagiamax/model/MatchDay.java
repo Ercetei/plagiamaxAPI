@@ -20,12 +20,13 @@ public class MatchDay extends DBItem {
 	private String label;
 
 	@ManyToOne
-	@JsonIgnoreProperties({ SeasonContract.ASSOCIATION_MATCHS, SeasonContract.ASSOCIATION_COMPETITION})
+	@JsonIgnoreProperties({ SeasonContract.ASSOCIATION_MATCHDAY, SeasonContract.ASSOCIATION_COMPETITION })
 	private Season season;
 
-	@OneToMany(mappedBy = MatchContract.ASSOCIATION_MATCHDAY, cascade = {CascadeType.REMOVE})
-	@JsonIgnoreProperties({ MatchContract.ASSOCIATION_EVENT, MatchContract.ASSOCIATION_MATCHBET, MatchContract.ASSOCIATION_MATCHDAY, 
-		MatchContract.ASSOCIATION_MATCHPLAYER, MatchContract.ASSOCIATION_MATCHTEAM, MatchContract.ASSOCIATION_PLACE })
+	@OneToMany(mappedBy = MatchContract.ASSOCIATION_MATCHDAY, cascade = { CascadeType.REMOVE })
+	@JsonIgnoreProperties({ MatchContract.ASSOCIATION_EVENT, MatchContract.ASSOCIATION_MATCHBET,
+			MatchContract.ASSOCIATION_MATCHDAY, MatchContract.ASSOCIATION_MATCHPLAYER,
+			MatchContract.ASSOCIATION_MATCHTEAM, MatchContract.ASSOCIATION_PLACE })
 	private List<Match> matchs;
 
 	public String getLabel() {

@@ -7,4 +7,5 @@ public class CompetitionContract {
 	public static final String TYPE = "type";
 	public static final String ASSOCIATION_CATEGORY = "categories";
 	public static final String ASSOCIATION_PLACE = "place" ;
+	public static final String ASSOCIATION_SEASON = "seasons" ;
 }

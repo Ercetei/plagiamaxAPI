@@ -24,9 +24,9 @@ public abstract class BetType extends DBItem {
 	protected Integer status;
 	protected Integer type;
 
-	@OneToMany(cascade=CascadeType.DETACH, mappedBy = BetLineContract.ASSOCIATION_BETTYPE)
-	@JsonIgnoreProperties({"bet"})
-	private List<BetLine> betlines;
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = BetLineContract.ASSOCIATION_BETTYPE)
+	@JsonIgnoreProperties({ BetLineContract.ASSOCIATION_BET, BetLineContract.ASSOCIATION_BETTYPE })
+	protected List<BetLine> betlines;
 
 	public String getLabel() {
 		return label;

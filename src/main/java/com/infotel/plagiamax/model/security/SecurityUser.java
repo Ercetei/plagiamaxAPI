@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infotel.plagiamax.converter.CryptoConverter;
 import com.infotel.plagiamax.model.base.DBItem;
 
@@ -25,6 +27,7 @@ public abstract class SecurityUser extends DBItem {
 
 	@ManyToMany(targetEntity = SecurityRole.class)
 	@JoinTable(name = "users_securityroles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@JsonIgnoreProperties({ "users" })
 	private Set<SecurityRole> roles;
 
 	@Convert(converter = CryptoConverter.class)
