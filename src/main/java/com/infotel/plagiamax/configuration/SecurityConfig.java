@@ -39,11 +39,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 		//httpSecurity.csrf().disable();
 		httpSecurity
 			.authorizeRequests()
-				.antMatchers(HttpMethod.GET,"/team").permitAll()
-				.antMatchers(HttpMethod.GET,"/match").permitAll()
-				.antMatchers(HttpMethod.GET,"/category").permitAll()
-				.antMatchers(HttpMethod.GET,"/competition").permitAll()
-				.antMatchers(HttpMethod.GET,"/matchbet").permitAll()
+				.antMatchers(HttpMethod.GET,"/team", "/team/**").permitAll()
+				.antMatchers(HttpMethod.GET,"/match", "/match/**").permitAll()
+				.antMatchers(HttpMethod.GET,"/category", "/category/**").permitAll()
+				.antMatchers(HttpMethod.GET,"/competition", "/competition/**").permitAll()
+				.antMatchers(HttpMethod.GET,"/matchbet", "/matchbet/**").permitAll()
 				.anyRequest().authenticated()
 
 
