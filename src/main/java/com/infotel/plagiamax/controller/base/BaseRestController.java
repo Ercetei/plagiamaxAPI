@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.internal.FirebaseRequestInitializer;
 import com.infotel.plagiamax.model.base.DBItem;
 import com.infotel.plagiamax.repository.base.IBaseRepository;
 
@@ -40,6 +45,8 @@ public abstract class BaseRestController<T, ID extends Serializable> {
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<T> postItem(@RequestBody T item) {
 		new ResponseEntity<T>(HttpStatus.OK);
+		DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+		mDatabase.setValueAsync(item);
 		return ResponseEntity.ok(crudRepository.save(item));
 	}
 	

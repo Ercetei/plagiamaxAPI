@@ -46,6 +46,9 @@ dependencies {
 	
 	// Crypt
 	compile group: 'commons-codec', name: 'commons-codec', version: '1.5'
+		
+	// Firebase
+	implementation 'com.google.firebase:firebase-admin:6.4.0'
 	
 	// Test project embeded elements
 	testCompile('org.springframework.boot:spring-boot-starter-test')
