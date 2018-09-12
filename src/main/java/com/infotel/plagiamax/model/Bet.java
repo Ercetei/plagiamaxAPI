@@ -9,7 +9,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infotel.plagiamax.contract.BetLineContract;
 import com.infotel.plagiamax.contract.UserContract;
 import com.infotel.plagiamax.model.base.DBItem;

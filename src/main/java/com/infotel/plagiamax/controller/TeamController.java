@@ -13,4 +13,5 @@ import com.infotel.plagiamax.model.Team;
 public class TeamController extends BaseRestController<Team, Long> {
 
     public static final String BASE_URL = "/team";
+    
 }

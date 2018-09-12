@@ -6,6 +6,6 @@ import com.infotel.plagiamax.model.MatchDay;
 import com.infotel.plagiamax.repository.base.IBaseRepository;
 
 @Repository
-public interface MatchDayCrudRepository extends IBaseRepository<MatchDay, Long> {
+public interface MatchDayCrudRepository  extends IBaseRepository<MatchDay, Long> {
 
 }

@@ -6,9 +6,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.infotel.plagiamax.controller.base.BaseRestController;
 import com.infotel.plagiamax.model.MatchDay;
 
+
+/**
+ * The Class MatchDayController.
+ */
+
 @RestController
 @RequestMapping(MatchDayController.BASE_URL)
 public class MatchDayController extends BaseRestController<MatchDay, Long> {
+
+
+    /** The Constant BASE_URL. matchday*/
 
     public static final String BASE_URL = "/matchday";
     
