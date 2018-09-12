@@ -10,7 +10,14 @@ import com.infotel.plagiamax.model.Match;
 @RequestMapping(MatchController.BASE_URL)
 public class MatchController extends BaseRestController<Match, Long> {
 
-    public static final String BASE_URL = "/match";
-    
-
+	public static final String BASE_URL = "/match";
+	
+	/*item.ifPresent(match -> {
+		match.setMatchteams(matchTeamCrudRepository.findByMatchId(match.getId()));
+		Optional<Team> teams;
+		
+		for(MatchTeam matchTeam : match.getMatchteams()) {
+			teams = teamCrudRepository.findById(matchTeam.getTeam().getId());
+		}
+	});*/
 }

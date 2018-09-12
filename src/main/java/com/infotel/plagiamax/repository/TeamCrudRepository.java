@@ -7,6 +7,5 @@ import com.infotel.plagiamax.repository.base.IBaseRepository;
 
 @Repository
 public interface TeamCrudRepository extends IBaseRepository<Team, Long>{
-	
 
 }
