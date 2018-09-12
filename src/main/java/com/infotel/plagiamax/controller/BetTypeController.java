@@ -8,6 +8,7 @@ import com.infotel.plagiamax.model.BetType;
 
 @RestController
 @RequestMapping(BetTypeController.BASE_URL)
-public class BetTypeController extends BaseRestController<BetType, Long>{
+public class BetTypeController extends BaseRestController<BetType, Long> {
 	public static final String BASE_URL = "/bettype";
+
 }
