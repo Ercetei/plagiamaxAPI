@@ -18,12 +18,13 @@ import com.infotel.plagiamax.model.base.DBItem;
 public class Bet extends DBItem {
 
 	@ManyToOne
+	@JsonIgnoreProperties({"bets"})
 	private User user;
 
 	@OneToMany(cascade={CascadeType.DETACH, CascadeType.REMOVE}, orphanRemoval=true, mappedBy = BetLineContract.ASSOCIATION_BET)
 	@JsonIgnoreProperties({"bet"})
 	private List<BetLine> betlines;
- 
+	
 	private String label;
 	private Date betdate;
 	private Float betamount;

@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 		httpSecurity
 			.authorizeRequests()
 				.anyRequest()
-				.authenticated()
+				.anonymous()
 			.and()
 				.formLogin()
 					.loginPage("/login")

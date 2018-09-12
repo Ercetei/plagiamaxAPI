@@ -30,7 +30,7 @@ public class Team extends DBItem {
 	private Integer status;
 	private Date creationdate;
 
-	@ManyToOne (cascade=CascadeType.PERSIST)
+	@ManyToOne
 	@JoinColumn(name = "place_id")
 	@JsonIgnoreProperties({ "matchs", "players", "teams", "competitions"})
 	private Place place;
