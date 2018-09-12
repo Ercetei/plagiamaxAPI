@@ -4,7 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.infotel.plagiamax.contract.MatchContract;
+import com.infotel.plagiamax.contract.TeamContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -13,30 +15,18 @@ public class MatchTeam extends DBItem {
 
 	private Boolean ishometeam;
 
-//Association a TEAM
-	@ManyToOne(targetEntity = Team.class)
-	@JsonManagedReference
+	@ManyToOne
+	@JsonIgnoreProperties({ TeamContract.ASSOCIATION_EVENT, TeamContract.ASSOCIATION_MATCHBET,
+			TeamContract.ASSOCIATION_MATCHTEAM, TeamContract.ASSOCIATION_PERIOD, TeamContract.ASSOCIATION_PLACE,
+			TeamContract.ASSOCIATION_STATS })
 	private Team team;
 
-//Association a MATCH
-	@ManyToOne(targetEntity = Match.class)
-	@JsonManagedReference
+	@ManyToOne
+	@JsonIgnoreProperties({ MatchContract.ASSOCIATION_EVENT, MatchContract.ASSOCIATION_MATCHBET,
+			MatchContract.ASSOCIATION_MATCHDAY, MatchContract.ASSOCIATION_MATCHPLAYER,
+			MatchContract.ASSOCIATION_MATCHTEAM, MatchContract.ASSOCIATION_PLACE })
 	private Match match;
 
-//Constructor
-	public MatchTeam() {
-		super();
-	}
-
-	public MatchTeam(Long id, Team team, Match match, Boolean ishometeam) {
-		super();
-		this.id = id;
-		this.team = team;
-		this.match = match;
-		this.ishometeam = ishometeam;
-	}
-
-//Team
 	public Team getTeam() {
 		return team;
 	}
@@ -45,7 +35,6 @@ public class MatchTeam extends DBItem {
 		this.team = team;
 	}
 
-//Match
 	public Match getMatch() {
 		return match;
 	}
@@ -54,7 +43,6 @@ public class MatchTeam extends DBItem {
 		this.match = match;
 	}
 
-//IsHomeTeam
 	public Boolean getIshometeam() {
 		return ishometeam;
 	}
@@ -63,4 +51,7 @@ public class MatchTeam extends DBItem {
 		this.ishometeam = ishometeam;
 	}
 
+	public MatchTeam() {
+		super();
+	}
 }

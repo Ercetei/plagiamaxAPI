@@ -9,7 +9,7 @@ import javax.persistence.MappedSuperclass;
 public abstract class DBItem {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long id;
 
 	public Long getId() {

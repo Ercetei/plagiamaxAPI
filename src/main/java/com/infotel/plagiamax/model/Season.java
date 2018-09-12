@@ -3,51 +3,42 @@ package com.infotel.plagiamax.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.infotel.plagiamax.contract.MatchContract;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.infotel.plagiamax.contract.CompetitionContract;
+import com.infotel.plagiamax.contract.MatchDayContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
 @Table(name = "season")
 public class Season extends DBItem {
 
+	@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
 	private Date startDate;
 
-	@Column(nullable = false)
+	@Temporal(TemporalType.DATE)
 	private Date endDate;
 
 	@Column(nullable = false)
 	private Integer status;
 
-	@ManyToOne(targetEntity = Competition.class)
-	@JsonManagedReference
+	@ManyToOne
+	@JsonIgnoreProperties({ CompetitionContract.ASSOCIATION_CATEGORY, CompetitionContract.ASSOCIATION_PLACE,
+			CompetitionContract.ASSOCIATION_SEASON })
 	private Competition competition;
 
-	@OneToMany(targetEntity = Match.class, mappedBy = MatchContract.ASSOCIATION_SEASON)
-	@JsonBackReference
-	private List<Match> matchs;
-
-	public Season() {
-		super();
-	}
-
-	public Season(Long id, Date startDate, Date endDate, Integer status, Competition competition, List<Match> matchs) {
-		super();
-		this.id = id;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.status = status;
-		this.competition = competition;
-		this.matchs = matchs;
-	}
+	@OneToMany(mappedBy = MatchDayContract.ASSOCIATION_SEASON, cascade = CascadeType.REMOVE, orphanRemoval = true)
+	@JsonIgnoreProperties({ MatchDayContract.ASSOCIATION_MATCH, MatchDayContract.ASSOCIATION_SEASON })
+	private List<MatchDay> matchdays;
 
 	public Date getStartDate() {
 		return startDate;
@@ -81,12 +72,15 @@ public class Season extends DBItem {
 		this.competition = competition;
 	}
 
-	public List<Match> getMatchs() {
-		return matchs;
+	public List<MatchDay> getMatchdays() {
+		return matchdays;
 	}
 
-	public void setMatchs(List<Match> matchs) {
-		this.matchs = matchs;
+	public void setMatchdays(List<MatchDay> matchdays) {
+		this.matchdays = matchdays;
 	}
 
+	public Season() {
+		super();
+	}
 }

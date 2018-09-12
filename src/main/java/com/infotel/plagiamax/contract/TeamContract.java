@@ -1,15 +1,34 @@
 package com.infotel.plagiamax.contract;
 
-public class TeamContract {
+/**
+ * The Abstract Class TeamContract.
+ */
+public abstract class TeamContract {
+
+	/** The Constant LABEL. */
 	public static final String LABEL = "label";
+
+	/** The Constant CREATIONDATE. */
 	public static final String CREATIONDATE = "creationdate";
+
+	/** The Constant STATUS. */
 	public static final String STATUS = "satus";
-	
+
+	/** The Constant ASSOCIATION_PLACE. */
 	public static final String ASSOCIATION_PLACE = "place";
-	
-	public static final String ASSOCIATION_MATCHTEAM = "matchteam" ;
-	public static final String ASSOCIATION_PERIOD = "periods" ;
-	public static final String ASSOCIATION_STATS = "stats" ;
-	public static final String ASSOCIATION_EVENT = "events" ;
-	public static final String ASSOCIATION_MATCHBET = "matchbets";	
+
+	/** The Constant ASSOCIATION_MATCHTEAM. */
+	public static final String ASSOCIATION_MATCHTEAM = "matchteams";
+
+	/** The Constant ASSOCIATION_PERIOD. */
+	public static final String ASSOCIATION_PERIOD = "periods";
+
+	/** The Constant ASSOCIATION_STATS. */
+	public static final String ASSOCIATION_STATS = "stats";
+
+	/** The Constant ASSOCIATION_EVENT. */
+	public static final String ASSOCIATION_EVENT = "events";
+
+	/** The Constant ASSOCIATION_MATCHBET. */
+	public static final String ASSOCIATION_MATCHBET = "matchbets";
 }

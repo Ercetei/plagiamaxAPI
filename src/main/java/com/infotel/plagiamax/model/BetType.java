@@ -2,13 +2,14 @@ package com.infotel.plagiamax.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infotel.plagiamax.contract.BetLineContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
@@ -23,9 +24,9 @@ public abstract class BetType extends DBItem {
 	protected Integer status;
 	protected Integer type;
 
-	@OneToMany(targetEntity = BetLine.class, mappedBy = BetLineContract.ASSOCIATION_BETTYPE)
-	@JsonBackReference
-	private List<BetLine> betlines;
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = BetLineContract.ASSOCIATION_BETTYPE)
+	@JsonIgnoreProperties({ BetLineContract.ASSOCIATION_BET, BetLineContract.ASSOCIATION_BETTYPE })
+	protected List<BetLine> betlines;
 
 	public String getLabel() {
 		return label;
@@ -33,10 +34,6 @@ public abstract class BetType extends DBItem {
 
 	public void setLabel(String label) {
 		this.label = label;
-	}
-
-	public BetType() {
-		super();
 	}
 
 	public Integer getType() {
@@ -79,16 +76,7 @@ public abstract class BetType extends DBItem {
 		this.status = status;
 	}
 
-	public BetType(Long id, String label, Float initialodds, Float currentodds, Integer status, Integer type,
-			List<BetLine> betlines) {
+	public BetType() {
 		super();
-		this.id = id;
-		this.label = label;
-		this.initialodds = initialodds;
-		this.currentodds = currentodds;
-		this.status = status;
-		this.type = type;
-		this.betlines = betlines;
 	}
-
 }

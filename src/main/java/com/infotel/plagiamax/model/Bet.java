@@ -3,26 +3,27 @@ package com.infotel.plagiamax.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infotel.plagiamax.contract.BetLineContract;
+import com.infotel.plagiamax.contract.UserContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
 @Table(name = "bet")
 public class Bet extends DBItem {
 
-	@ManyToOne(targetEntity = User.class)
-	@JsonManagedReference
+	@ManyToOne
+	@JsonIgnoreProperties({ UserContract.ASSOCIATION_BET, UserContract.ASSOCIATION_SECURITY_ROLE })
 	private User user;
 
-	@OneToMany(targetEntity = BetLine.class, mappedBy = BetLineContract.ASSOCIATION_BET)
-	@JsonBackReference
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, mappedBy = BetLineContract.ASSOCIATION_BET)
+	@JsonIgnoreProperties({ BetLineContract.ASSOCIATION_BET, BetLineContract.ASSOCIATION_BETTYPE })
 	private List<BetLine> betlines;
 
 	private String label;
@@ -36,22 +37,6 @@ public class Bet extends DBItem {
 
 	public void setBetlines(List<BetLine> betlines) {
 		this.betlines = betlines;
-	}
-
-	public Bet() {
-		super();
-	}
-
-	public Bet(Long id, User user, List<BetLine> betlines, String label, Date betdate, Float betamount,
-			Integer status) {
-		super();
-		this.user = user;
-		this.betlines = betlines;
-		this.id = id;
-		this.label = label;
-		this.betdate = betdate;
-		this.betamount = betamount;
-		this.status = status;
 	}
 
 	public Long getid() {
@@ -102,4 +87,7 @@ public class Bet extends DBItem {
 		this.user = user;
 	}
 
+	public Bet() {
+		super();
+	}
 }

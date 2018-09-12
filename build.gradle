@@ -34,14 +34,195 @@ dependencies {
 	// Database
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-jdbc')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	
-	// Security
-    compile('org.springframework.boot:spring-boot-starter-security')
 	
 	// Database
 	runtime('mysql:mysql-connector-java')
 	
+	// Security
+	compile('org.springframework.boot:spring-boot-starter-security')
+	
+	// View
+	compile('org.springframework.boot:spring-boot-starter-freemarker')
+	
+	// Crypt
+	compile group: 'commons-codec', name: 'commons-codec', version: '1.5'
+	
 	// Test project embeded elements
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+/***
+	Code quality
+*/
+def classesJava = "${project.buildDir}/classes/java/main/"
+def javasRoot = "${rootProject.rootDir}/src/main/java"
+def testClassesJava = "${project.buildDir}/classes/java/test"
+def testJavaRoot = "${rootProject.rootDir}/src/test/java"
+
+/*
+apply plugin: 'jacoco'
+
+jacoco {
+            toolVersion "0.7.4.201502262128"
+        }
+
+        jacocoTestReport {
+            description 'Run code coverage with JaCoCo.'
+            group 'Verification'
+            reports {
+                xml.enabled = false
+                csv.enabled = false
+                html.enabled = true
+                html.destination "${buildDir}/reports/jacoco"
+            }
+}
+*/
+
+
+/**
+ * Checkstyle tasks
+ * Usage:
+ * - place this file under root dir of your project at /gradle  directory
+ * - apply script from your gradle file:
+ * apply from : "{rootDir}/gradle/checkstyle.gradle"
+ *
+ * To configure checkstyle use configs at:
+ * "{rootDir}/config/checkstyle/checkstyle.xml" - for main projects
+ * "{rootDir}/config/checkstyle/checkstyle-test.xml" - for tests
+ * "{rootDir}/config/checkstyle/suppresions.xml" - for style suppressions
+ *
+ * Xml and HTML reports are stored:
+ * "{project.buildDir}/reports/checkstyle/"
+ * HTML styling is done by XSLT stylesheet:
+ * "{rootDir}/config/checkstyle/checkstyle-noframes-sorted.xsl"
+*/
+
+apply plugin: 'checkstyle'
+
+checkstyle {
+    toolVersion = "6.13"
+}
+
+task checkstyleMain (type: Checkstyle, overwrite: true) {
+    ignoreFailures = true
+    showViolations = false
+    source fileTree('src/main/java')
+    include '**/*.java'
+    exclude '**/gen/**'
+    exclude '**/R.java'
+    exclude '**/BuildConfig.java'
+    reports {
+        xml.destination "$project.buildDir/reports/checkstyle/main.xml"
+    }
+    classpath = fileTree(classesJava)
+    configFile = file("${rootProject.rootDir}/checkstyle_rules.xml")
+}
+
+task checkstyleTest (type: Checkstyle, overwrite: true){
+    ignoreFailures = true
+    showViolations = false
+    source fileTree('src/test/java')
+    include '**/*.java'
+    exclude '**/gen/**'
+    exclude '**/R.java'
+    exclude '**/BuildConfig.java'
+    reports {
+        xml.destination "$project.buildDir/reports/checkstyle/test.xml"
+    }
+    classpath = fileTree("$project.buildDir/classes/test/")
+    configFile = file("${rootProject.rootDir}/checkstyle_rules.xml")
+}
+
+task checkstyleReport << {
+    checkType = project.ext.get("checkType")
+    if (file("$buildDir/reports/checkstyle/${checkType}.xml").exists()) {
+        ant.xslt(in: "$project.buildDir/reports/checkstyle/${checkType}.xml",
+            style:"C:/ContinuousIntegration/checkstyle-6.13/checkstyle-noframes-sorted.xsl",
+            out:"$project.buildDir/reports/checkstyle/checkstyle_${checkType}.html"
+        )
+    }
+}
+
+task checkstyle(dependsOn:['checkstyleMain', 'checkstyleTest']){
+    description 'Runs Checkstyle inspection against Android sourcesets.'
+    group = 'Code Quality'
+}
+
+gradle.taskGraph.afterTask {Task task, TaskState state ->
+    if(state.failure) {
+        if (task.name in ['checkstyleMain', 'checkstyleTest']) {
+            checkstyleReport {
+                def matcher = task.name =~ /^checkstyle(.*)$/
+                if (matcher.matches()) {
+                    project.ext.set("checkType", matcher.group(1).toLowerCase())
+                }
+            }
+            checkstyleReport.execute()
+        }
+    }
+}
+
+/**
+ * PMD task
+ * Usage:
+ * - place this file under root dir of your project at /gradle  directory
+ * - apply script from your gradle file:
+ * apply from : "{rootDir}/gradle/pmd.gradle"
+ *
+ * To configure pmd ruleset use configs at:
+ * "{rootDir}/config/pmd/pmd-ruleset.xml"
+ *
+ * Xml and HTML reports are stored:
+ * "{project.buildDir}/reports/pmd/"
+ */
+
+apply plugin: 'pmd'
+
+task pmdMain(type: Pmd, overwrite: true) {
+    ignoreFailures = true
+    description 'Runs PMD inspection against Android sourcesets.'
+    group = 'Code Quality'
+    ruleSetFiles = files("${rootProject.rootDir}/pmd_rules.xml")
+    source = fileTree(javasRoot)
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+//task pmdTest(type: Pmd, overwrite: true) {
+//    ignoreFailures = true
+//    description 'Runs PMD inspection against Android sourcesets.'
+//    group = 'Code Quality'
+//    ruleSetFiles = files("${rootProject.rootDir}/pmd_rules.xml")
+//    source = fileTree(testJavaRoot)
+//    include '**/*.java'
+//    exclude '**/gen/**'
+//
+//    reports {
+//        xml.enabled = false
+//        html.enabled = true
+//    }
+//}
+
+// add CPD to check
+check << {
+  File outDir = new File('build/reports/pmd/')
+  outDir.mkdirs()
+  ant.taskdef(name: 'cpd', classname: 'net.sourceforge.pmd.cpd.CPDTask',
+    classpath: configurations.pmd.asPath)
+  ant.cpd(minimumTokenCount: '100', format: 'xml',
+    outputFile: new File(outDir , 'cpd.xml')) {
+    fileset(dir: javasRoot) {
+      include(name: '**/*.java')
+    }
+  }
+}
+
+task copyDeps(type: Copy) {
+  from configurations.runtime
+  into 'libs'
 }

@@ -1,28 +1,28 @@
 package com.infotel.plagiamax.model;
 
-import java.util.List;
-
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.infotel.plagiamax.contract.MatchContract;
+import com.infotel.plagiamax.contract.TeamContract;
 
 @Entity
 @Table(name = "matchbet")
 public class MatchBet extends BetType {
 
-	@ManyToOne(targetEntity = Match.class)
-	@JsonManagedReference
+	@ManyToOne
+	@JsonIgnoreProperties({ MatchContract.ASSOCIATION_EVENT, MatchContract.ASSOCIATION_MATCHBET,
+			MatchContract.ASSOCIATION_MATCHDAY, MatchContract.ASSOCIATION_MATCHPLAYER,
+			MatchContract.ASSOCIATION_MATCHTEAM, MatchContract.ASSOCIATION_PLACE })
 	private Match match;
-	
-	@ManyToMany(targetEntity = Team.class)
-	private List<Team> teams;
 
-	public MatchBet() {
-		super();
-	}
+	@ManyToOne
+	@JsonIgnoreProperties({ TeamContract.ASSOCIATION_EVENT, TeamContract.ASSOCIATION_MATCHBET,
+			TeamContract.ASSOCIATION_MATCHTEAM, TeamContract.ASSOCIATION_PERIOD, TeamContract.ASSOCIATION_PLACE,
+			TeamContract.ASSOCIATION_STATS })
+	private Team team;
 
 	public Match getMatch() {
 		return match;
@@ -32,13 +32,15 @@ public class MatchBet extends BetType {
 		this.match = match;
 	}
 
-	public MatchBet(Long id, Match match, Float initialodds, Float currentodds, Integer status) {
-		super();
-		this.id = id;
-		this.match = match;
-		this.initialodds = initialodds;
-		this.currentodds = currentodds;
-		this.status = status;
+	public Team getTeam() {
+		return team;
 	}
 
+	public void setTeam(Team team) {
+		this.team = team;
+	}
+
+	public MatchBet() {
+		super();
+	}
 }

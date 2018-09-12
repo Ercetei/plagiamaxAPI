@@ -11,8 +11,10 @@ import com.infotel.plagiamax.model.Match;
 @RequestMapping(MatchController.BASE_URL)
 public class MatchController extends BaseRestController<Match, Long> {
 
+
     /** The Constant BASE_URL. */
     public static final String BASE_URL = "/match";
     
+
 
 }

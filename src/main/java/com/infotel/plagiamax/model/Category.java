@@ -2,12 +2,13 @@ package com.infotel.plagiamax.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infotel.plagiamax.contract.CompetitionContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
@@ -21,21 +22,10 @@ public class Category extends DBItem {
 	@Column(nullable = false)
 	private Integer status;
 
-	@ManyToMany(targetEntity = Competition.class, mappedBy = CompetitionContract.ASSOCIATION_CATEGORY)
-	@JsonBackReference
+	@ManyToMany(cascade = CascadeType.DETACH)
+	@JsonIgnoreProperties({ CompetitionContract.ASSOCIATION_CATEGORY, CompetitionContract.ASSOCIATION_PLACE,
+			CompetitionContract.ASSOCIATION_SEASON })
 	private List<Competition> competitions;
-
-	public Category() {
-		super();
-	}
-
-	public Category(Long id, String label, Integer status, List<Competition> competitions) {
-		super();
-		this.id = id;
-		this.label = label;
-		this.status = status;
-		this.competitions = competitions;
-	}
 
 	public String getLabel() {
 		return label;
@@ -61,4 +51,7 @@ public class Category extends DBItem {
 		this.competitions = competitions;
 	}
 
+	public Category() {
+		super();
+	}
 }

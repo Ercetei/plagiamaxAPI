@@ -2,11 +2,12 @@ package com.infotel.plagiamax.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infotel.plagiamax.contract.CompetitionContract;
 import com.infotel.plagiamax.contract.MatchContract;
 import com.infotel.plagiamax.contract.PlayerContract;
@@ -21,37 +22,28 @@ public class Place extends DBItem {
 	private String city;
 	private String stadium;
 
-	@OneToMany(targetEntity = Match.class, mappedBy = MatchContract.ASSOCIATION_PLACE)
-	@JsonBackReference
+	@OneToMany(cascade = { CascadeType.PERSIST }, mappedBy = MatchContract.ASSOCIATION_PLACE)
+	@JsonIgnoreProperties({ MatchContract.ASSOCIATION_EVENT, MatchContract.ASSOCIATION_MATCHBET,
+			MatchContract.ASSOCIATION_MATCHDAY, MatchContract.ASSOCIATION_MATCHPLAYER,
+			MatchContract.ASSOCIATION_MATCHTEAM, MatchContract.ASSOCIATION_PLACE })
 	private List<Match> matchs;
 
-	@OneToMany(targetEntity = Player.class, mappedBy = PlayerContract.ASSOCIATION_PLACE)
-	@JsonBackReference
+	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = PlayerContract.ASSOCIATION_PLACE)
+	@JsonIgnoreProperties({ PlayerContract.ASSOCIATION_MATCHPLAYER, PlayerContract.ASSOCIATION_PERIODS,
+			PlayerContract.ASSOCIATION_PLACE, PlayerContract.ASSOCIATION_PLAYERBETS,
+			PlayerContract.ASSOCIATION_PLAYERSTATUS, PlayerContract.ASSOCIATION_STATS })
 	private List<Player> players;
 
-	@OneToMany(targetEntity = Team.class, mappedBy = TeamContract.ASSOCIATION_PLACE)
-	@JsonBackReference
+	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = TeamContract.ASSOCIATION_PLACE)
+	@JsonIgnoreProperties({ TeamContract.ASSOCIATION_EVENT, TeamContract.ASSOCIATION_MATCHBET,
+			TeamContract.ASSOCIATION_MATCHTEAM, TeamContract.ASSOCIATION_PERIOD, TeamContract.ASSOCIATION_PLACE,
+			TeamContract.ASSOCIATION_STATS })
 	private List<Team> teams;
 
-	@OneToMany(targetEntity = Competition.class, mappedBy = CompetitionContract.ASSOCIATION_PLACE)
-	@JsonBackReference
+	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = CompetitionContract.ASSOCIATION_PLACE)
+	@JsonIgnoreProperties({ CompetitionContract.ASSOCIATION_CATEGORY, CompetitionContract.ASSOCIATION_PLACE,
+			CompetitionContract.ASSOCIATION_SEASON })
 	private List<Competition> competitions;
-
-	public Place() {
-		super();
-	}
-
-	public Place(String country, String city, String stadium, List<Match> matchs, List<Player> players,
-			List<Team> teams, List<Competition> competitions) {
-		super();
-		this.country = country;
-		this.city = city;
-		this.stadium = stadium;
-		this.matchs = matchs;
-		this.players = players;
-		this.teams = teams;
-		this.competitions = competitions;
-	}
 
 	public String getCountry() {
 		return country;
@@ -109,4 +101,7 @@ public class Place extends DBItem {
 		this.competitions = competitions;
 	}
 
+	public Place() {
+		super();
+	}
 }

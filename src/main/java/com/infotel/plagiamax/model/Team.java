@@ -3,19 +3,20 @@ package com.infotel.plagiamax.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infotel.plagiamax.contract.EventContract;
 import com.infotel.plagiamax.contract.MatchBetContract;
 import com.infotel.plagiamax.contract.MatchTeamContract;
 import com.infotel.plagiamax.contract.PeriodContract;
+import com.infotel.plagiamax.contract.PlaceContract;
 import com.infotel.plagiamax.contract.StatContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
@@ -23,34 +24,39 @@ import com.infotel.plagiamax.model.base.DBItem;
 @Table(name = "team")
 public class Team extends DBItem {
 
-	@Column(name = "label", nullable = false)
+	@Column(nullable = false)
 	private String label;
 
-	@Column(name = "status", nullable = false)
+	@Column(nullable = false)
 	private Integer status;
 	private Date creationdate;
 
-	@ManyToOne(targetEntity = Place.class)
-	@JsonManagedReference
+	@ManyToOne
+	@JoinColumn(name = "place_id")
+	@JsonIgnoreProperties({ PlaceContract.ASSOCIATION_COMPETITION, PlaceContract.ASSOCIATION_MATCH,
+			PlaceContract.ASSOCIATION_PLAYER, PlaceContract.ASSOCIATION_TEAM })
 	private Place place;
 
-	@OneToMany(targetEntity = Period.class, mappedBy = PeriodContract.ASSOCIATION_TEAM)
-	@JsonBackReference	
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = PeriodContract.ASSOCIATION_TEAM)
+	@JsonIgnoreProperties({ PeriodContract.ASSOCIATION_PLAYER, PeriodContract.ASSOCIATION_TEAM })
 	private List<Period> periods;
 
-	@OneToMany(targetEntity = Stat.class, mappedBy = StatContract.ASSOCIATION_TEAM)
-	@JsonBackReference	
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = StatContract.ASSOCIATION_TEAM)
+	@JsonIgnoreProperties({ StatContract.ASSOCIATION_CHILDREN, StatContract.ASSOCIATION_PARENT,
+			StatContract.ASSOCIATION_PLAYER, StatContract.ASSOCIATION_TEAM })
 	private List<Stat> stats;
 
-//Association to MATCHTEAM
-	@OneToMany(targetEntity = MatchTeam.class, mappedBy = MatchTeamContract.ASSOCIATION_TEAM)
-	@JsonBackReference	
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = MatchTeamContract.ASSOCIATION_TEAM)
+	@JsonIgnoreProperties({ MatchTeamContract.ASSOCIATION_MATCH, MatchTeamContract.ASSOCIATION_TEAM })
 	private List<MatchTeam> matchteams;
 
-	@OneToMany(targetEntity = Event.class, mappedBy = EventContract.ASSOCIATION_TEAM)
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = EventContract.ASSOCIATION_TEAM)
+	@JsonIgnoreProperties({ EventContract.ASSOCIATION_MATCH, EventContract.ASSOCIATION_PLAYER,
+			EventContract.ASSOCIATION_TEAM })
 	private List<Event> events;
 
-	@ManyToMany(targetEntity = MatchBet.class, mappedBy = MatchBetContract.ASSOCIATION_TEAM)
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = MatchBetContract.ASSOCIATION_TEAM)
+	@JsonIgnoreProperties({ MatchBetContract.ASSOCIATION_MATCH, MatchBetContract.ASSOCIATION_TEAM })
 	private List<MatchBet> matchbets;
 
 	public String getLabel() {
@@ -116,7 +122,7 @@ public class Team extends DBItem {
 	public void setEvents(List<Event> events) {
 		this.events = events;
 	}
-	
+
 	public List<MatchBet> getMatchbets() {
 		return matchbets;
 	}
@@ -125,23 +131,7 @@ public class Team extends DBItem {
 		this.matchbets = matchbets;
 	}
 
-	public Team(Long id, String label, Integer status, Date creationdate, Place place, List<Period> periods,
-			List<Stat> stats, List<MatchTeam> matchteams, List<Event> events, List<MatchBet> matchbets) {
-		super();
-		this.id = id;
-		this.label = label;
-		this.status = status;
-		this.creationdate = creationdate;
-		this.place = place;
-		this.periods = periods;
-		this.stats = stats;
-		this.matchteams = matchteams;
-		this.events = events;
-		this.matchbets = matchbets;
-	}
-
 	public Team() {
 		super();
 	}
-
 }

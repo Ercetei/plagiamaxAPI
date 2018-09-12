@@ -8,32 +8,35 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.infotel.plagiamax.contract.PlayerContract;
+import com.infotel.plagiamax.contract.TeamContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
 @Table(name = "stat")
 public class Stat extends DBItem {
 
-	@Column(name = "label", nullable = false)
+	@Column(nullable = false)
 	private String label;
 	private Float value;
-	
-	@ManyToOne(targetEntity=Stat.class)
-	@JsonManagedReference
+
+	@ManyToOne
 	private Stat parent;
-	
-	@OneToMany(targetEntity=Stat.class)
-	@JsonBackReference
+
+	@OneToMany
 	private List<Stat> children;
-	
-	@ManyToOne(targetEntity = Team.class)
-	@JsonManagedReference
+
+	@ManyToOne
+	@JsonIgnoreProperties({ TeamContract.ASSOCIATION_EVENT, TeamContract.ASSOCIATION_MATCHBET,
+			TeamContract.ASSOCIATION_MATCHTEAM, TeamContract.ASSOCIATION_PERIOD, TeamContract.ASSOCIATION_PLACE,
+			TeamContract.ASSOCIATION_STATS })
 	private Team team;
-	
-	@ManyToOne(targetEntity = Player.class)
-	@JsonManagedReference
+
+	@ManyToOne
+	@JsonIgnoreProperties({ PlayerContract.ASSOCIATION_MATCHPLAYER, PlayerContract.ASSOCIATION_PERIODS,
+		PlayerContract.ASSOCIATION_PLACE, PlayerContract.ASSOCIATION_PLAYERBETS,
+		PlayerContract.ASSOCIATION_PLAYERSTATUS, PlayerContract.ASSOCIATION_STATS })
 	private Player player;
 
 	public Float getValue() {
@@ -84,19 +87,7 @@ public class Stat extends DBItem {
 		this.parent = parent;
 	}
 
-	public Stat(Long id, String label, Float value, Stat parent, List<Stat> children, Team team, Player player) {
-		super();
-		this.id = id;
-		this.label = label;
-		this.value = value;
-		this.parent = parent;
-		this.children = children;
-		this.team = team;
-		this.player = player;
-	}
-
 	public Stat() {
 		super();
 	}
-
 }

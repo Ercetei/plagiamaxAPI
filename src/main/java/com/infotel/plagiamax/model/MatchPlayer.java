@@ -4,7 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.infotel.plagiamax.contract.MatchContract;
+import com.infotel.plagiamax.contract.PlayerContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -14,49 +16,34 @@ public class MatchPlayer extends DBItem {
 	private Float enteringtime;
 	private Float exittime;
 
-//Association to PLAYER
-	@ManyToOne(targetEntity = Player.class)
-	@JsonManagedReference
+	@ManyToOne
+	@JsonIgnoreProperties({ PlayerContract.ASSOCIATION_MATCHPLAYER, PlayerContract.ASSOCIATION_PERIODS,
+			PlayerContract.ASSOCIATION_PLACE, PlayerContract.ASSOCIATION_PLAYERBETS,
+			PlayerContract.ASSOCIATION_PLAYERSTATUS, PlayerContract.ASSOCIATION_STATS })
 	private Player player;
 
-//Association to MATCH
-	@ManyToOne(targetEntity = Match.class)
-	@JsonManagedReference
+	@ManyToOne
+	@JsonIgnoreProperties({ MatchContract.ASSOCIATION_EVENT, MatchContract.ASSOCIATION_MATCHBET,
+			MatchContract.ASSOCIATION_MATCHDAY, MatchContract.ASSOCIATION_MATCHPLAYER,
+			MatchContract.ASSOCIATION_MATCHTEAM, MatchContract.ASSOCIATION_PLACE })
 	private Match match;
 
-//Constructor	
-	public MatchPlayer() {
-		super();
-	}
-
-	public MatchPlayer(Long id, Player player, Match match, Float enteringtime, Float exittime) {
-		super();
-		this.id = id;
-		this.player = player;
-		this.match = match;
-		this.enteringtime = enteringtime;
-		this.exittime = exittime;
-	}
-
-//Player
-	public Player getLeftAssociation() {
+	public Player getPlayer() {
 		return player;
 	}
 
-	public void setLeftAssociation(Player player) {
+	public void setPlayer(Player player) {
 		this.player = player;
 	}
 
-//Match
-	public Match getRightAssociation() {
+	public Match getMatch() {
 		return match;
 	}
 
-	public void setRightAssociation(Match match) {
+	public void setMatch(Match match) {
 		this.match = match;
 	}
 
-//EnteringTime
 	public Float getEnteringtime() {
 		return enteringtime;
 	}
@@ -65,7 +52,6 @@ public class MatchPlayer extends DBItem {
 		this.enteringtime = enteringtime;
 	}
 
-//ExitTime
 	public Float getExittime() {
 		return exittime;
 	}
@@ -74,4 +60,7 @@ public class MatchPlayer extends DBItem {
 		this.exittime = exittime;
 	}
 
+	public MatchPlayer() {
+		super();
+	}
 }
