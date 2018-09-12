@@ -32,7 +32,6 @@ public class Team extends DBItem {
 	private Date creationdate;
 
 	@ManyToOne
-	@JoinColumn(name = "place_id")
 	@JsonIgnoreProperties({ PlaceContract.ASSOCIATION_COMPETITION, PlaceContract.ASSOCIATION_MATCH,
 			PlaceContract.ASSOCIATION_PLAYER, PlaceContract.ASSOCIATION_TEAM })
 	private Place place;
