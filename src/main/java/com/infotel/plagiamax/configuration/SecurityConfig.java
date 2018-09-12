@@ -45,8 +45,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 				.antMatchers(HttpMethod.GET,"/competition", "/competition/**").permitAll()
 				.antMatchers(HttpMethod.GET,"/matchbet", "/matchbet/**").permitAll()
 				.anyRequest().authenticated()
-
-
 			.and()
 				.formLogin()
 					.loginPage("/login")
@@ -56,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 			.and()
 				.logout()
 					.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+					.deleteCookies("auth_code", "JSESSIONID").invalidateHttpSession(true)
 					//.logoutSuccessUrl("/login")
 			.and()
 				.csrf()
