@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 				.antMatchers(HttpMethod.GET,"/category").permitAll()
 				.antMatchers(HttpMethod.GET,"/competition").permitAll()
 				.antMatchers(HttpMethod.GET,"/matchbet").permitAll()
-				.anyRequest().authenticated()
+				.anyRequest().anonymous()
 
 
 			.and()
