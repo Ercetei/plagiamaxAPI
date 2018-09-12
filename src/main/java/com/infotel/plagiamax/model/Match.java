@@ -44,7 +44,7 @@ public class Match extends DBItem {
 	private List<MatchTeam> matchteams;
 
 	@ManyToOne
-	@JsonIgnoreProperties({ MatchDayContract.ASSOCIATION_MATCH, MatchDayContract.ASSOCIATION_SEASON })
+	@JsonIgnoreProperties({ MatchDayContract.ASSOCIATION_MATCH })
 	private MatchDay matchday;
 
 	@OneToMany(cascade = { CascadeType.REMOVE }, mappedBy = MatchBetContract.ASSOCIATION_MATCH)

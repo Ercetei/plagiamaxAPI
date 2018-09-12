@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +29,7 @@ public abstract class BaseRestController<T, ID extends Serializable> {
 		return ResponseEntity.ok(items);
 	}
 
-	@RequestMapping("/{index}")
+	@RequestMapping(path = { "/{index}" }, method = RequestMethod.GET)
 	public ResponseEntity<Optional<T>> getByIndex(@PathVariable("index") ID index) {
 		Optional<T> item = crudRepository.findById(index);
 		new ResponseEntity<T>(HttpStatus.OK);
