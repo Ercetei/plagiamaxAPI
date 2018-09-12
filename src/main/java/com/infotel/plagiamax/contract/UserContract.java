@@ -13,5 +13,6 @@ public class UserContract {
 	public static final String BIRTHDATE = "birthdate";
 	
 	public static final String ASSOCIATION_BET = "bets";
+	public static final String ASSOCIATION_SECURITY_ROLE = "roles";
 	
 }

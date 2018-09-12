@@ -2,7 +2,7 @@ package com.infotel.plagiamax.model;
 
 import java.util.Date;
 import java.util.List;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infotel.plagiamax.contract.BetLineContract;
+import com.infotel.plagiamax.contract.UserContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -18,13 +19,13 @@ import com.infotel.plagiamax.model.base.DBItem;
 public class Bet extends DBItem {
 
 	@ManyToOne
-	@JsonIgnoreProperties({"bets"})
+	@JsonIgnoreProperties({ UserContract.ASSOCIATION_BET, UserContract.ASSOCIATION_SECURITY_ROLE })
 	private User user;
 
-	@OneToMany(cascade={CascadeType.DETACH, CascadeType.REMOVE}, orphanRemoval=true, mappedBy = BetLineContract.ASSOCIATION_BET)
-	@JsonIgnoreProperties({"bet"})
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, mappedBy = BetLineContract.ASSOCIATION_BET)
+	@JsonIgnoreProperties({ BetLineContract.ASSOCIATION_BET, BetLineContract.ASSOCIATION_BETTYPE })
 	private List<BetLine> betlines;
-	
+
 	private String label;
 	private Date betdate;
 	private Float betamount;
@@ -85,7 +86,7 @@ public class Bet extends DBItem {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
 	public Bet() {
 		super();
 	}

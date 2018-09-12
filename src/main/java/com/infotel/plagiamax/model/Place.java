@@ -22,20 +22,27 @@ public class Place extends DBItem {
 	private String city;
 	private String stadium;
 
-	@OneToMany(cascade={CascadeType.PERSIST}, mappedBy = MatchContract.ASSOCIATION_PLACE)
-	@JsonIgnoreProperties({"place", "matchplayers", "events", "matchteams", "matchday", "matchbets"})
+	@OneToMany(cascade = { CascadeType.PERSIST }, mappedBy = MatchContract.ASSOCIATION_PLACE)
+	@JsonIgnoreProperties({ MatchContract.ASSOCIATION_EVENT, MatchContract.ASSOCIATION_MATCHBET,
+			MatchContract.ASSOCIATION_MATCHDAY, MatchContract.ASSOCIATION_MATCHPLAYER,
+			MatchContract.ASSOCIATION_MATCHTEAM, MatchContract.ASSOCIATION_PLACE })
 	private List<Match> matchs;
 
 	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = PlayerContract.ASSOCIATION_PLACE)
-	@JsonIgnoreProperties({"place", "periods", "stats","matchplayers", "events", "playersbets"})
+	@JsonIgnoreProperties({ PlayerContract.ASSOCIATION_MATCHPLAYER, PlayerContract.ASSOCIATION_PERIODS,
+			PlayerContract.ASSOCIATION_PLACE, PlayerContract.ASSOCIATION_PLAYERBETS,
+			PlayerContract.ASSOCIATION_PLAYERSTATUS, PlayerContract.ASSOCIATION_STATS })
 	private List<Player> players;
 
 	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = TeamContract.ASSOCIATION_PLACE)
-	@JsonIgnoreProperties({"place", "periods", "stats", "matchteams", "events", "matchbets"})
+	@JsonIgnoreProperties({ TeamContract.ASSOCIATION_EVENT, TeamContract.ASSOCIATION_MATCHBET,
+			TeamContract.ASSOCIATION_MATCHTEAM, TeamContract.ASSOCIATION_PERIOD, TeamContract.ASSOCIATION_PLACE,
+			TeamContract.ASSOCIATION_STATS })
 	private List<Team> teams;
 
 	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = CompetitionContract.ASSOCIATION_PLACE)
-	@JsonIgnoreProperties({"categories", "place", "seasons"})
+	@JsonIgnoreProperties({ CompetitionContract.ASSOCIATION_CATEGORY, CompetitionContract.ASSOCIATION_PLACE,
+			CompetitionContract.ASSOCIATION_SEASON })
 	private List<Competition> competitions;
 
 	public String getCountry() {
@@ -93,7 +100,7 @@ public class Place extends DBItem {
 	public void setCompetitions(List<Competition> competitions) {
 		this.competitions = competitions;
 	}
-	
+
 	public Place() {
 		super();
 	}

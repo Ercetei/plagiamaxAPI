@@ -39,23 +39,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 		//httpSecurity.csrf().disable();
 		httpSecurity
 			.authorizeRequests()
-				.anyRequest()
-				.anonymous()
+				.antMatchers(HttpMethod.GET,"/team").permitAll()
+				.antMatchers(HttpMethod.GET,"/match").permitAll()
+				.antMatchers(HttpMethod.GET,"/category").permitAll()
+				.antMatchers(HttpMethod.GET,"/competition").permitAll()
+				.antMatchers(HttpMethod.GET,"/matchbet").permitAll()
+				.anyRequest().authenticated()
 			.and()
 				.formLogin()
 					.loginPage("/login")
 					.usernameParameter("username").passwordParameter("password")
+					.defaultSuccessUrl("/loginResult", true)
 					.permitAll()
 			.and()
 				.logout()
 					.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-					.logoutSuccessUrl("/login")
+					//.logoutSuccessUrl("/login")
 			.and()
 				.csrf()
-					.ignoringAntMatchers("/team/**")
+					.ignoringAntMatchers("/team/**", "/team")
 					.ignoringAntMatchers("/match/**")
-					.ignoringAntMatchers("/category/**")
+					.ignoringAntMatchers("/category/**", "/category")
 					.ignoringAntMatchers("/competition/**")
+					.ignoringAntMatchers("/login")
 			.and()
         		.httpBasic()
         	.and()
@@ -64,9 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-	    web.ignoring().antMatchers("/user/connect","/user/connect/**");
-	    //web.ignoring().antMatchers(HttpMethod.GET);
-	    //web.ignoring().antMatchers("/login", "/login/**");
+		web.ignoring().antMatchers("/user/register", "/user/register/**");
 	}
 	
 	@Bean
@@ -84,7 +88,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 	    config.addAllowedMethod("*");
 	    config.addExposedHeader("WWW-Authenticate");
 	    source.registerCorsConfiguration("/**", config);
-	    FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+	    FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<CorsFilter>(new CorsFilter(source));
 	    bean.setOrder(0);
 	    return new CorsFilter(source);
 	}

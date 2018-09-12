@@ -9,6 +9,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.infotel.plagiamax.contract.CompetitionContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 @Entity
@@ -21,8 +22,9 @@ public class Category extends DBItem {
 	@Column(nullable = false)
 	private Integer status;
 
-	@ManyToMany(cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties({"seasons", "place", "categories"})
+	@ManyToMany(cascade = CascadeType.DETACH)
+	@JsonIgnoreProperties({ CompetitionContract.ASSOCIATION_CATEGORY, CompetitionContract.ASSOCIATION_PLACE,
+			CompetitionContract.ASSOCIATION_SEASON })
 	private List<Competition> competitions;
 
 	public String getLabel() {
