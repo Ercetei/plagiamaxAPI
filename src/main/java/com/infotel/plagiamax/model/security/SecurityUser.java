@@ -23,7 +23,7 @@ public abstract class SecurityUser extends DBItem {
 	private String username;
 	@Convert(converter = CryptoConverter.class)
 	private String password;
-	private Boolean status;
+	private Boolean enable;
 
 	@ManyToMany(targetEntity = SecurityRole.class)
 	@JoinTable(name = "users_securityroles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -70,15 +70,15 @@ public abstract class SecurityUser extends DBItem {
 	/**
 	 * @return the enable
 	 */
-	public Boolean getStatus() {
-		return status;
+	public Boolean getEnable() {
+		return enable;
 	}
 
 	/**
 	 * @param enable the enable to set
 	 */
-	public void setStatus(Boolean status) {
-		this.status = status;
+	public void setEnable(Boolean enable) {
+		this.enable = enable;
 	}
 
 	/**
@@ -95,6 +95,31 @@ public abstract class SecurityUser extends DBItem {
 		this.roles = roles;
 	}
 
+	public String getCreditcard() {
+		return creditcard;
+	}
+
+	public void setCreditcard(String creditcard) {
+		this.creditcard = creditcard;
+	}
+
+	public String getExpirationdate() {
+		return expirationdate;
+	}
+
+	public void setExpirationdate(String expirationdate) {
+		this.expirationdate = expirationdate;
+	}
+
+	public String getCryptogram() {
+		return cryptogram;
+	}
+
+	public void setCryptogram(String cryptogram) {
+		this.cryptogram = cryptogram;
+	}
+
 	public SecurityUser() {
+		super();
 	}
 }

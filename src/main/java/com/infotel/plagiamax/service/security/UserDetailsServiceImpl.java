@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.infotel.plagiamax.model.User;
 import com.infotel.plagiamax.model.security.SecurityRole;
-import com.infotel.plagiamax.model.security.SecurityUser;
 import com.infotel.plagiamax.repository.UserCrudRepository;
 
 import java.util.HashMap;
@@ -26,37 +25,34 @@ import java.util.Map;
 import java.util.Set;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService{
-    @Autowired
-    private UserCrudRepository userRepository;
+public class UserDetailsServiceImpl implements UserDetailsService {
+	@Autowired
+	private UserCrudRepository userRepository;
 
-    @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    	User user = userRepository.findByUsername(username);
-    	
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<GrantedAuthority>();
-
-        if (user.getStatus()) {
-
-            for (SecurityRole role : user.getRoles()){
-                grantedAuthorities.add(new SimpleGrantedAuthority(role.getRole()));
-            }
+	@Transactional(readOnly = true)
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		User user = userRepository.findByUsername(username);
+		Set<GrantedAuthority> grantedAuthorities = new HashSet<GrantedAuthority>();
+        
+		if (user.getEnable()) {
+			for (SecurityRole role : user.getRoles()) {
+				grantedAuthorities.add(new SimpleGrantedAuthority(role.getRole()));
+			}
 		}
-        
-        String idForEncode = "bcrypt";
-        Map<String,PasswordEncoder> encoders = new HashMap<String,PasswordEncoder>();
-        encoders.put(idForEncode, new BCryptPasswordEncoder());
-        encoders.put("pbkdf2", new Pbkdf2PasswordEncoder());
-        encoders.put("scrypt", new SCryptPasswordEncoder());
-        
-        PasswordEncoder passwordEncoder =
-        	    new DelegatingPasswordEncoder(idForEncode,encoders);
-        
-        UserBuilder userBuilder = org.springframework.security.core.userdetails.User.builder();
-        userBuilder.username(user.getUsername());
-        userBuilder.password(passwordEncoder.encode(user.getPassword()));
-        userBuilder.authorities(grantedAuthorities);
-        
-        return userBuilder.build();
-    }
+
+		String idForEncode = "bcrypt";
+		Map<String, PasswordEncoder> encoders = new HashMap<String, PasswordEncoder>();
+		encoders.put(idForEncode, new BCryptPasswordEncoder());
+		encoders.put("pbkdf2", new Pbkdf2PasswordEncoder());
+		encoders.put("scrypt", new SCryptPasswordEncoder());
+
+		PasswordEncoder passwordEncoder = new DelegatingPasswordEncoder(idForEncode, encoders);
+
+		UserBuilder userBuilder = org.springframework.security.core.userdetails.User.builder();
+		userBuilder.username(user.getUsername());
+		userBuilder.password(passwordEncoder.encode(user.getPassword()));
+		userBuilder.authorities(grantedAuthorities);
+
+		return userBuilder.build();
+	}
 }
