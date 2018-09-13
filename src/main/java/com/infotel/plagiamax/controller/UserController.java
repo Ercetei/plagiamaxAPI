@@ -1,12 +1,16 @@
 package com.infotel.plagiamax.controller;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +20,7 @@ import com.infotel.plagiamax.controller.base.BaseRestController;
 import com.infotel.plagiamax.model.User;
 import com.infotel.plagiamax.model.security.SecurityRole;
 import com.infotel.plagiamax.repository.UserCrudRepository;
+import com.infotel.plagiamax.utils.GenericMerger;
 
 @RestController
 @RequestMapping(UserController.BASE_URL)
@@ -40,5 +45,16 @@ public class UserController extends BaseRestController<User, Long> {
 		newUser.setPassword(null);
 
 		return ResponseEntity.ok(newUser);
+	}
+	
+	@RequestMapping(path = { "/update/{index}/{field}" }, method = RequestMethod.PATCH, consumes = {
+			MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<User> updateField(@RequestBody User item, @PathVariable("index") Long index, @PathVariable("field") String field) {
+		Optional<User> dbItem = userCrud.findById(index);
+		List<String> fields = new ArrayList<>();
+		fields.add(field);
+		User user = GenericMerger.<User>merge(dbItem.get(), item, fields, User.class);
+		new ResponseEntity<User>(HttpStatus.OK);
+		return ResponseEntity.ok(userCrud.save(user));
 	}
 }

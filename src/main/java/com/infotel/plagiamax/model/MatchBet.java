@@ -11,7 +11,7 @@ import com.infotel.plagiamax.contract.TeamContract;
 @Entity
 @Table(name = "matchbet")
 public class MatchBet extends BetType {
-
+	
 	@ManyToOne
 	@JsonIgnoreProperties({ MatchContract.ASSOCIATION_EVENT, MatchContract.ASSOCIATION_MATCHBET,
 			MatchContract.ASSOCIATION_MATCHDAY, MatchContract.ASSOCIATION_MATCHPLAYER,

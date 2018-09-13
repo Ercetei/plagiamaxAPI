@@ -43,14 +43,14 @@ public abstract class BaseRestController<T, ID extends Serializable> {
 		return ResponseEntity.ok(crudRepository.save(item));
 	}
 	
-	@RequestMapping(path = { "/{index}", "" }, method = RequestMethod.PUT)
+	@RequestMapping(path = { "/{index}" }, method = RequestMethod.PUT)
 	public ResponseEntity<T> updateItem(@PathVariable("index") ID index, @RequestBody T item) {
 		((DBItem) item).setId((Long)index);
 		new ResponseEntity<T>(HttpStatus.OK);
 		return ResponseEntity.ok(crudRepository.save(item));
 	}
 	
-	@RequestMapping(path = { "/{index}", "" }, method = RequestMethod.DELETE)
+	@RequestMapping(path = { "/{index}" }, method = RequestMethod.DELETE)
 	public void deleteItem(@PathVariable("index") ID index) {
 		crudRepository.delete(crudRepository.findById(index).get());
 		new ResponseEntity<T>(HttpStatus.NO_CONTENT);
