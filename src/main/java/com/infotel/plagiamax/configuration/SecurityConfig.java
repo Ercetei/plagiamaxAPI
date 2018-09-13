@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 				.antMatchers(HttpMethod.GET, "/category", "/category/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/competition", "/competition/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/matchbet", "/matchbet/**").permitAll()
-				.anyRequest().anonymous()
+				.anyRequest().authenticated()
 			.and()
 				.formLogin()
 					.loginPage("/login")
@@ -72,7 +72,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/user/register", "/user/register/**");
-		web.ignoring().antMatchers("/user/update", "/user/update/**");
 	}
 	
 	@Bean
