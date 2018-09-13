@@ -31,6 +31,9 @@ dependencies {
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.0.4.RELEASE'
 	compile group: 'com.google.code.gson', name: 'gson', version: '2.8.5'
 	
+	// Firebase
+	compile 'com.google.firebase:firebase-admin:5.9.0'
+	
 	// Database
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-jdbc')
@@ -43,6 +46,9 @@ dependencies {
 	
 	// View
 	compile('org.springframework.boot:spring-boot-starter-freemarker')
+	
+	// JSON utils
+	compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.5'
 	
 	// Crypt
 	compile group: 'commons-codec', name: 'commons-codec', version: '1.5'
