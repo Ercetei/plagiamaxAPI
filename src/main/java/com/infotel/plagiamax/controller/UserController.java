@@ -46,15 +46,4 @@ public class UserController extends BaseRestController<User, Long> {
 
 		return ResponseEntity.ok(newUser);
 	}
-	
-	@RequestMapping(path = { "/update/{index}/{field}" }, method = RequestMethod.PATCH, consumes = {
-			MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<User> updateField(@RequestBody User item, @PathVariable("index") Long index, @PathVariable("field") String field) {
-		Optional<User> dbItem = userCrud.findById(index);
-		List<String> fields = new ArrayList<>();
-		fields.add(field);
-		User user = GenericMerger.<User>merge(dbItem.get(), item, fields, User.class);
-		new ResponseEntity<User>(HttpStatus.OK);
-		return ResponseEntity.ok(userCrud.save(user));
-	}
 }
