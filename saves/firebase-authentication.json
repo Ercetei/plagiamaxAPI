@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "plagiamax",
+  "private_key_id": "6edc7debcb7676be9a65901dbf7a8ae6d27d8cf9",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCx3nqSQNCoecxl\nC3KYFveuwgUT2SPVGXG17HS9e8QECBBv4UwA0K/GTVklcv5yY4jhl3UVNABkbJp5\nGTanUPI+cgxBTNiuDopY934I+HrTJnUgjqlpSzAnAr2TlElh3llDn0/M3LRFdRC2\nOfbmPNK2IVxSwHnppFUAGevjNGxGvXoPIhBHYBjK0xUbhUclYOzdudvCeTJeSVt3\n2M7Z6lo6L0ofsbz4lNeFNS8huV4Pm+0tRY9TtWmZpnufCsccBAsKj3KQDl4Ucz7F\nZ3aOTwlFadxbPSvPiuI2zoo1bBKftkqIVlakKs7BPvBOBd6VifN1NN8NyeLnInYk\nU/6AGGhFAgMBAAECggEAV+ICE9M8hZGwgNh4JVdrx4gLtDPcdYUd3vJW9+x3/Dnz\nzSO3RsvVnZhIDK3VtLUjQ7tu2SwZaYUTifQAQglHt7zn+ze5874xcyXNuybyoPNm\nedCjOegxgYTkIE/rNhUDa9sCNclytMLToAXhzP6Oafjvwd9iHSPZ77PfDiKvwP83\ndgNC9FDDEatbZnxRSqrVh4MsnEoMXuW4R6fNju56QBbQlO/fj9vDh1bGqgYhI+vW\nUaZEBx+HEYlQZzyNJUm727ENDMzf9CriYZM99ihdxYvNUb3pY5w3IJuRnMFG8+tq\n5u1BeeJnFQ3uPHhWItkHY0HnBhIuAjqIfJIV0AEjHQKBgQDuG866AubhdwMzeQNO\nUL7/HOyWIrqWkeUGfZmH29qW8zU9rQih+NpIDwC3iHM1mEpdYvm476ZKgOveqy86\nXDGtqvHCSIErSEA4IlqdWnbhJF5FOx6cNpUn5U1gwJahDzsEBWKaJfXAjI6n/NhN\n4+CozZSuShddQ2s669CPmGvcywKBgQC/O+tgAscoNTyWKKAIKQLKNqgxRUfHM7qV\nZkW4CmL0cHtoNpqeMvC+gj5BLye6IaCGC9zno22aX1FEkYhceCv6BF38MV5HboAO\nb7Zits1x4jZ5DBeMIW8j7ShglNp5W6bOe1x4V+FrZ44MOrR5XsZcEbRVGZvc+PHU\n9ySljru9LwKBgQDr4LpDRTqpYnfWVuwyegUrvuCUvqSvIqqKaoRctSxvW1GD3tVt\nd5PtzIb+SfsvvcT1jGYskaPfrKV9OYIYw1onW/ARcjgbw4By231+4i5gTOHinXVu\ndRf/pMWpsj/GH8tr6VXLtQ0mCVgNDIrPZo6ZSscefaF1r6MbhJ5gkjNQTwKBgQC/\nE5TkswHh+AeYlfEJFkk2WZSG3o2QyewV2UGyWZZ0XWvBPkYR6h5IjIS9xusv/OeS\n6ImKXe5mv/TIyY1xr5VpVDHAimeEgjGruw2G5taygvAg1Oc2WjXdtNqSXklJ1zz9\ntZ84k76l/aueJo4rc3pJhlskaNkm2wtv2p2gWtTVewKBgHs/e4T28imxjtBn6nPK\ndkoPaVUVejbVubwNdBV6YzAUgdHi+YHWPURdjNgDhUND7gXgpivIGmX64ZQMmLvR\nyrP6c0RjML2wFhfUHz9n0lAY8ZeQws4JNIHasCwM8TRx34zNyVnXdpikUOSckcFi\nEtia2FJ2yxUlsTyYp2GhRF74\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-n6ckn@plagiamax.iam.gserviceaccount.com",
+  "client_id": "101330073187328796650",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-n6ckn%40plagiamax.iam.gserviceaccount.com"
+}

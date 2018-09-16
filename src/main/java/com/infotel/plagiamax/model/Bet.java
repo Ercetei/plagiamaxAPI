@@ -23,7 +23,7 @@ public class Bet extends DBItem {
 	private User user;
 
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, mappedBy = BetLineContract.ASSOCIATION_BET)
-	@JsonIgnoreProperties({ BetLineContract.ASSOCIATION_BET, BetLineContract.ASSOCIATION_BETTYPE })
+	@JsonIgnoreProperties({ BetLineContract.ASSOCIATION_BET })
 	private List<BetLine> betlines;
 
 	private String label;
