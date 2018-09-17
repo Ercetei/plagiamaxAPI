@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.infotel.plagiamax.controller.base.BaseRestController;
+import com.infotel.plagiamax.model.Bet;
 import com.infotel.plagiamax.model.User;
 import com.infotel.plagiamax.model.security.SecurityRole;
+import com.infotel.plagiamax.repository.BetCrudRepository;
 import com.infotel.plagiamax.repository.UserCrudRepository;
 import com.infotel.plagiamax.utils.GenericMerger;
 
@@ -30,6 +32,9 @@ public class UserController extends BaseRestController<User, Long> {
 
 	@Autowired
 	private UserCrudRepository userCrud;
+	
+	@Autowired
+	private BetCrudRepository betCrud;
 
 	@RequestMapping(path = { "/register" }, method = RequestMethod.POST, consumes = {
 			MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_JSON_VALUE })
@@ -45,5 +50,12 @@ public class UserController extends BaseRestController<User, Long> {
 		newUser.setPassword(null);
 
 		return ResponseEntity.ok(newUser);
+	}
+	
+	@RequestMapping(path = { "/{index}/bets" }, method = RequestMethod.GET)
+	public ResponseEntity<Iterable<Bet>> getBetByUser(@PathVariable("index") Long index) {
+		Iterable<Bet> item = betCrud.findByUserId(index);
+		new ResponseEntity<User>(HttpStatus.OK);
+		return ResponseEntity.ok(item);
 	}
 }
