@@ -1,11 +1,6 @@
 package com.infotel.plagiamax.controller.base;
 
 import java.io.Serializable;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -20,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.infotel.plagiamax.model.User;
 import com.infotel.plagiamax.model.base.DBItem;
 import com.infotel.plagiamax.repository.base.IBaseRepository;
 import com.infotel.plagiamax.utils.GenericMerger;
@@ -66,7 +60,6 @@ public abstract class BaseRestController<T, ID extends Serializable> {
 	public ResponseEntity<T> updatefields(@PathVariable("index") ID index, @RequestBody T item) {
 		Optional<T> dbItem = crudRepository.findById(index);
 		T itemToReturn = GenericMerger.merge(dbItem.get(), item, item.getClass());
-		new ResponseEntity<User>(HttpStatus.OK);
 		return ResponseEntity.ok(crudRepository.save(itemToReturn));
 	}
 

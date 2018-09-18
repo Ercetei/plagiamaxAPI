@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.infotel.plagiamax.model.Team;
 import com.infotel.plagiamax.model.firebase.FirebaseDataConfig;
 import com.infotel.plagiamax.model.firebase.FirebaseResponse;
 import com.infotel.plagiamax.utils.JsonManager;

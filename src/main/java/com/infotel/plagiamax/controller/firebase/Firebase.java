@@ -3,7 +3,6 @@ package com.infotel.plagiamax.controller.firebase;
 import com.infotel.plagiamax.model.firebase.FirebaseResponse;
 import com.infotel.plagiamax.utils.JacksonUtility;
 import com.google.firebase.FirebaseException;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -307,7 +306,7 @@ public class Firebase {
 		HttpPost request = new HttpPost(url);
 		request.setEntity(this.buildEntityFromDataMap(data));
 		HttpResponse httpResponse = this.makeRequest(request);
-
+		
 		// process the response
 		FirebaseResponse response = this.processResponse(FirebaseRestMethod.POST, httpResponse);
 

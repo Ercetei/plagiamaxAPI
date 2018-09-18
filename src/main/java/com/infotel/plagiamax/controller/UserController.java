@@ -1,8 +1,6 @@
 package com.infotel.plagiamax.controller;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -16,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.infotel.plagiamax.controller.base.BaseRestController;
 import com.infotel.plagiamax.model.Bet;
 import com.infotel.plagiamax.model.User;
@@ -38,7 +38,7 @@ public class UserController extends BaseRestController<User, Long> {
 
 	@RequestMapping(path = { "/register" }, method = RequestMethod.POST, consumes = {
 			MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<User> postItem(@RequestBody User newUser) {
+	public ResponseEntity<User> registerUser(@RequestBody User newUser) {
 		new ResponseEntity<User>(HttpStatus.OK);
 		newUser.setEnable(true);
 		SecurityRole role = new SecurityRole();
@@ -48,7 +48,8 @@ public class UserController extends BaseRestController<User, Long> {
 		newUser.setRoles(set);
 		userCrud.save(newUser);
 		newUser.setPassword(null);
-
+		patchFirebaseUser(newUser);
+		
 		return ResponseEntity.ok(newUser);
 	}
 	
@@ -58,4 +59,21 @@ public class UserController extends BaseRestController<User, Long> {
 		new ResponseEntity<User>(HttpStatus.OK);
 		return ResponseEntity.ok(item);
 	}
+	
+	@RequestMapping(path = { "/{index}" }, method = RequestMethod.PATCH)
+	public ResponseEntity<User> updatefields(@PathVariable("index") Long index, @RequestBody User user) {
+		Optional<User> userToUpdate = userCrud.findById(index);
+		User updatedUser = GenericMerger.<User>merge(userToUpdate.get(), user, user.getClass());
+		patchFirebaseUser(updatedUser);
+
+		return ResponseEntity.ok(userCrud.save(updatedUser));
+	}
+
+	public void patchFirebaseUser(User user) {
+		final FirebaseDatabase database = FirebaseDatabase.getInstance();
+		DatabaseReference ref = database.getReference("users/" + user.getId() + "/wallet");
+		ref.setValueAsync(user.getWallet());
+		ref.push();
+	}
+	
 }
