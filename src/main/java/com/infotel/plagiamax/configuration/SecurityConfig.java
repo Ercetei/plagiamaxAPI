@@ -70,6 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 					.ignoringAntMatchers("/category/**", "/category")
 					.ignoringAntMatchers("/competition/**")
 					.ignoringAntMatchers("/login")
+					.ignoringAntMatchers("/firebase/**")
 			.and()
         		.httpBasic()
         	.and()

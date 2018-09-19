@@ -20,6 +20,7 @@ import com.infotel.plagiamax.model.Match;
 import com.infotel.plagiamax.repository.MatchCrudRepository;
 import com.infotel.plagiamax.utils.GenericMerger;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class MatchController.
  */
@@ -29,6 +30,10 @@ public class MatchController extends BaseRestController<Match, Long> {
 	
 	/** The Constant BASE_URL. */
 	public static final String BASE_URL = "/match";
+<<<<<<< HEAD
+	
+}
+=======
 
 	@Autowired
 	private MatchCrudRepository matchCrud;
@@ -69,3 +74,4 @@ public class MatchController extends BaseRestController<Match, Long> {
 		ref.push();
 	}
 }
+>>>>>>> b435959cc4597144c34309725270c21e3f726db6
