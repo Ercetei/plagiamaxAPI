@@ -15,10 +15,15 @@ import com.infotel.plagiamax.model.MatchDay;
 import com.infotel.plagiamax.repository.MatchBetCrudRepository;
 import com.infotel.plagiamax.repository.MatchCrudRepository;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MatchDayController.
+ */
 @RestController
 @RequestMapping(MatchDayController.BASE_URL)
 public class MatchDayController extends BaseRestController<MatchDay, Long> {
 
+    /** The Constant BASE_URL. */
     public static final String BASE_URL = "/matchday";
     
 	@Autowired

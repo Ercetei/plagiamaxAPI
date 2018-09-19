@@ -13,10 +13,15 @@ import com.infotel.plagiamax.model.MatchDay;
 import com.infotel.plagiamax.model.Competition;
 import com.infotel.plagiamax.repository.MatchDayCrudRepository;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CompetitionController.
+ */
 @RestController
 @RequestMapping(CompetitionController.BASE_URL)
 public class CompetitionController extends BaseRestController<Competition, Long> {
 
+    /** The Constant BASE_URL. */
     public static final String BASE_URL = "/competition";
     
 	@Autowired

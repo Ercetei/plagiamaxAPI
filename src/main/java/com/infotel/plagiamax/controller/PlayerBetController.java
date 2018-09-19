@@ -7,8 +7,14 @@ import com.infotel.plagiamax.controller.base.BaseRestController;
 import com.infotel.plagiamax.model.PlayerBet;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PlayerBetController.
+ */
 @RestController
 @RequestMapping(PlayerBetController.BASE_URL)
 public class PlayerBetController extends BaseRestController<PlayerBet, Long>{
+	
+	/** The Constant BASE_URL. */
 	public static final String BASE_URL = "/playerbet";
 }
