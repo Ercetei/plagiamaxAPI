@@ -5,6 +5,9 @@ import org.springframework.stereotype.Repository;
 import com.infotel.plagiamax.model.Match;
 import com.infotel.plagiamax.repository.base.IBaseRepository;
 
+/**
+ * The Interface MatchCrudRepository.
+ */
 @Repository
 public interface MatchCrudRepository extends IBaseRepository<Match, Long> {
 

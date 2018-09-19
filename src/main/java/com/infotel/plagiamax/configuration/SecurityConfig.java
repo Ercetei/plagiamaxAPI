@@ -16,6 +16,10 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SecurityConfig.
+ */
 @Configuration
 @EnableWebSecurity
 @EnableAutoConfiguration
@@ -33,6 +37,9 @@ import org.springframework.web.filter.CorsFilter;
  */
 public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 
+	/* (non-Javadoc)
+	 * @see org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter#configure(org.springframework.security.config.annotation.web.builders.HttpSecurity)
+	 */
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 
@@ -69,16 +76,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
         		.cors();
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter#configure(org.springframework.security.config.annotation.web.builders.WebSecurity)
+	 */
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/user/register", "/user/register/**");
 	}
 	
+	/**
+	 * Custom authentication manager.
+	 *
+	 * @return the authentication manager
+	 * @throws Exception the exception
+	 */
 	@Bean
 	public AuthenticationManager customAuthenticationManager() throws Exception {
 	  return authenticationManager();
 	}
 	
+	/**
+	 * Cors filter.
+	 *
+	 * @return the cors filter
+	 */
 	@Bean
 	public CorsFilter corsFilter() { 
 	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

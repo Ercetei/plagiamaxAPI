@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,18 +20,28 @@ import com.infotel.plagiamax.model.security.SecurityRole;
 import com.infotel.plagiamax.repository.BetCrudRepository;
 import com.infotel.plagiamax.repository.UserCrudRepository;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UserController.
+ */
 @RestController
 @RequestMapping(UserController.BASE_URL)
 public class UserController extends BaseRestController<User, Long> {
 
+	/** The Constant BASE_URL. */
 	public static final String BASE_URL = "/user";
 
+	/** The user crud. */
 	@Autowired
 	private UserCrudRepository userCrud;
 	
+	/** The bet crud. */
 	@Autowired
 	private BetCrudRepository betCrud;
 
+	/* (non-Javadoc)
+	 * @see com.infotel.plagiamax.controller.base.BaseRestController#postItem(java.lang.Object)
+	 */
 	@RequestMapping(path = { "/register" }, method = RequestMethod.POST, consumes = {
 			MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<User> postItem(@RequestBody User newUser) {
@@ -47,6 +58,12 @@ public class UserController extends BaseRestController<User, Long> {
 		return ResponseEntity.ok(newUser);
 	}
 	
+	/**
+	 * Gets the bet by user.
+	 *
+	 * @param index the index
+	 * @return the bet by user
+	 */
 	@RequestMapping(path = { "/{index}/bets" }, method = RequestMethod.GET)
 	public ResponseEntity<Iterable<Bet>> getBetByUser(@PathVariable("index") Long index) {
 		Iterable<Bet> item = betCrud.findByUserId(index);

@@ -3,8 +3,6 @@ package com.infotel.plagiamax.controller.base;
 import java.io.Serializable;
 import java.util.Optional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,15 +18,26 @@ import com.infotel.plagiamax.model.base.DBItem;
 import com.infotel.plagiamax.repository.base.IBaseRepository;
 import com.infotel.plagiamax.utils.GenericMerger;
 
+/**
+ * The Class BaseRestController.
+ *
+ * @param <T> the generic type
+ * @param <ID> the generic type
+ */
 @RestController
 public abstract class BaseRestController<T, ID extends Serializable> {
 
-	// TODO: A supprimer en prod
-	Logger logger = LoggerFactory.getLogger(BaseRestController.class);
+	/** The logger. */
 
+	/** The crud repository. */
 	@Autowired
 	private IBaseRepository<T, ID> crudRepository;
 
+	/**
+	 * Index.
+	 *
+	 * @return the response entity
+	 */
 	@RequestMapping(path = { "/", "" }, method = RequestMethod.GET)
 	public ResponseEntity<Iterable<T>> index() {
 		Iterable<T> items = crudRepository.findAll();
@@ -36,6 +45,12 @@ public abstract class BaseRestController<T, ID extends Serializable> {
 		return ResponseEntity.ok(items);
 	}
 
+	/**
+	 * Gets the by index.
+	 *
+	 * @param index the index
+	 * @return the by index
+	 */
 	@RequestMapping(path = { "/{index}" }, method = RequestMethod.GET)
 	public ResponseEntity<Optional<T>> getByIndex(@PathVariable("index") ID index) {
 		Optional<T> item = crudRepository.findById(index);
@@ -43,6 +58,12 @@ public abstract class BaseRestController<T, ID extends Serializable> {
 		return ResponseEntity.ok(item);
 	}
 
+	/**
+	 * Post item.
+	 *
+	 * @param item the item
+	 * @return the response entity
+	 */
 	@RequestMapping(path = { "/", "" }, method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE,
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<T> postItem(@RequestBody T item) {
@@ -50,6 +71,13 @@ public abstract class BaseRestController<T, ID extends Serializable> {
 		return ResponseEntity.ok(crudRepository.save(item));
 	}
 
+	/**
+	 * Update item.
+	 *
+	 * @param index the index
+	 * @param item the item
+	 * @return the response entity
+	 */
 	@RequestMapping(path = { "/{index}" }, method = RequestMethod.PUT)
 	public ResponseEntity<T> updateItem(@PathVariable("index") ID index, @RequestBody T item) {
 		((DBItem) item).setId((Long) index);
@@ -57,6 +85,13 @@ public abstract class BaseRestController<T, ID extends Serializable> {
 		return ResponseEntity.ok(crudRepository.save(item));
 	}
 
+	/**
+	 * Updatefields.
+	 *
+	 * @param index the index
+	 * @param item the item
+	 * @return the response entity
+	 */
 	@RequestMapping(path = { "/{index}" }, method = RequestMethod.PATCH)
 	public ResponseEntity<T> updatefields(@PathVariable("index") ID index, @RequestBody T item) {
 		Optional<T> dbItem = crudRepository.findById(index);
@@ -65,6 +100,11 @@ public abstract class BaseRestController<T, ID extends Serializable> {
 		return ResponseEntity.ok(crudRepository.save(itemToReturn));
 	}
 
+	/**
+	 * Delete item.
+	 *
+	 * @param index the index
+	 */
 	@RequestMapping(path = { "/{index}" }, method = RequestMethod.DELETE)
 	public void deleteItem(@PathVariable("index") ID index) {
 		crudRepository.delete(crudRepository.findById(index).get());
