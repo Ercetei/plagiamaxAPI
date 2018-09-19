@@ -16,4 +16,12 @@ public interface MatchBetCrudRepository extends IBaseRepository<MatchBet, Long> 
 			+ "INNER JOIN BetLine bl ON bt.id = bl.bettype.id INNER JOIN Bet b ON b.id = bl.bet.id "
 			+ "INNER JOIN User u ON b.user.id = u.id WHERE u.id = ?1"))
 	List<BetType> findByUserId(Long user_id);
+	
+	@Query(value = ("SELECT mb FROM MatchBet mb "
+			+ "INNER JOIN Match m ON m.id = mb.match.id "
+			+ "INNER JOIN MatchDay md ON md.id = m.matchday.id WHERE md.id = ?1 "
+			+ "AND mb.type = 1 "
+			+ "AND (m.status = 3 OR m.status = 4) "
+			))
+	List<BetType> findByMatchDayId(Long matchday_id);
 }
