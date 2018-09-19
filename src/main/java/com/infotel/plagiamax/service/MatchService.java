@@ -18,7 +18,6 @@ public class MatchService {
 	public static JSONObject firebaseParser(Match match) {
 		JSONObject jsonInfo = new JSONObject();
 		jsonInfo.put("id", match.getId());
-		jsonInfo.put("label", match.getLabel());
 		jsonInfo.put("status", match.getStatus());
 
 		// Place
