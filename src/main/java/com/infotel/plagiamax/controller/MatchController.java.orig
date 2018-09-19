@@ -18,9 +18,9 @@ import com.infotel.plagiamax.controller.base.BaseRestController;
 import com.infotel.plagiamax.controller.firebase.Firebase;
 import com.infotel.plagiamax.model.Match;
 import com.infotel.plagiamax.repository.MatchCrudRepository;
-import com.infotel.plagiamax.service.MatchService;
 import com.infotel.plagiamax.utils.GenericMerger;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class MatchController.
  */
@@ -30,45 +30,25 @@ public class MatchController extends BaseRestController<Match, Long> {
 	
 	/** The Constant BASE_URL. */
 	public static final String BASE_URL = "/match";
+<<<<<<< HEAD
+	
+}
+=======
 
 	@Autowired
 	private MatchCrudRepository matchCrud;
 	Firebase firebase;
-	
-	@RequestMapping(path = { "/", "" }, method = RequestMethod.GET)
-	public ResponseEntity<Iterable<Match>> index() {
-		Iterable<Match> matchs = matchCrud.findAll();
-				
-		new ResponseEntity<Match>(HttpStatus.OK);
-		return ResponseEntity.ok(matchs);
-	}
 
 	@RequestMapping(path = { "/{index}" }, method = RequestMethod.PATCH)
 	public ResponseEntity<Match> updatefields(@PathVariable("index") Long index, @RequestBody Match match) {
 		Optional<Match> matchToUpdate = matchCrud.findById(index);
 		Match updatedMatch = GenericMerger.<Match>merge(matchToUpdate.get(), match, match.getClass());
 
-		if (updatedMatch.getStatus() == 5) {
-			deleteMatchFromFirebase(updatedMatch);
+		if (match.getStatus() == 5) {
+			patchFirebaseMatch(updatedMatch);
 		}
-		
-		postMatchToFirebase(updatedMatch);
 
 		return ResponseEntity.ok(matchCrud.save(updatedMatch));
-	}
-	
-	@RequestMapping(path = { "/{index}" }, method = RequestMethod.PUT)
-	public ResponseEntity<Match> updateItem(@PathVariable("index") Long index, @RequestBody Match match) {
-		match.setId((Long) index);
-		Match putMatch = matchCrud.save(match);
-		new ResponseEntity<Match>(HttpStatus.OK);
-		
-		if (putMatch.getStatus() == 5) {
-			deleteMatchFromFirebase(putMatch);
-		}
-		
-		postMatchToFirebase(putMatch);
-		return ResponseEntity.ok(putMatch);
 	}
 
 	@RequestMapping(path = { "/", "" }, method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE,
@@ -76,30 +56,22 @@ public class MatchController extends BaseRestController<Match, Long> {
 	public ResponseEntity<Match> postItem(@RequestBody Match match) {
 		new ResponseEntity<Match>(HttpStatus.OK);
 		Match savedMatch = matchCrud.save(match);
-		postMatchToFirebase(savedMatch);
+		postFirebaseMatch(savedMatch);
 
 		return ResponseEntity.ok(savedMatch);
 	}
 
-	/**
-	 * Delete the row from firebase if it is not useful anymore.
-	 * @param match
-	 */
-	public void deleteMatchFromFirebase(Match match) {
+	public void patchFirebaseMatch(Match match) {
 		final FirebaseDatabase database = FirebaseDatabase.getInstance();
 		DatabaseReference ref = database.getReference("matchs/" + match.getId());
 		ref.removeValueAsync();
 	}
 
-	/**
-	 * Create or update a row for a match in the firebase database.
-	 * @param match
-	 */
-	public void postMatchToFirebase(Match match) {
+	public void postFirebaseMatch(Match match) {
 		final FirebaseDatabase database = FirebaseDatabase.getInstance();
 		DatabaseReference ref = database.getReference("matchs/" + match.getId());
-		ref.setValueAsync(MatchService.firebaseParser(match));
+		ref.setValueAsync(match);
 		ref.push();
 	}
-
 }
+>>>>>>> b435959cc4597144c34309725270c21e3f726db6

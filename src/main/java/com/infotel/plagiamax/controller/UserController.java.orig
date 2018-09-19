@@ -1,7 +1,10 @@
 package com.infotel.plagiamax.controller;
 
 import java.util.HashSet;
+<<<<<<< HEAD
+=======
 import java.util.Optional;
+>>>>>>> b435959cc4597144c34309725270c21e3f726db6
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +25,8 @@ import com.infotel.plagiamax.model.User;
 import com.infotel.plagiamax.model.security.SecurityRole;
 import com.infotel.plagiamax.repository.BetCrudRepository;
 import com.infotel.plagiamax.repository.UserCrudRepository;
-import com.infotel.plagiamax.utils.GenericMerger;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class UserController.
  */
@@ -43,7 +46,7 @@ public class UserController extends BaseRestController<User, Long> {
 	private BetCrudRepository betCrud;
 
 	/* (non-Javadoc)
-	 * @see com.infotel.plagiamax.controller.base.BaseRestController#registerUser(java.lang.Object)
+	 * @see com.infotel.plagiamax.controller.base.BaseRestController#postItem(java.lang.Object)
 	 */
 	@RequestMapping(path = { "/register" }, method = RequestMethod.POST, consumes = {
 			MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_JSON_VALUE })

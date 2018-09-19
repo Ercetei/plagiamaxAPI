@@ -15,14 +15,27 @@ import com.infotel.plagiamax.model.BetType;
 import com.infotel.plagiamax.model.MatchBet;
 import com.infotel.plagiamax.repository.MatchBetCrudRepository;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MatchBetController.
+ */
 @RestController
 @RequestMapping(MatchBetController.BASE_URL)
 public class MatchBetController extends BaseRestController<MatchBet, Long> {
+	
+	/** The Constant BASE_URL. */
 	public static final String BASE_URL = "/matchbet";
 
+	/** The match bet crud repository. */
 	@Autowired
 	MatchBetCrudRepository matchBetCrudRepository;
 
+	/**
+	 * Find by user id.
+	 *
+	 * @param index the index
+	 * @return the response entity
+	 */
 	@RequestMapping(path = { "/user/{index}" }, method = RequestMethod.GET)
 	public ResponseEntity<List<BetType>> findByUserId(@PathVariable("index") Long index) {
 		List<BetType> matchBets = matchBetCrudRepository.findByUserId(index);
