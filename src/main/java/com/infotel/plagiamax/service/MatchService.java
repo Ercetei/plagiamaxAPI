@@ -156,9 +156,13 @@ public class MatchService {
 		 */
 		Team keyWin = new Team();
 		Integer valueWin = 0;
+		Integer nbGoal = 0 ;
+		Boolean theBet = false ;
+		
 //		Long idBetMatch = 0L ;
 		Map<Team, Integer> teams = new HashMap<Team, Integer>();
 		List<Event> events = (List<Event>) eventCrud.findAll();
+		
 		for(MatchTeam matchTeam: match.getMatchteams()) {
 			Integer teamGoal = teamCrud.getTeamScoreByMatch(matchTeam.getTeam().getId(), match.getId());
 			teams.put(matchTeam.getTeam(), teamGoal);
@@ -166,9 +170,14 @@ public class MatchService {
 			valueWin = teamGoal ;
 		}		
 	
+		/**
+		 * Comparaison de l'équipe avec l'équipe gagnante
+		 *  -si le nombre de but courrant > à équipe gagnante remplace équipe gagnante par équipe courrante 
+		 */
 		for(Map.Entry<Team, Integer> t : teams.entrySet() ) {
 			Team keyCurrent = t.getKey() ;
 			Integer valueCurrent = t.getValue() ;
+			nbGoal = nbGoal + valueCurrent ;
 			
 			System.out.println("Key : " + keyCurrent.getLabel() + " Value : " + valueCurrent);
 			
@@ -180,25 +189,70 @@ public class MatchService {
 //			else if(valueCurrent == valueDefault){
 //				
 //			}
-			System.out.println("equipe gagne : " + keyWin.getLabel() + " avec nb but : " + valueWin);
-
+			
 		}
+		System.out.println("equipe gagne : " + keyWin.getLabel() + " avec nb but : " + valueWin);
+		System.out.println("Nombre de buts : " + nbGoal);
 		
 		List<BetLine> betlines = betLineCrud.getCurrentBetLineByMatch(match.getId());
 		
+		/**
+		 * Vérifier si l'id de l'équipe gagnante = id equipe pari
+		 */
 		for (BetLine bl : betlines) {
+			theBet = false ;
+			if (bl.getBettype().getType() == 1) {
+				
+				System.out.println("Type sur Vainqueur");
+				idBetMatch = matchBetCrud.findById(bl.getBettype().getId()).get().getTeam().getId();
+				
+				System.out.println(keyWin.getId() + " / " + matchBetCrud.findById(bl.getBettype().getId()).get().getTeam().getId());
+				
+				if(keyWin.getId() == idBetMatch) {
+					theBet = true ;
+				}
+				
+			}
+			else if (bl.getBettype().getType() == 2) {
+				System.out.println("Type sur Score exact");
+				System.out.println(keyWin.getId() + " / " + bl.getBettype().getLabel());
+
+//				if(keyWin.getId() == idBetMatch) {
+//					theBet = true ;
+//				}
+				
+			}
+			else if (bl.getBettype().getType() == 3) {
+				System.out.println("Type sur Buts");
+				Float testNbGoal = Float.parseFloat(bl.getBettype().getLabel().substring(1)) ;
+				System.out.println(nbGoal + " / " + testNbGoal);
+
+				System.out.println(bl.getBettype().getLabel().substring(0,1));
+				if ( bl.getBettype().getLabel().substring(0,1).equals("+") ) {
+					System.out.println("ICI");
+					if (nbGoal > testNbGoal) {
+						theBet = true ;
+					}
+				}else if ( bl.getBettype().getLabel().substring(0,1).equals("-")) {
+					System.out.println("LA");
+					if (nbGoal < testNbGoal) {
+						theBet = true ;
+					}
+				}
+			}
 			
-			idBetMatch = matchBetCrud.findById(bl.getBettype().getId()).get().getTeam().getId();
 			
-			System.out.println(keyWin.getId() + " / " + matchBetCrud.findById(bl.getBettype().getId()).get().getTeam().getId());
-			
-			if(keyWin.getId() == idBetMatch) {
+			if(theBet == true) {
 				System.out.println("Gagné");
 				bl.setStatus(2);
 			}else {
 				System.out.println("Perdu");
 				bl.setStatus(3);
 			}
+			System.out.println(bl.getStatus());
+			
+			
+
 		}
 		
 	}
