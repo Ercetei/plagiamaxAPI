@@ -1,6 +1,5 @@
 package com.infotel.plagiamax.contract;
 
-
 /**
  * The Abstract Class MatchDayContract.
  */

@@ -20,7 +20,19 @@ import java.util.stream.Collectors;
 
 import com.infotel.plagiamax.model.base.DBItem;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DumpFields.
+ */
 public class DumpFields {
+	
+	/**
+	 * Inspect base attribut.
+	 *
+	 * @param <T> the generic type
+	 * @param klazz the klazz
+	 * @return the array list
+	 */
 	public static <T> ArrayList<String> inspectBaseAttribut(Class<T> klazz) {
 		ArrayList<String> attributs = new ArrayList<String>();
 		Field[] fields;
@@ -43,6 +55,13 @@ public class DumpFields {
 		return attributs;
 	}
 
+	/**
+	 * Gets the fields.
+	 *
+	 * @param <T> the generic type
+	 * @param klazz the klazz
+	 * @return the fields
+	 */
 	// Recupere tous les attributs et informations
 	public static <T> ArrayList<Field> getFields(Class<T> klazz) {
 		ArrayList<Field> attributs = new ArrayList<Field>();
@@ -67,6 +86,14 @@ public class DumpFields {
 		return attributs;
 	}
 
+	/**
+	 * Run getter.
+	 *
+	 * @param <T> the generic type
+	 * @param field the field
+	 * @param o the o
+	 * @return the object
+	 */
 	public static <T extends DBItem> Object runGetter(Field field, T o) {
 		// MZ: Find the correct method
 		for (Method method : DumpFields.getGetter(o.getClass())) {
@@ -91,6 +118,13 @@ public class DumpFields {
 		return null;
 	}
 
+	/**
+	 * Inspect getter.
+	 *
+	 * @param <T> the generic type
+	 * @param klazz the klazz
+	 * @return the array list
+	 */
 	public static <T> ArrayList<String> inspectGetter(Class<T> klazz) {
 		ArrayList<String> result = new ArrayList<String>();
 		try {
@@ -107,6 +141,13 @@ public class DumpFields {
 		return result;
 	}
 
+	/**
+	 * Inspect setter.
+	 *
+	 * @param <T> the generic type
+	 * @param klazz the klazz
+	 * @return the array list
+	 */
 	public static <T> ArrayList<String> inspectSetter(Class<T> klazz) {
 		ArrayList<String> result = new ArrayList<String>();
 		try {
@@ -124,10 +165,11 @@ public class DumpFields {
 	}
 
 	/**
-	 * This method return an array of all the getters of the given class
+	 * This method return an array of all the getters of the given class.
 	 *
-	 * @param klazz
-	 * @return
+	 * @param <T> the generic type
+	 * @param klazz the klazz
+	 * @return the getter
 	 */
 	public static <T> ArrayList<Method> getGetter(Class<T> klazz) {
 		ArrayList<Method> result = new ArrayList<Method>();
@@ -146,10 +188,11 @@ public class DumpFields {
 	}
 
 	/**
-	 * This method return an array of all the setters of the given class
+	 * This method return an array of all the setters of the given class.
 	 *
-	 * @param klazz
-	 * @return
+	 * @param <T> the generic type
+	 * @param klazz the klazz
+	 * @return the setter
 	 */
 	public static <T> ArrayList<Method> getSetter(Class<T> klazz) {
 		ArrayList<Method> result = new ArrayList<Method>();
@@ -167,6 +210,12 @@ public class DumpFields {
 		return result;
 	}
 
+	/**
+	 * Fielder.
+	 *
+	 * @param bean the bean
+	 * @return the map
+	 */
 	public static Map<String, Object> fielder(Object bean) {
 		try {
 			return Arrays
@@ -202,6 +251,13 @@ public class DumpFields {
 		}
 	}
 
+	/**
+	 * List fielder.
+	 *
+	 * @param <T> the generic type
+	 * @param items the items
+	 * @return the array list
+	 */
 	public static <T> ArrayList<Map<String, Object>> listFielder(List<T> items) {
 		ArrayList<Map<String, Object>> listMap = new ArrayList<Map<String, Object>>();
 		for (T item : items) {
@@ -210,6 +266,14 @@ public class DumpFields {
 		return listMap;
 	}
 
+	/**
+	 * Fielder advance.
+	 *
+	 * @param <T> the generic type
+	 * @param item the item
+	 * @param klazz the klazz
+	 * @return the map
+	 */
 	public static <T> Map<String, Map<String, Object>> fielderAdvance(
 			Object item, Class klazz) {
 		Map<String, Object> fields = DumpFields.fielder(item);
@@ -303,6 +367,14 @@ public class DumpFields {
 		return tempMap;
 	}
 
+	/**
+	 * List fielder advance.
+	 *
+	 * @param <T> the generic type
+	 * @param items the items
+	 * @param klazz the klazz
+	 * @return the array list
+	 */
 	public static <T> ArrayList<Map<Map<String, Object>, String>> listFielderAdvance(
 			List<T> items, Class klazz) {
 		ArrayList<Map<Map<String, Object>, String>> listMap = new ArrayList<Map<Map<String, Object>, String>>();
@@ -318,11 +390,10 @@ public class DumpFields {
 	 * Scans all classes accessible from the context class loader which belong
 	 * to the given package and subpackages.
 	 *
-	 * @param packageName
-	 *            The base package
+	 * @param packageName            The base package
 	 * @return The classes
-	 * @throws ClassNotFoundException
-	 * @throws IOException
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static ArrayList<String> getClassesNames(String packageName)
 			throws ClassNotFoundException, IOException {
@@ -353,12 +424,10 @@ public class DumpFields {
 	 * Recursive method used to find all classes in a given directory and
 	 * subdirs.
 	 *
-	 * @param directory
-	 *            The base directory
-	 * @param packageName
-	 *            The package name for classes found inside the base directory
+	 * @param directory            The base directory
+	 * @param packageName            The package name for classes found inside the base directory
 	 * @return The classes
-	 * @throws ClassNotFoundException
+	 * @throws ClassNotFoundException the class not found exception
 	 */
 	private static List<Class> findClasses(File directory, String packageName)
 			throws ClassNotFoundException {
@@ -382,6 +451,14 @@ public class DumpFields {
 		return classes;
 	}
 
+	/**
+	 * Creates the contents with id.
+	 *
+	 * @param <T> the generic type
+	 * @param id the id
+	 * @param clazz the clazz
+	 * @return the t
+	 */
 	public static <T> T createContentsWithId(Long id, Class<T> clazz) {
 		try {
 			return clazz.getConstructor(Long.class).newInstance(id);
@@ -401,6 +478,13 @@ public class DumpFields {
 		return null;
 	}
 
+	/**
+	 * Creates the contents empty.
+	 *
+	 * @param <T> the generic type
+	 * @param clazz the clazz
+	 * @return the t
+	 */
 	public static <T> T createContentsEmpty(Class<T> clazz) {
 		try {
 			return clazz.getConstructor().newInstance();
@@ -420,6 +504,12 @@ public class DumpFields {
 		return null;
 	}
 
+	/**
+	 * Checks if is setter.
+	 *
+	 * @param method the method
+	 * @return true, if is setter
+	 */
 	public static boolean isSetter(Method method) {
 		return Modifier.isPublic(method.getModifiers())
 				&& method.getReturnType().equals(void.class)
@@ -427,6 +517,12 @@ public class DumpFields {
 				&& method.getName().matches("^set[A-Z].*");
 	}
 
+	/**
+	 * Checks if is getter.
+	 *
+	 * @param method the method
+	 * @return true, if is getter
+	 */
 	public static boolean isGetter(Method method) {
 		if (Modifier.isPublic(method.getModifiers())
 				&& method.getParameterTypes().length == 0) {
@@ -442,10 +538,10 @@ public class DumpFields {
 
 	/**
 	 * scinder find getter et find setters pourrait etre plus interessant pour
-	 * la suite
+	 * la suite.
 	 *
-	 * @param c
-	 * @return
+	 * @param c the c
+	 * @return the array list
 	 */
 	public static ArrayList<Method> findGettersSetters(Class c) {
 		ArrayList<Method> list = new ArrayList<Method>();
@@ -457,10 +553,10 @@ public class DumpFields {
 	}
 
 	/**
-	 * This method return the setter associated to the given field
+	 * This method return the setter associated to the given field.
 	 *
-	 * @param field
-	 * @return
+	 * @param field the field
+	 * @return the setter
 	 */
 	public static Method getSetter(Field field) {
 		// MZ: Find the correct method
@@ -478,10 +574,10 @@ public class DumpFields {
 	}
 
 	/**
-	 * This method return the getter associated to the given field
+	 * This method return the getter associated to the given field.
 	 *
-	 * @param field
-	 * @return
+	 * @param field the field
+	 * @return the getter
 	 */
 	public static Method getGetter(Field field) {
 		// MZ: Find the correct method
@@ -498,6 +594,13 @@ public class DumpFields {
 		return null;
 	}
 
+	/**
+	 * Gets the associated DB.
+	 *
+	 * @param <O> the generic type
+	 * @param item the item
+	 * @return the associated DB
+	 */
 	public static <O extends DBItem> Class getAssociatedDB(O item) {
 
 		String classSimpleName = item.getClass().getSimpleName();

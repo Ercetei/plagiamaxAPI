@@ -5,8 +5,21 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GenericMerger.
+ */
 public class GenericMerger {
 
+    /**
+     * Merge.
+     *
+     * @param <T> the generic type
+     * @param dbItem the db item
+     * @param partialItem the partial item
+     * @param klazz the klazz
+     * @return the t
+     */
     public static <T> T merge(T dbItem, T partialItem, Class<?> klazz) {
 
         ArrayList<Field> fields = DumpFields.getFields(klazz);
