@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -14,7 +15,6 @@ import com.infotel.plagiamax.contract.BetLineContract;
 import com.infotel.plagiamax.contract.UserContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Bet.
  */
@@ -31,9 +31,6 @@ public class Bet extends DBItem {
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, mappedBy = BetLineContract.ASSOCIATION_BET)
 	@JsonIgnoreProperties({ BetLineContract.ASSOCIATION_BET })
 	private List<BetLine> betlines;
-
-	/** The label. */
-	private String label;
 	
 	/** The betdate. */
 	private Date betdate;
@@ -42,6 +39,7 @@ public class Bet extends DBItem {
 	private Float betamount;
 	
 	/** The status. */
+	@Column(columnDefinition="int default 1")
 	private Integer status;
 
 	/**
@@ -78,24 +76,6 @@ public class Bet extends DBItem {
 	 */
 	public void setid(Long id) {
 		this.id = id;
-	}
-
-	/**
-	 * Gets the label.
-	 *
-	 * @return the label
-	 */
-	public String getLabel() {
-		return label;
-	}
-
-	/**
-	 * Sets the label.
-	 *
-	 * @param label the new label
-	 */
-	public void setLabel(String label) {
-		this.label = label;
 	}
 
 	/**

@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 import com.infotel.plagiamax.model.User;
 import com.infotel.plagiamax.repository.base.IBaseRepository;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface UserCrudRepository.
  */

@@ -12,12 +12,12 @@ INSERT INTO category_competitions VALUES(1, 2);
 
 INSERT INTO season VALUES(null, "2019-07-15", "2018-08-15", 1, 1);
 
-INSERT INTO matchday values(null, "1e journÃ©e", 1);
-INSERT INTO matchday values(null, "2e journÃ©e", 1);
-INSERT INTO matchday values(null, "3e journÃ©e", 1);
+INSERT INTO matchday values(null, "1e journée", 1);
+INSERT INTO matchday values(null, "2e journée", 1);
+INSERT INTO matchday values(null, "3e journée", 1);
 
-INSERT INTO match_vs VALUES(null, "2018-08-18", 2, 1, 2);
-INSERT INTO match_vs VALUES(null, "2018-09-01", 1, 3, 3);
+INSERT INTO match_vs VALUES(null, "2018-08-18", 5, 1, 2);
+INSERT INTO match_vs VALUES(null, "2018-09-01", 3, 3, 3);
 
 INSERT INTO team VALUES(null, null, "Paris Saint-Germain", 1, 1);
 INSERT INTO team VALUES(null, null, "Stade Rennais", 1, 1);
@@ -106,15 +106,15 @@ INSERT INTO matchbet VALUES
 (30, 2, null);
 
 INSERT INTO bet VALUES
-(null, 10, "2018-08-12", null, 2, 1),
-(null, 15, "2018-08-14", null, 2, 1),
-(null, 5, "2018-09-05", null, 1, 1);
+(null, 10, "2018-08-12", 3.14, 2, 2),
+(null, 15, "2018-08-14", 2.1, 2, 3),
+(null, 5, "2018-09-05", 5.5, 1, 1);
 
 INSERT INTO betline VALUES
-(null, 3.22, 1, 3),
-(null, 3.15, 2, 14),
-(null, 3.15, 3, 16),
-(null, 3.15, 3, 19);
+(null, 2, 1, 3),
+(null, 3, 2, 14),
+(null, 1, 3, 16),
+(null, 1, 3, 19);
 
 INSERT INTO player VALUES
 (null, "1955-08-01", "Julien", "Lepers", 1, 1),
