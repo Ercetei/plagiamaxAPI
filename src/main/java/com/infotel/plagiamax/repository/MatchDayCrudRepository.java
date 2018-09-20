@@ -17,5 +17,4 @@ public interface MatchDayCrudRepository extends IBaseRepository<MatchDay, Long> 
 	@Query(value = ("SELECT md FROM MatchDay md INNER JOIN Season s ON md.season.id = s.id "
 			+ "INNER JOIN Competition cn ON s.competition.id = cn.id WHERE cn.id = ?1"))
 	List<MatchDay> findByCompetitionId(Long competition_id);
-	
 }

@@ -18,4 +18,5 @@ public class TeamController extends BaseRestController<Team, Long> {
 
     /** The Constant BASE_URL. */
     public static final String BASE_URL = "/team";
+    
 }

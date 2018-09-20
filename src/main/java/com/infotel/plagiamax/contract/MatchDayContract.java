@@ -1,6 +1,5 @@
 package com.infotel.plagiamax.contract;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Abstract Class MatchDayContract.
  */
@@ -14,4 +13,5 @@ public abstract class MatchDayContract {
 
 	/** The Constant ASSOCIATION_SEASON. */
 	public static final String ASSOCIATION_SEASON = "season";
+
 }

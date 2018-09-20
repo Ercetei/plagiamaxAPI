@@ -13,7 +13,6 @@ import com.infotel.plagiamax.model.MatchDay;
 import com.infotel.plagiamax.model.Competition;
 import com.infotel.plagiamax.repository.MatchDayCrudRepository;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class CompetitionController.
  */
