@@ -38,10 +38,19 @@ public class Bet extends DBItem {
 	/** The betamount. */
 	private Float betamount;
 	
-	/** The status. */
+	/** The status. 
+	 * 
+	 * 1. En cours
+	 * 2. Gagné
+	 * 3. Perdu
+	 * 
+	 * */
 	@Column(columnDefinition="int default 1")
 	private Integer status;
 
+	/** The momentodds. */
+	private Long momentodds;
+	
 	/**
 	 * Gets the betlines.
 	 *
@@ -148,6 +157,24 @@ public class Bet extends DBItem {
 	 */
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	/**
+	 * Gets the momentodds.
+	 *
+	 * @return the momentodds
+	 */
+	public Long getMomentodds() {
+		return momentodds;
+	}
+
+	/**
+	 * Sets the momentodds.
+	 *
+	 * @param momentodds the new momentodds
+	 */
+	public void setMomentodds(Long momentodds) {
+		this.momentodds = momentodds;
 	}
 
 	/**

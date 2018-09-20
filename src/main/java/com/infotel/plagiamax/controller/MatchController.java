@@ -27,18 +27,18 @@ import com.infotel.plagiamax.utils.GenericMerger;
 @RestController
 @RequestMapping(MatchController.BASE_URL)
 public class MatchController extends BaseRestController<Match, Long> {
-	
+
 	/** The Constant BASE_URL. */
 	public static final String BASE_URL = "/match";
 
 	@Autowired
 	private MatchCrudRepository matchCrud;
 	Firebase firebase;
-	
+
 	@RequestMapping(path = { "/", "" }, method = RequestMethod.GET)
 	public ResponseEntity<Iterable<Match>> index() {
 		Iterable<Match> matchs = matchCrud.findAll();
-				
+
 		new ResponseEntity<Match>(HttpStatus.OK);
 		return ResponseEntity.ok(matchs);
 	}
@@ -49,24 +49,25 @@ public class MatchController extends BaseRestController<Match, Long> {
 		Match updatedMatch = GenericMerger.<Match>merge(matchToUpdate.get(), match, match.getClass());
 
 		if (updatedMatch.getStatus() == 5) {
+			MatchService.managedWinnings(updatedMatch);
 			deleteMatchFromFirebase(updatedMatch);
 		}
-		
+
 		postMatchToFirebase(updatedMatch);
 
 		return ResponseEntity.ok(matchCrud.save(updatedMatch));
 	}
-	
+
 	@RequestMapping(path = { "/{index}" }, method = RequestMethod.PUT)
 	public ResponseEntity<Match> updateItem(@PathVariable("index") Long index, @RequestBody Match match) {
 		match.setId((Long) index);
 		Match putMatch = matchCrud.save(match);
 		new ResponseEntity<Match>(HttpStatus.OK);
-		
+
 		if (putMatch.getStatus() == 5) {
 			deleteMatchFromFirebase(putMatch);
 		}
-		
+
 		postMatchToFirebase(putMatch);
 		return ResponseEntity.ok(putMatch);
 	}
@@ -83,6 +84,7 @@ public class MatchController extends BaseRestController<Match, Long> {
 
 	/**
 	 * Delete the row from firebase if it is not useful anymore.
+	 * 
 	 * @param match
 	 */
 	public void deleteMatchFromFirebase(Match match) {
@@ -93,6 +95,7 @@ public class MatchController extends BaseRestController<Match, Long> {
 
 	/**
 	 * Create or update a row for a match in the firebase database.
+	 * 
 	 * @param match
 	 */
 	public void postMatchToFirebase(Match match) {

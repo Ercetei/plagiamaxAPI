@@ -34,7 +34,12 @@ public abstract class BetType extends DBItem {
 	/** The status. */
 	protected Integer status;
 	
-	/** The type. */
+	/** The type. 
+	 * 
+		1. Vainqueur
+		2. Score exact
+		3. Buts
+	*/
 	protected Integer type;
 
 	/** The betlines. */

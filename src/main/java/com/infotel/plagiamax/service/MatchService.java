@@ -1,14 +1,29 @@
 package com.infotel.plagiamax.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.api.client.util.ArrayMap;
+import com.infotel.plagiamax.model.Event;
 import com.infotel.plagiamax.model.Match;
+import com.infotel.plagiamax.model.MatchBet;
+import com.infotel.plagiamax.model.MatchTeam;
+import com.infotel.plagiamax.model.Team;
+import com.infotel.plagiamax.repository.TeamCrudRepository;
 
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 
 @Service
 public class MatchService {
+	
+	@Autowired
+	static TeamCrudRepository teamCrud;
 
 	/**
 	 * Parse to JSON Object a match component to be send to Firebase Database
@@ -107,5 +122,37 @@ public class MatchService {
 		jsonInfo.put("matchbets", matchbetsArray);
 
 		return jsonInfo;
+	}
+	
+	/**
+	 * Manage the winnings when a match is over and update the wallet
+	 * for every user who won something betting on it.
+	 * @param match
+	 */
+	public static void managedWinnings(Match match) {
+		/**
+		 * 1. Faire sortir les matchbets qui étendent des bettypes
+		 * 2. comparer chaque matchbet avec tous les events du match (voir status)
+		 * 3. si ils sont égaux, modifier le status de la betline à 2, sinon 3
+		 * 4. si parmis les betlines, aucun n'est à 3 ou 1, on fait le calcul:
+		 * bet.momentodds * bet.betamount
+		 * 
+		 */
+		
+		Map<Team, Integer> teams = new ArrayMap<Team, Integer>();
+		
+		for(MatchTeam matchTeam: match.getMatchteams()) {
+			//teams.add(matchTeam.getTeam());
+			teams.put(matchTeam.getTeam(), getScoreTeam(matchTeam.getTeam(), match));
+			System.out.println("test");
+		}
+		
+		for (MatchBet matchBet : match.getMatchbets()) {
+		}
+	}
+	
+	private static Integer getScoreTeam(Team team, Match match) {
+		
+		return teamCrud.getTeamScoreByMatch(team.getId(), match.getId());
 	}
 }
