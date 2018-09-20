@@ -12,6 +12,8 @@ import com.infotel.plagiamax.repository.base.IBaseRepository;
 @Repository
 public interface TeamCrudRepository extends IBaseRepository<Team, Long>{
 	
-	@Query(value = ("SELECT COUNT(ev) FROM Event ev WHERE ev.team.id = ?1 AND ev.match.id = ?2 AND status = 1"))
+	@Query(value = ("SELECT count(ev.id) FROM Event ev "
+			+ "WHERE ev.team.id = ?1 AND ev.match.id = ?2 AND ev.status = 1"))
 	Integer getTeamScoreByMatch(Long team_id, Long match_id);
+	
 }

@@ -1,6 +1,7 @@
 package com.infotel.plagiamax.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -9,7 +10,6 @@ import com.infotel.plagiamax.model.BetType;
 import com.infotel.plagiamax.model.MatchBet;
 import com.infotel.plagiamax.repository.base.IBaseRepository;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface MatchBetCrudRepository.
  */
@@ -48,4 +48,7 @@ public interface MatchBetCrudRepository extends IBaseRepository<MatchBet, Long> 
 	 * @return the list
 	 */
 	List<BetType> findByMatch(Long match_id);
+	
+	
+	Optional<MatchBet> findById(Long id);
 }

@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -23,6 +24,7 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 @EnableWebSecurity
 @EnableAutoConfiguration
+@EnableTransactionManagement
 //@EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableGlobalMethodSecurity(securedEnabled = true)
 /**
@@ -53,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 				.antMatchers(HttpMethod.GET, "/matchbet", "/matchbet/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/matchday", "/matchday/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/bettype", "/bettype/**").permitAll()
-				.anyRequest().authenticated()
+				.anyRequest().anonymous()
 			.and()
 				.formLogin()
 					.loginPage("/login")
@@ -86,6 +88,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/user/register", "/user/register/**");
+		web.ignoring().antMatchers("/**");
 	}
 	
 	/**
