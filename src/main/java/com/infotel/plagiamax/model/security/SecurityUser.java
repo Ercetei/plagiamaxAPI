@@ -30,14 +30,14 @@ public abstract class SecurityUser extends DBItem {
 	@JsonIgnoreProperties({ "users" })
 	private Set<SecurityRole> roles;
 
-	@Convert(converter = CryptoConverter.class)
-	private String creditcard;
-
-	@Convert(converter = CryptoConverter.class)
-	private String expirationdate;
-
-	@Convert(converter = CryptoConverter.class)
-	private String cryptogram;
+//	@Convert(converter = CryptoConverter.class)
+//	private String creditcard;
+//
+//	@Convert(converter = CryptoConverter.class)
+//	private String expirationdate;
+//
+//	@Convert(converter = CryptoConverter.class)
+//	private String cryptogram;
 
 	/**
 	 * @return the login
@@ -95,29 +95,29 @@ public abstract class SecurityUser extends DBItem {
 		this.roles = roles;
 	}
 
-	public String getCreditcard() {
-		return creditcard;
-	}
-
-	public void setCreditcard(String creditcard) {
-		this.creditcard = creditcard;
-	}
-
-	public String getExpirationdate() {
-		return expirationdate;
-	}
-
-	public void setExpirationdate(String expirationdate) {
-		this.expirationdate = expirationdate;
-	}
-
-	public String getCryptogram() {
-		return cryptogram;
-	}
-
-	public void setCryptogram(String cryptogram) {
-		this.cryptogram = cryptogram;
-	}
+//	public String getCreditcard() {
+//		return creditcard;
+//	}
+//
+//	public void setCreditcard(String creditcard) {
+//		this.creditcard = creditcard;
+//	}
+//
+//	public String getExpirationdate() {
+//		return expirationdate;
+//	}
+//
+//	public void setExpirationdate(String expirationdate) {
+//		this.expirationdate = expirationdate;
+//	}
+//
+//	public String getCryptogram() {
+//		return cryptogram;
+//	}
+//
+//	public void setCryptogram(String cryptogram) {
+//		this.cryptogram = cryptogram;
+//	}
 
 	public SecurityUser() {
 		super();
