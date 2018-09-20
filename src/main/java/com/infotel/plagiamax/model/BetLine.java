@@ -12,7 +12,6 @@ import com.infotel.plagiamax.contract.PlayerBetContract;
 import com.infotel.plagiamax.contract.TeamBetContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class BetLine.
  */
@@ -20,8 +19,14 @@ import com.infotel.plagiamax.model.base.DBItem;
 @Table(name = "betline")
 public class BetLine extends DBItem {
 
-	/** The momentodds. */
-	private Long momentodds;
+	/** The status. 
+	 * 
+	 * 1. En cours
+	 * 2. Gagné
+	 * 3. Perdu
+	 * 
+	 */
+	private Integer status;
 
 	/** The bet. */
 	@ManyToOne
@@ -33,6 +38,25 @@ public class BetLine extends DBItem {
 	@JsonIgnoreProperties({ BetTypeContract.ASSOCIATION_BETLINE, MatchBetContract.ASSOCIATION_MATCH,
 			MatchBetContract.ASSOCIATION_TEAM, TeamBetContract.ASSOCIATION_TEAM, PlayerBetContract.ASSOCIATION_PLAYER })
 	private BetType bettype;
+
+	
+	/**
+	 * Get the status.
+	 * 
+	 * @return
+	 */
+	public Integer getStatus() {
+		return status;
+	}
+
+	/**
+	 * Set the status.
+	 * 
+	 * @param status
+	 */
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 
 	/**
 	 * Gets the bet.
@@ -68,24 +92,6 @@ public class BetLine extends DBItem {
 	 */
 	public void setBettype(BetType bettype) {
 		this.bettype = bettype;
-	}
-
-	/**
-	 * Gets the momentodds.
-	 *
-	 * @return the momentodds
-	 */
-	public Long getMomentodds() {
-		return momentodds;
-	}
-
-	/**
-	 * Sets the momentodds.
-	 *
-	 * @param momentodds the new momentodds
-	 */
-	public void setMomentodds(Long momentodds) {
-		this.momentodds = momentodds;
 	}
 
 	/**

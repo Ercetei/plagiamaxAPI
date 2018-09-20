@@ -14,7 +14,6 @@ import com.infotel.plagiamax.contract.BetLineContract;
 import com.infotel.plagiamax.contract.UserContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Bet.
  */
@@ -41,9 +40,18 @@ public class Bet extends DBItem {
 	/** The betamount. */
 	private Float betamount;
 	
-	/** The status. */
+	/** The status. 
+	 * 
+	 * 1. En cours
+	 * 2. Gagné
+	 * 3. Perdu
+	 * 
+	 * */
 	private Integer status;
 
+	/** The momentodds. */
+	private Long momentodds;
+	
 	/**
 	 * Gets the betlines.
 	 *
@@ -168,6 +176,24 @@ public class Bet extends DBItem {
 	 */
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	/**
+	 * Gets the momentodds.
+	 *
+	 * @return the momentodds
+	 */
+	public Long getMomentodds() {
+		return momentodds;
+	}
+
+	/**
+	 * Sets the momentodds.
+	 *
+	 * @param momentodds the new momentodds
+	 */
+	public void setMomentodds(Long momentodds) {
+		this.momentodds = momentodds;
 	}
 
 	/**

@@ -22,7 +22,6 @@ import com.infotel.plagiamax.repository.UserCrudRepository;
 import com.infotel.plagiamax.service.MatchService;
 import com.infotel.plagiamax.utils.JsonManager;
 
-import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 
 @Component

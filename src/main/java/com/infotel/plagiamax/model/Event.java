@@ -18,7 +18,15 @@ import com.infotel.plagiamax.model.base.DBItem;
 @Table(name = "event")
 public class Event extends DBItem {
 
-	/** The status. */
+	/** The status. 
+	 * 
+	 * 1. BUT
+	 * 2. Carton jaune
+	 * 3. Carton rouge
+	 * 4. Blessure
+	 * 5. Penalty
+	 * 
+	 */
 	private Integer status;
 	
 	/** The statustime. */
