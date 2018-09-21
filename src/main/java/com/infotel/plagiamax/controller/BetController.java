@@ -37,6 +37,6 @@ public class BetController extends BaseRestController<Bet, Long>{
 	/** The bet crud repository. */
 	@Autowired
 	BetCrudRepository betCrudRepository;
-	
+
 }
 

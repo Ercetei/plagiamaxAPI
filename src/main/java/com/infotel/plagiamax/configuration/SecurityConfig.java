@@ -17,7 +17,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SecurityConfig.
  */
@@ -55,7 +54,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 				.antMatchers(HttpMethod.GET, "/matchbet", "/matchbet/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/matchday", "/matchday/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/bettype", "/bettype/**").permitAll()
-				.anyRequest().anonymous()
+				.antMatchers(HttpMethod.GET, "/bet", "/bet/**").permitAll()
+				.antMatchers(HttpMethod.GET, "/betline", "/betline/**").permitAll()
+				.anyRequest().authenticated()
+
 			.and()
 				.formLogin()
 					.loginPage("/login")
@@ -75,7 +77,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 					.ignoringAntMatchers("/competition/**")
 					.ignoringAntMatchers("/matchday/**", "/matchday/")
 					.ignoringAntMatchers("/login")
+					.ignoringAntMatchers("/user", "/user/**")
 					.ignoringAntMatchers("/firebase/**")
+					.ignoringAntMatchers("/bet/**")
 			.and()
         		.httpBasic()
         	.and()
@@ -88,7 +92,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/user/register", "/user/register/**");
-		web.ignoring().antMatchers("/**");
 	}
 	
 	/**
