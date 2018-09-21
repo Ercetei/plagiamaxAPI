@@ -12,17 +12,18 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SecurityConfig.
  */
 @Configuration
 @EnableWebSecurity
 @EnableAutoConfiguration
+@EnableTransactionManagement
 //@EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableGlobalMethodSecurity(securedEnabled = true)
 /**
@@ -56,6 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 				.antMatchers(HttpMethod.GET, "/bet", "/bet/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/betline", "/betline/**").permitAll()
 				.anyRequest().authenticated()
+
 			.and()
 				.formLogin()
 					.loginPage("/login")
