@@ -48,7 +48,7 @@ public class Bet extends DBItem {
 	private Integer status;
 
 	/** The momentodds. */
-	private Long momentodds;
+	private Float momentodds;
 	
 	/**
 	 * Gets the betlines.
@@ -163,7 +163,7 @@ public class Bet extends DBItem {
 	 *
 	 * @return the momentodds
 	 */
-	public Long getMomentodds() {
+	public Float getMomentodds() {
 		return momentodds;
 	}
 
@@ -172,7 +172,7 @@ public class Bet extends DBItem {
 	 *
 	 * @param momentodds the new momentodds
 	 */
-	public void setMomentodds(Long momentodds) {
+	public void setMomentodds(Float momentodds) {
 		this.momentodds = momentodds;
 	}
 
