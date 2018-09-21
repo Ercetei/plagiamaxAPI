@@ -33,8 +33,12 @@ public class MatchController extends BaseRestController<Match, Long> {
 
 	@Autowired
 	private MatchCrudRepository matchCrud;
-	Firebase firebase;
+	
+	private Firebase firebase;
 
+	@Autowired
+	private MatchService matchService;
+	
 	@RequestMapping(path = { "/", "" }, method = RequestMethod.GET)
 	public ResponseEntity<Iterable<Match>> index() {
 		Iterable<Match> matchs = matchCrud.findAll();
@@ -49,7 +53,7 @@ public class MatchController extends BaseRestController<Match, Long> {
 		Match updatedMatch = GenericMerger.<Match>merge(matchToUpdate.get(), match, match.getClass());
 
 		if (updatedMatch.getStatus() == 5) {
-			MatchService.managedWinnings(updatedMatch);
+			matchService.managedWinnings(updatedMatch);
 			deleteMatchFromFirebase(updatedMatch);
 		}
 

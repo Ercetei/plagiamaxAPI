@@ -13,7 +13,7 @@ import com.infotel.plagiamax.repository.base.IBaseRepository;
  */
 @Repository
 public interface BetCrudRepository extends IBaseRepository<Bet, Long> {
-
+	
 	/**
 	 * Find by user id.
 	 *
@@ -21,4 +21,5 @@ public interface BetCrudRepository extends IBaseRepository<Bet, Long> {
 	 * @return the list
 	 */
 	List<Bet> findByUserId(Long user_id);
+	
 }

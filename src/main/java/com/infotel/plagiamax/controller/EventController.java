@@ -16,4 +16,5 @@ public class EventController extends BaseRestController<Event, Long>{
 	
 	/** The Constant BASE_URL. */
 	public static final String BASE_URL = "/event";
+	
 }

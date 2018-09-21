@@ -1,29 +1,50 @@
 package com.infotel.plagiamax.service;
 
-import java.util.ArrayList;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.google.api.client.util.ArrayMap;
+import com.infotel.plagiamax.model.BetLine;
 import com.infotel.plagiamax.model.Event;
 import com.infotel.plagiamax.model.Match;
-import com.infotel.plagiamax.model.MatchBet;
+import com.infotel.plagiamax.model.MatchDay;
 import com.infotel.plagiamax.model.MatchTeam;
 import com.infotel.plagiamax.model.Team;
+
+import com.infotel.plagiamax.repository.BetLineCrudRepository;
+import com.infotel.plagiamax.repository.EventCrudRepository;
+import com.infotel.plagiamax.repository.MatchBetCrudRepository;
 import com.infotel.plagiamax.repository.TeamCrudRepository;
 
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 
 @Service
+@Transactional
 public class MatchService {
 	
 	@Autowired
-	static TeamCrudRepository teamCrud;
+	private EventCrudRepository eventCrud;
+	
+	@Autowired
+	private TeamCrudRepository teamCrud;
+	
+	@Autowired
+	private BetLineCrudRepository betLineCrud;
+	
+	@Autowired
+	private MatchBetCrudRepository matchBetCrud;
+
+	private Long idBetMatch;
 
 	/**
 	 * Parse to JSON Object a match component to be send to Firebase Database
@@ -129,7 +150,7 @@ public class MatchService {
 	 * for every user who won something betting on it.
 	 * @param match
 	 */
-	public static void managedWinnings(Match match) {
+	public void managedWinnings(Match match) {
 		/**
 		 * 1. Faire sortir les matchbets qui étendent des bettypes
 		 * 2. comparer chaque matchbet avec tous les events du match (voir status)
@@ -138,21 +159,132 @@ public class MatchService {
 		 * bet.momentodds * bet.betamount
 		 * 
 		 */
-		
-		Map<Team, Integer> teams = new ArrayMap<Team, Integer>();
+		Team keyWin = new Team();
+		Integer valueWin = 0;
+		Integer nbGoal = 0 ;
+		Boolean theBet = false ;
+		Boolean matchNul = false;
+		String scoreExact = "" ;
+		Float amountWin = 0F ;
+//		Long idBetMatch = 0L ;
+		Map<Team, Integer> teams = new HashMap<Team, Integer>();
 		
 		for(MatchTeam matchTeam: match.getMatchteams()) {
-			//teams.add(matchTeam.getTeam());
-			teams.put(matchTeam.getTeam(), getScoreTeam(matchTeam.getTeam(), match));
-			System.out.println("test");
-		}
+			if(matchTeam.getIshometeam()) {
+				Integer teamGoal = teamCrud.getTeamScoreByMatch(matchTeam.getTeam().getId(), match.getId());
+				teams.put(matchTeam.getTeam(), teamGoal);
+				scoreExact = teamGoal.toString() ;
+			}
+		}	
 		
-		for (MatchBet matchBet : match.getMatchbets()) {
+		for(MatchTeam matchTeam: match.getMatchteams()) {
+			if(!matchTeam.getIshometeam()) {
+				Integer teamGoal = teamCrud.getTeamScoreByMatch(matchTeam.getTeam().getId(), match.getId());
+				teams.put(matchTeam.getTeam(), teamGoal);
+				scoreExact += "-" + teamGoal ;
+			}
 		}
-	}
+		System.out.println(scoreExact);
 	
-	private static Integer getScoreTeam(Team team, Match match) {
+		/**
+		 * Comparaison de l'équipe avec l'équipe gagnante
+		 *  -si le nombre de but courrant > à équipe gagnante remplace équipe gagnante par équipe courrante 
+		 */
+		for(Map.Entry<Team, Integer> t : teams.entrySet() ) {
+			Team keyCurrent = t.getKey() ;
+			Integer valueCurrent = t.getValue() ;
+			nbGoal = nbGoal + valueCurrent ;
+			System.out.println("Key : " + keyCurrent.getLabel() + " Value : " + valueCurrent);
+			
+			if (valueCurrent > valueWin) {
+				keyWin = t.getKey() ;
+				valueWin = t.getValue() ;
+				System.out.println("Valeur plus grande");
+				matchNul = false ;
+			}
+			else if(valueCurrent == valueWin){
+				matchNul = true;
+			}
+			
+		}
+		System.out.println("equipe gagne : " + keyWin.getLabel() + " avec nb but : " + valueWin);
+		System.out.println("Nombre de buts : " + nbGoal);
 		
-		return teamCrud.getTeamScoreByMatch(team.getId(), match.getId());
+		List<BetLine> betlines = betLineCrud.getCurrentBetLineByMatch(match.getId());
+		
+		/**
+		 * Vérifier si l'id de l'équipe gagnante = id equipe pari
+		 */
+		for (BetLine bl : betlines) {
+			theBet = false ;
+			// Récuperer l'équipe que l'utilisateur a parié
+			Team teamBet = matchBetCrud.findById(bl.getBettype().getId()).get().getTeam() ;
+			
+			if (bl.getBettype().getType() == 1) {
+				
+				System.out.println("Type sur Vainqueur");
+				
+				if (matchNul == false && teamBet != null) {
+					
+					idBetMatch = teamBet.getId();
+					
+					System.out.println(keyWin.getId() + " / " + teamBet.getId());
+					
+					if(keyWin.getId() == idBetMatch) {
+						theBet = true ;
+					}
+
+				}
+				else if (matchNul == true && teamBet == null) {
+					theBet = true ;
+					System.out.println(bl.getBettype().getLabel());
+				}
+				
+			}
+			else if (bl.getBettype().getType() == 2) {
+				System.out.println("Type sur Score exact");
+				System.out.println(bl.getBettype().getLabel());
+				
+				if(scoreExact.equals(bl.getBettype().getLabel())) {
+					theBet = true ;
+				}
+				
+			}
+			else if (bl.getBettype().getType() == 3) {
+				System.out.println("Type sur Buts");
+				Float testNbGoal = Float.parseFloat(bl.getBettype().getLabel().substring(1)) ;
+				System.out.println(nbGoal + " / " + testNbGoal);
+
+				System.out.println(bl.getBettype().getLabel().substring(0,1));
+				if ( bl.getBettype().getLabel().substring(0,1).equals("+") ) {
+					if (nbGoal > testNbGoal) {
+						theBet = true ;
+					}
+				}else if ( bl.getBettype().getLabel().substring(0,1).equals("-")) {
+					if (nbGoal < testNbGoal) {
+						theBet = true ;
+					}
+				}
+			}
+			
+			
+			if(theBet == true) {
+				System.out.println("Gagné");
+				amountWin = bl.getBet().getMomentodds() * bl.getBet().getBetamount() + bl.getBet().getUser().getWallet() ; 
+				bl.getBet().getUser().setWallet(amountWin);
+				System.out.println("odds : " + bl.getBet().getMomentodds() + " amount : " + bl.getBet().getBetamount());
+				System.out.println(bl.getBet().getUser().getWallet());
+
+				bl.setStatus(2);
+			}else {
+				System.out.println("Perdu");
+				bl.setStatus(3);
+			}
+			System.out.println(bl.getStatus());
+			
+			
+			
+		}
+		
 	}
 }
