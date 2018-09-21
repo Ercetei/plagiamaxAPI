@@ -24,6 +24,7 @@ import com.infotel.plagiamax.repository.BetLineCrudRepository;
 import com.infotel.plagiamax.repository.EventCrudRepository;
 import com.infotel.plagiamax.repository.MatchBetCrudRepository;
 import com.infotel.plagiamax.repository.TeamCrudRepository;
+import com.infotel.plagiamax.repository.UserCrudRepository;
 
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
@@ -32,8 +33,6 @@ import net.minidev.json.JSONObject;
 @Transactional
 public class MatchService {
 	
-	@Autowired
-	private EventCrudRepository eventCrud;
 	
 	@Autowired
 	private TeamCrudRepository teamCrud;
@@ -43,6 +42,10 @@ public class MatchService {
 	
 	@Autowired
 	private MatchBetCrudRepository matchBetCrud;
+	
+	@Autowired
+	private UserCrudRepository userCrud;	
+	
 
 	private Long idBetMatch;
 
@@ -272,6 +275,10 @@ public class MatchService {
 				System.out.println("Gagné");
 				amountWin = bl.getBet().getMomentodds() * bl.getBet().getBetamount() + bl.getBet().getUser().getWallet() ; 
 				bl.getBet().getUser().setWallet(amountWin);
+				
+				// save wallet user
+				userCrud.save(bl.getBet().getUser());
+				
 				System.out.println("odds : " + bl.getBet().getMomentodds() + " amount : " + bl.getBet().getBetamount());
 				System.out.println(bl.getBet().getUser().getWallet());
 
@@ -280,6 +287,8 @@ public class MatchService {
 				System.out.println("Perdu");
 				bl.setStatus(3);
 			}
+			
+			betLineCrud.save(bl);
 			System.out.println(bl.getStatus());
 			
 			
