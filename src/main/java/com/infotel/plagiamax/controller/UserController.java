@@ -37,13 +37,16 @@ public class UserController extends BaseRestController<User, Long> {
 	/** The user crud. */
 	@Autowired
 	private UserCrudRepository userCrud;
-	
+
 	/** The bet crud. */
 	@Autowired
 	private BetCrudRepository betCrud;
 
-	/* (non-Javadoc)
-	 * @see com.infotel.plagiamax.controller.base.BaseRestController#registerUser(java.lang.Object)
+	/**
+	 * Register user.
+	 *
+	 * @param newUser the new user
+	 * @return the response entity
 	 */
 	@RequestMapping(path = { "/register" }, method = RequestMethod.POST, consumes = {
 			MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_JSON_VALUE })
@@ -58,10 +61,10 @@ public class UserController extends BaseRestController<User, Long> {
 		userCrud.save(newUser);
 		newUser.setPassword(null);
 		patchFirebaseUser(newUser);
-		
+
 		return ResponseEntity.ok(newUser);
 	}
-	
+
 	/**
 	 * Gets the bet by user.
 	 *
@@ -74,7 +77,7 @@ public class UserController extends BaseRestController<User, Long> {
 		new ResponseEntity<User>(HttpStatus.OK);
 		return ResponseEntity.ok(item);
 	}
-	
+
 	@RequestMapping(path = { "/{index}" }, method = RequestMethod.PATCH)
 	public ResponseEntity<User> updatefields(@PathVariable("index") Long index, @RequestBody User user) {
 		Optional<User> userToUpdate = userCrud.findById(index);
@@ -90,5 +93,5 @@ public class UserController extends BaseRestController<User, Long> {
 		ref.setValueAsync(user.getWallet());
 		ref.push();
 	}
-	
+
 }

@@ -13,37 +13,37 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infotel.plagiamax.contract.BetLineContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class BetType.
  */
 @Entity
 @Table(name = "bettype")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class BetType extends DBItem {
+public class BetType extends DBItem {
 
 	/** The label. */
 	protected String label;
-	
+
 	/** The initialodds. */
 	protected Float initialodds;
-	
+
 	/** The currentodds. */
 	protected Float currentodds;
-	
+
 	/** The status. */
 	protected Integer status;
-	
-	/** The type. 
+
+	/**
+	 * The type.
 	 * 
-		1. Vainqueur
-		2. Score exact
-		3. Buts
-	*/
+	 * 1. Vainqueur 
+	 * 2. Score exact 
+	 * 3. Buts
+	 */
 	protected Integer type;
 
 	/** The betlines. */
-	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = BetLineContract.ASSOCIATION_BETTYPE)
+	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = BetLineContract.ASSOCIATION_BETTYPE)
 	@JsonIgnoreProperties({ BetLineContract.ASSOCIATION_BET, BetLineContract.ASSOCIATION_BETTYPE })
 	protected List<BetLine> betlines;
 

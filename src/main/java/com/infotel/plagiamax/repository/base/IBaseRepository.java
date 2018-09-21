@@ -12,6 +12,6 @@ import org.springframework.data.repository.NoRepositoryBean;
  * @param <ID> the generic type
  */
 @NoRepositoryBean
-public interface IBaseRepository<T, ID extends Serializable> extends CrudRepository<T, ID>{
+public interface IBaseRepository<T, ID extends Serializable> extends CrudRepository<T, ID> {
 
 }

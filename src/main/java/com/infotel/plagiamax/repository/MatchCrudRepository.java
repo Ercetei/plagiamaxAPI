@@ -23,5 +23,6 @@ public interface MatchCrudRepository extends IBaseRepository<Match, Long> {
 			))
 	List<Match> findByMatchDayId(Long matchday_id, Long competition_id);
 	
+	List<Match> findByMatchdayId(Long matchday_id);
 }
 

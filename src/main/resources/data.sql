@@ -24,10 +24,10 @@ INSERT INTO team VALUES(null, null, "Stade Rennais", 1, 1);
 INSERT INTO team VALUES(null, null, "Angers SCO", 1, 1);
 INSERT INTO team VALUES(null, null, "AS Monaco", 1, 1);
 
-INSERT INTO matchteam VALUES(null, true, 1, 1);
-INSERT INTO matchteam VALUES(null, true, 2, 2);
-INSERT INTO matchteam VALUES(null, false, 2, 3);
-INSERT INTO matchteam VALUES(null, false, 1, 4);
+INSERT INTO matchteam VALUES(null, 1, 1, 1);
+INSERT INTO matchteam VALUES(null, 1, 2, 2);
+INSERT INTO matchteam VALUES(null, 0, 2, 3);
+INSERT INTO matchteam VALUES(null, 0, 1, 4);
 
 INSERT INTO security_role VALUES(null, "USER");
 INSERT INTO security_role VALUES(null, "ADMIN");

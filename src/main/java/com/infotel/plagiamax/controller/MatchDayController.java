@@ -1,5 +1,7 @@
 package com.infotel.plagiamax.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,18 +35,19 @@ public class MatchDayController extends BaseRestController<MatchDay, Long> {
 	@Autowired
 	private MatchCrudRepository matchCrud;
 	
-	@RequestMapping(path = { "/{index}/{second}/matchs" }, method = RequestMethod.GET)
-	public ResponseEntity<Iterable<Match>> getMatchByMatchDay(@PathVariable("index") Long index, @PathVariable("second") Long second) {
-		Iterable<Match> item = matchCrud.findByMatchDayId(index, second);
-		new ResponseEntity<MatchDay>(HttpStatus.OK);
-		return ResponseEntity.ok(item);
+	@RequestMapping(path = { "/{index}/matchs" }, method = RequestMethod.GET)
+	public ResponseEntity<List<Match>> getMatchsByMatchDay(@PathVariable("index") Long index) {
+		List<Match> items = matchCrud.findByMatchdayId(index);
+		new ResponseEntity<Match>(HttpStatus.OK);
+		return ResponseEntity.ok(items);
 	}
 	
 	@RequestMapping(path = { "/{index}/matchbets" }, method = RequestMethod.GET)
 	public ResponseEntity<Iterable<BetType>> getMatchBetByMatchDay(@PathVariable("index") Long index) {
-		Iterable<BetType> item = matchBetCrud.findByMatchDayId(index);
-		new ResponseEntity<MatchDay>(HttpStatus.OK);
-		return ResponseEntity.ok(item);
+		Iterable<BetType> items = matchBetCrud.findByMatchDayId(index);
+		new ResponseEntity<BetType>(HttpStatus.OK);
+		return ResponseEntity.ok(items);
+		
 	}
 
 
