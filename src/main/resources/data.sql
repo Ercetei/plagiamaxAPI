@@ -114,7 +114,7 @@ INSERT INTO betline VALUES
 (null, 1, 1, 3),
 (null, 1, 2, 14),
 (null, 1, 3, 16),
-(null, 1, 3, 19);
+(null, 1, 1, 4);
 
 INSERT INTO player VALUES
 (null, "1955-08-01", "Julien", "Lepers", 1, 1),

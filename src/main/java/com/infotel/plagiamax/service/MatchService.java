@@ -1,8 +1,12 @@
 package com.infotel.plagiamax.service;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -12,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.infotel.plagiamax.model.BetLine;
 import com.infotel.plagiamax.model.Event;
 import com.infotel.plagiamax.model.Match;
+import com.infotel.plagiamax.model.MatchDay;
 import com.infotel.plagiamax.model.MatchTeam;
 import com.infotel.plagiamax.model.Team;
 
@@ -158,17 +163,28 @@ public class MatchService {
 		Integer valueWin = 0;
 		Integer nbGoal = 0 ;
 		Boolean theBet = false ;
-		
+		Boolean matchNul = false;
+		String scoreExact = "" ;
+		Float amountWin = 0F ;
 //		Long idBetMatch = 0L ;
 		Map<Team, Integer> teams = new HashMap<Team, Integer>();
-		List<Event> events = (List<Event>) eventCrud.findAll();
 		
 		for(MatchTeam matchTeam: match.getMatchteams()) {
-			Integer teamGoal = teamCrud.getTeamScoreByMatch(matchTeam.getTeam().getId(), match.getId());
-			teams.put(matchTeam.getTeam(), teamGoal);
-			keyWin = matchTeam.getTeam() ;
-			valueWin = teamGoal ;
-		}		
+			if(matchTeam.getIshometeam()) {
+				Integer teamGoal = teamCrud.getTeamScoreByMatch(matchTeam.getTeam().getId(), match.getId());
+				teams.put(matchTeam.getTeam(), teamGoal);
+				scoreExact = teamGoal.toString() ;
+			}
+		}	
+		
+		for(MatchTeam matchTeam: match.getMatchteams()) {
+			if(!matchTeam.getIshometeam()) {
+				Integer teamGoal = teamCrud.getTeamScoreByMatch(matchTeam.getTeam().getId(), match.getId());
+				teams.put(matchTeam.getTeam(), teamGoal);
+				scoreExact += "-" + teamGoal ;
+			}
+		}
+		System.out.println(scoreExact);
 	
 		/**
 		 * Comparaison de l'équipe avec l'équipe gagnante
@@ -178,17 +194,17 @@ public class MatchService {
 			Team keyCurrent = t.getKey() ;
 			Integer valueCurrent = t.getValue() ;
 			nbGoal = nbGoal + valueCurrent ;
-			
 			System.out.println("Key : " + keyCurrent.getLabel() + " Value : " + valueCurrent);
 			
 			if (valueCurrent > valueWin) {
 				keyWin = t.getKey() ;
 				valueWin = t.getValue() ;
 				System.out.println("Valeur plus grande");
+				matchNul = false ;
 			}
-//			else if(valueCurrent == valueDefault){
-//				
-//			}
+			else if(valueCurrent == valueWin){
+				matchNul = true;
+			}
 			
 		}
 		System.out.println("equipe gagne : " + keyWin.getLabel() + " avec nb but : " + valueWin);
@@ -201,25 +217,37 @@ public class MatchService {
 		 */
 		for (BetLine bl : betlines) {
 			theBet = false ;
+			// Récuperer l'équipe que l'utilisateur a parié
+			Team teamBet = matchBetCrud.findById(bl.getBettype().getId()).get().getTeam() ;
+			
 			if (bl.getBettype().getType() == 1) {
 				
 				System.out.println("Type sur Vainqueur");
-				idBetMatch = matchBetCrud.findById(bl.getBettype().getId()).get().getTeam().getId();
 				
-				System.out.println(keyWin.getId() + " / " + matchBetCrud.findById(bl.getBettype().getId()).get().getTeam().getId());
-				
-				if(keyWin.getId() == idBetMatch) {
+				if (matchNul == false && teamBet != null) {
+					
+					idBetMatch = teamBet.getId();
+					
+					System.out.println(keyWin.getId() + " / " + teamBet.getId());
+					
+					if(keyWin.getId() == idBetMatch) {
+						theBet = true ;
+					}
+
+				}
+				else if (matchNul == true && teamBet == null) {
 					theBet = true ;
+					System.out.println(bl.getBettype().getLabel());
 				}
 				
 			}
 			else if (bl.getBettype().getType() == 2) {
 				System.out.println("Type sur Score exact");
-				System.out.println(keyWin.getId() + " / " + bl.getBettype().getLabel());
-
-//				if(keyWin.getId() == idBetMatch) {
-//					theBet = true ;
-//				}
+				System.out.println(bl.getBettype().getLabel());
+				
+				if(scoreExact.equals(bl.getBettype().getLabel())) {
+					theBet = true ;
+				}
 				
 			}
 			else if (bl.getBettype().getType() == 3) {
@@ -229,12 +257,10 @@ public class MatchService {
 
 				System.out.println(bl.getBettype().getLabel().substring(0,1));
 				if ( bl.getBettype().getLabel().substring(0,1).equals("+") ) {
-					System.out.println("ICI");
 					if (nbGoal > testNbGoal) {
 						theBet = true ;
 					}
 				}else if ( bl.getBettype().getLabel().substring(0,1).equals("-")) {
-					System.out.println("LA");
 					if (nbGoal < testNbGoal) {
 						theBet = true ;
 					}
@@ -244,6 +270,11 @@ public class MatchService {
 			
 			if(theBet == true) {
 				System.out.println("Gagné");
+				amountWin = bl.getBet().getMomentodds() * bl.getBet().getBetamount() + bl.getBet().getUser().getWallet() ; 
+				bl.getBet().getUser().setWallet(amountWin);
+				System.out.println("odds : " + bl.getBet().getMomentodds() + " amount : " + bl.getBet().getBetamount());
+				System.out.println(bl.getBet().getUser().getWallet());
+
 				bl.setStatus(2);
 			}else {
 				System.out.println("Perdu");
@@ -252,7 +283,7 @@ public class MatchService {
 			System.out.println(bl.getStatus());
 			
 			
-
+			
 		}
 		
 	}
