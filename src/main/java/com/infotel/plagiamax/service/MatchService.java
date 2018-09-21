@@ -169,6 +169,7 @@ public class MatchService {
 		Boolean matchNul = false;
 		String scoreExact = "" ;
 		Float amountWin = 0F ;
+		Boolean newWallet = true ;
 //		Long idBetMatch = 0L ;
 		Map<Team, Integer> teams = new HashMap<Team, Integer>();
 		
@@ -202,7 +203,6 @@ public class MatchService {
 			if (valueCurrent > valueWin) {
 				keyWin = t.getKey() ;
 				valueWin = t.getValue() ;
-				System.out.println("Valeur plus grande");
 				matchNul = false ;
 			}
 			else if(valueCurrent == valueWin){
@@ -228,25 +228,19 @@ public class MatchService {
 				System.out.println("Type sur Vainqueur");
 				
 				if (matchNul == false && teamBet != null) {
-					
 					idBetMatch = teamBet.getId();
-					
-					System.out.println(keyWin.getId() + " / " + teamBet.getId());
-					
 					if(keyWin.getId() == idBetMatch) {
 						theBet = true ;
 					}
-
 				}
 				else if (matchNul == true && teamBet == null) {
 					theBet = true ;
-					System.out.println(bl.getBettype().getLabel());
 				}
 				
 			}
 			else if (bl.getBettype().getType() == 2) {
+				
 				System.out.println("Type sur Score exact");
-				System.out.println(bl.getBettype().getLabel());
 				
 				if(scoreExact.equals(bl.getBettype().getLabel())) {
 					theBet = true ;
@@ -254,11 +248,10 @@ public class MatchService {
 				
 			}
 			else if (bl.getBettype().getType() == 3) {
+				
 				System.out.println("Type sur Buts");
 				Float testNbGoal = Float.parseFloat(bl.getBettype().getLabel().substring(1)) ;
-				System.out.println(nbGoal + " / " + testNbGoal);
 
-				System.out.println(bl.getBettype().getLabel().substring(0,1));
 				if ( bl.getBettype().getLabel().substring(0,1).equals("+") ) {
 					if (nbGoal > testNbGoal) {
 						theBet = true ;
@@ -268,21 +261,14 @@ public class MatchService {
 						theBet = true ;
 					}
 				}
+				
 			}
 			
-			
+			//Changer le status de betline
 			if(theBet == true) {
 				System.out.println("Gagné");
-				amountWin = bl.getBet().getMomentodds() * bl.getBet().getBetamount() + bl.getBet().getUser().getWallet() ; 
-				bl.getBet().getUser().setWallet(amountWin);
-				
-				// save wallet user
-				userCrud.save(bl.getBet().getUser());
-				
-				System.out.println("odds : " + bl.getBet().getMomentodds() + " amount : " + bl.getBet().getBetamount());
-				System.out.println(bl.getBet().getUser().getWallet());
-
 				bl.setStatus(2);
+
 			}else {
 				System.out.println("Perdu");
 				bl.setStatus(3);
@@ -290,10 +276,31 @@ public class MatchService {
 			
 			betLineCrud.save(bl);
 			System.out.println(bl.getStatus());
-			
-			
-			
+						
 		}
 		
+		for (BetLine bl : betlines) {
+
+			newWallet = true ;
+			Float odds = 0F ;
+			for (BetLine blTest : bl.getBet().getBetlines()) {
+				odds += blTest.getBet().getMomentodds() ;
+				
+				if (blTest.getStatus() == 3) {
+					newWallet = false ;
+				}
+				System.out.println(newWallet);
+			}
+			
+			if (newWallet == true) {
+				amountWin = bl.getBet().getMomentodds() * bl.getBet().getBetamount() + bl.getBet().getUser().getWallet() ; 
+				bl.getBet().getUser().setWallet(amountWin);
+				// save wallet user
+				userCrud.save(bl.getBet().getUser());
+			}
+	
+			System.out.println("odds : " + bl.getBet().getMomentodds() + " amount : " + bl.getBet().getBetamount());
+			System.out.println(bl.getBet().getUser().getWallet());
+		}
 	}
 }
