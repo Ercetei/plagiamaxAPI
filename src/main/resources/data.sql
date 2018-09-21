@@ -18,16 +18,26 @@ INSERT INTO matchday values(null, "3e journée", 1);
 
 INSERT INTO match_vs VALUES(null, "2018-08-18", 5, 1, 2);
 INSERT INTO match_vs VALUES(null, "2018-09-01", 3, 3, 3);
+INSERT INTO match_vs VALUES(null, "2018-10-01", 3, 3, 3);
+INSERT INTO match_vs VALUES(null, "2018-11-01", 3, 3, 3);
 
 INSERT INTO team VALUES(null, null, "Paris Saint-Germain", 1, 1);
 INSERT INTO team VALUES(null, null, "Stade Rennais", 1, 1);
 INSERT INTO team VALUES(null, null, "Angers SCO", 1, 1);
 INSERT INTO team VALUES(null, null, "AS Monaco", 1, 1);
+INSERT INTO team VALUES(null, null, "OGC Nice", 1, 1);
+INSERT INTO team VALUES(null, null, "Olympique de Marseille", 1, 1);
+INSERT INTO team VALUES(null, null, "Olympique Lyonnais", 1, 1);
+INSERT INTO team VALUES(null, null, "FC Nantes", 1, 1);
 
 INSERT INTO matchteam VALUES(null, 1, 1, 1);
 INSERT INTO matchteam VALUES(null, 1, 2, 2);
 INSERT INTO matchteam VALUES(null, 0, 2, 3);
 INSERT INTO matchteam VALUES(null, 0, 1, 4);
+INSERT INTO matchteam VALUES(null, 0, 3, 5);
+INSERT INTO matchteam VALUES(null, 1, 3, 6);
+INSERT INTO matchteam VALUES(null, 1, 4, 7);
+INSERT INTO matchteam VALUES(null, 0, 4, 8);
 
 INSERT INTO security_role VALUES(null, "USER");
 INSERT INTO security_role VALUES(null, "ADMIN");
@@ -59,6 +69,38 @@ INSERT INTO bettype VALUES
 (null, 1.5, 1.65, 'Stade Rennais', 1, 1),
 (null, 2.25, 2.5, 'Nul', 1, 1),
 (null, 1.5, 1.65, 'Angers SCO', 1, 1),
+(null, 2, 2, '1-0', 1, 2),
+(null, 5, 5, '0-1', 1, 2),
+(null, 3.5, 3.5, '0-0', 1, 2),
+(null, 2, 2, '2-0', 1, 2),
+(null, 5, 5, '1-2', 1, 2),
+(null, 3.5, 3.5, '1-1', 1, 2),
+(null, 1.2, 1.2, '+0.5', 1, 3),
+(null, 5, 5, '-0.5', 1, 3),
+(null, 2.5, 2.5, '+1.5', 1, 3),
+(null, 2.5, 2.5,'-1.5', 1, 3),
+(null, 5, 5,'+2.5', 1, 3),
+(null, 1.2, 1.2,'-2.5', 1, 3),
+
+(null, 1.2, 1.65, 'Olympique de Marseille', 1, 1),
+(null, 2.5, 2.5, 'Nul', 1, 1),
+(null, 3.5, 1.65, 'OGC Nice', 1, 1),
+(null, 2, 2, '1-0', 1, 2),
+(null, 5, 5, '0-1', 1, 2),
+(null, 3.5, 3.5, '0-0', 1, 2),
+(null, 2, 2, '2-0', 1, 2),
+(null, 5, 5, '1-2', 1, 2),
+(null, 3.5, 3.5, '1-1', 1, 2),
+(null, 1.2, 1.2, '+0.5', 1, 3),
+(null, 5, 5, '-0.5', 1, 3),
+(null, 2.5, 2.5, '+1.5', 1, 3),
+(null, 2.5, 2.5,'-1.5', 1, 3),
+(null, 5, 5,'+2.5', 1, 3),
+(null, 1.2, 1.2,'-2.5', 1, 3),
+
+(null, 1.5, 1.65, 'Olympique Lyonnais', 1, 1),
+(null, 2.00, 2.5, 'Nul', 1, 1),
+(null, 2.8, 1.65, 'FC Nantes', 1, 1),
 (null, 2, 2, '1-0', 1, 2),
 (null, 5, 5, '0-1', 1, 2),
 (null, 3.5, 3.5, '0-0', 1, 2),
@@ -103,7 +145,40 @@ INSERT INTO matchbet VALUES
 (27, 2, null),
 (28, 2, null),
 (29, 2, null),
-(30, 2, null);
+(30, 2, null),
+
+(31, 3, 6),
+(32, 3, null),
+(33, 3, 5),
+(34, 3, null),
+(35, 3, null),
+(36, 3, null),
+(37, 3, null),
+(38, 3, null),
+(39, 3, null),
+(40, 3, null),
+(41, 3, null),
+(42, 3, null),
+(43, 3, null),
+(44, 3, null),
+(45, 3, null),
+
+(46, 4, 7),
+(47, 4, null),
+(48, 4, 8),
+(49, 4, null),
+(50, 4, null),
+(51, 4, null),
+(52, 4, null),
+(53, 4, null),
+(54, 4, null),
+(55, 4, null),
+(56, 4, null),
+(57, 4, null),
+(58, 4, null),
+(59, 4, null),
+(60, 4, null);
+
 
 INSERT INTO bet VALUES
 (null, 10, "2018-08-12", 3.14, 1, 2),

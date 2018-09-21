@@ -168,7 +168,7 @@ public class MatchService {
 		Boolean theBet = false ;
 		Boolean matchNul = false;
 		String scoreExact = "" ;
-		Float amountWin = 0F ;
+		Double amountWin = 0D ;
 //		Long idBetMatch = 0L ;
 		Map<Team, Integer> teams = new HashMap<Team, Integer>();
 		

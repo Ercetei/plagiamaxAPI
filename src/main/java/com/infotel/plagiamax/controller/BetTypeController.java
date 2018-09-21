@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.api.client.repackaged.com.google.common.base.Optional;
 import com.infotel.plagiamax.controller.base.BaseRestController;
 import com.infotel.plagiamax.model.BetType;
 import com.infotel.plagiamax.model.Match;
 import com.infotel.plagiamax.model.Team;
+import com.infotel.plagiamax.repository.MatchCrudRepository;
 import com.infotel.plagiamax.repository.TeamCrudRepository;
 
 // TODO: Auto-generated Javadoc

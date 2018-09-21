@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
 import com.infotel.plagiamax.model.Match;
 import com.infotel.plagiamax.repository.base.IBaseRepository;
 
@@ -24,5 +25,10 @@ public interface MatchCrudRepository extends IBaseRepository<Match, Long> {
 	List<Match> findByMatchDayId(Long matchday_id, Long competition_id);
 	
 	List<Match> findByMatchdayId(Long matchday_id);
+	
+	@Query(value = ("SELECT m from Match m "
+			+ "INNER JOIN MatchBet mb ON m.id = mb.match.id "
+			+ "WHERE mb.id = ?1"))
+	Optional<Match> findByBettypeId(Long Bettype_id);
 }
 

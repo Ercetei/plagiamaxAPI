@@ -109,4 +109,10 @@ public class MatchController extends BaseRestController<Match, Long> {
 		ref.push();
 	}
 
+	@RequestMapping(path = { "/bettype/{index}"}, method = RequestMethod.GET)
+	public ResponseEntity<Match> getByBettypeId(@PathVariable("index") Long index) {
+		Optional<Match> match = matchCrud.findByBettypeId(index);
+		new ResponseEntity<Match>(HttpStatus.OK);
+		return ResponseEntity.ok(match.get());
+	}
 }

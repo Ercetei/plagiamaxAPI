@@ -39,7 +39,7 @@ public class User extends SecurityUser {
 	private String mail;
 
 	/** The wallet. */
-	private Float wallet;
+	private Double wallet;
 
 	/** The birthdate. */
 	@Column(nullable = false)
@@ -122,7 +122,7 @@ public class User extends SecurityUser {
 	 *
 	 * @return the wallet
 	 */
-	public Float getWallet() {
+	public Double getWallet() {
 		return wallet;
 	}
 
@@ -131,7 +131,7 @@ public class User extends SecurityUser {
 	 *
 	 * @param amountWin the new wallet
 	 */
-	public void setWallet(Float amountWin) {
+	public void setWallet(Double amountWin) {
 		this.wallet = amountWin;
 	}
 

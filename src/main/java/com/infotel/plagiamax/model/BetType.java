@@ -25,10 +25,10 @@ public class BetType extends DBItem {
 	protected String label;
 
 	/** The initialodds. */
-	protected Float initialodds;
+	protected Double initialodds;
 
 	/** The currentodds. */
-	protected Float currentodds;
+	protected Double currentodds;
 
 	/** The status. */
 	protected Integer status;
@@ -106,7 +106,7 @@ public class BetType extends DBItem {
 	 *
 	 * @return the initialodds
 	 */
-	public Float getInitialodds() {
+	public Double getInitialodds() {
 		return initialodds;
 	}
 
@@ -115,7 +115,7 @@ public class BetType extends DBItem {
 	 *
 	 * @param initialodds the new initialodds
 	 */
-	public void setInitialodds(Float initialodds) {
+	public void setInitialodds(Double initialodds) {
 		this.initialodds = initialodds;
 	}
 
@@ -124,7 +124,7 @@ public class BetType extends DBItem {
 	 *
 	 * @return the currentodds
 	 */
-	public Float getCurrentodds() {
+	public Double getCurrentodds() {
 		return currentodds;
 	}
 
@@ -133,7 +133,7 @@ public class BetType extends DBItem {
 	 *
 	 * @param currentodds the new currentodds
 	 */
-	public void setCurrentodds(Float currentodds) {
+	public void setCurrentodds(Double currentodds) {
 		this.currentodds = currentodds;
 	}
 
