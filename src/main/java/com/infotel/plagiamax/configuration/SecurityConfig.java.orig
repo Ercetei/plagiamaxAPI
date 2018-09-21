@@ -57,6 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 				.antMatchers(HttpMethod.GET, "/bet", "/bet/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/betline", "/betline/**").permitAll()
 				.anyRequest().authenticated()
+
 			.and()
 				.formLogin()
 					.loginPage("/login")
@@ -78,9 +79,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 					.ignoringAntMatchers("/login")
 					.ignoringAntMatchers("/user", "/user/**")
 					.ignoringAntMatchers("/firebase/**")
+<<<<<<< HEAD
 					.ignoringAntMatchers("/bet")
 					.ignoringAntMatchers("/betline")
 					.ignoringAntMatchers("/user", "/user/**")
+=======
+					.ignoringAntMatchers("/bet/**")
+>>>>>>> a32a1b8f059217a24a3bbba0645a4047548276ac
 			.and()
         		.httpBasic()
         	.and()
