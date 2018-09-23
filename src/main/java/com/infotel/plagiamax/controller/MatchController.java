@@ -30,9 +30,6 @@ public class MatchController extends BaseRestController<Match, Long> {
 
 	/** The Constant BASE_URL. */
 	public static final String BASE_URL = "/match";
-
-	@Autowired
-	private MatchCrudRepository matchCrud;
 	
 	private Firebase firebase;
 
@@ -41,7 +38,7 @@ public class MatchController extends BaseRestController<Match, Long> {
 	
 	@RequestMapping(path = { "/", "" }, method = RequestMethod.GET)
 	public ResponseEntity<Iterable<Match>> index() {
-		Iterable<Match> matchs = matchCrud.findAll();
+		Iterable<Match> matchs = ((MatchCrudRepository) crudRepository).findAll();
 
 		new ResponseEntity<Match>(HttpStatus.OK);
 		return ResponseEntity.ok(matchs);
@@ -49,7 +46,7 @@ public class MatchController extends BaseRestController<Match, Long> {
 
 	@RequestMapping(path = { "/{index}" }, method = RequestMethod.PATCH)
 	public ResponseEntity<Match> updatefields(@PathVariable("index") Long index, @RequestBody Match match) {
-		Optional<Match> matchToUpdate = matchCrud.findById(index);
+		Optional<Match> matchToUpdate = ((MatchCrudRepository) crudRepository).findById(index);
 		Match updatedMatch = GenericMerger.<Match>merge(matchToUpdate.get(), match, match.getClass());
 
 		if (updatedMatch.getStatus() == 5) {
@@ -59,13 +56,13 @@ public class MatchController extends BaseRestController<Match, Long> {
 
 		postMatchToFirebase(updatedMatch);
 
-		return ResponseEntity.ok(matchCrud.save(updatedMatch));
+		return ResponseEntity.ok(((MatchCrudRepository) crudRepository).save(updatedMatch));
 	}
 
 	@RequestMapping(path = { "/{index}" }, method = RequestMethod.PUT)
 	public ResponseEntity<Match> updateItem(@PathVariable("index") Long index, @RequestBody Match match) {
 		match.setId((Long) index);
-		Match putMatch = matchCrud.save(match);
+		Match putMatch = ((MatchCrudRepository) crudRepository).save(match);
 		new ResponseEntity<Match>(HttpStatus.OK);
 
 		if (putMatch.getStatus() == 5) {
@@ -80,7 +77,7 @@ public class MatchController extends BaseRestController<Match, Long> {
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Match> postItem(@RequestBody Match match) {
 		new ResponseEntity<Match>(HttpStatus.OK);
-		Match savedMatch = matchCrud.save(match);
+		Match savedMatch = ((MatchCrudRepository) crudRepository).save(match);
 		postMatchToFirebase(savedMatch);
 
 		return ResponseEntity.ok(savedMatch);
@@ -89,7 +86,7 @@ public class MatchController extends BaseRestController<Match, Long> {
 
 	@RequestMapping(path = { "/bettype/{index}"}, method = RequestMethod.GET)
 	public ResponseEntity<Match> getByBettypeId(@PathVariable("index") Long index) {
-		Optional<Match> match = matchCrud.findByBettypeId(index);
+		Optional<Match> match = ((MatchCrudRepository) crudRepository).findByBettypeId(index);
 		new ResponseEntity<Match>(HttpStatus.OK);
 		return ResponseEntity.ok(match.get());
 	}

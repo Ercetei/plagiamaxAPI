@@ -30,7 +30,7 @@ public abstract class BaseRestController<T, ID extends Serializable> {
 
 	/** The crud repository. */
 	@Autowired
-	private IBaseRepository<T, ID> crudRepository;
+	protected IBaseRepository<T, ID> crudRepository;
 
 	/**
 	 * Index.

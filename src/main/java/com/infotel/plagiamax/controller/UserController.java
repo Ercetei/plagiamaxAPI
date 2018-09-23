@@ -34,10 +34,6 @@ public class UserController extends BaseRestController<User, Long> {
 	/** The Constant BASE_URL. */
 	public static final String BASE_URL = "/user";
 
-	/** The user crud. */
-	@Autowired
-	private UserCrudRepository userCrud;
-
 	/** The bet crud. */
 	@Autowired
 	private BetCrudRepository betCrud;
@@ -58,7 +54,7 @@ public class UserController extends BaseRestController<User, Long> {
 		Set<SecurityRole> set = new HashSet<>();
 		set.add(role);
 		newUser.setRoles(set);
-		userCrud.save(newUser);
+		((UserCrudRepository) crudRepository).save(newUser);
 		newUser.setPassword(null);
 		patchFirebaseUser(newUser);
 
@@ -80,11 +76,11 @@ public class UserController extends BaseRestController<User, Long> {
 
 	@RequestMapping(path = { "/{index}" }, method = RequestMethod.PATCH)
 	public ResponseEntity<User> updatefields(@PathVariable("index") Long index, @RequestBody User user) {
-		Optional<User> userToUpdate = userCrud.findById(index);
+		Optional<User> userToUpdate = ((UserCrudRepository) crudRepository).findById(index);
 		User updatedUser = GenericMerger.<User>merge(userToUpdate.get(), user, user.getClass());
 		patchFirebaseUser(updatedUser);
 
-		return ResponseEntity.ok(userCrud.save(updatedUser));
+		return ResponseEntity.ok(((UserCrudRepository) crudRepository).save(updatedUser));
 	}
 
 	public void patchFirebaseUser(User user) {

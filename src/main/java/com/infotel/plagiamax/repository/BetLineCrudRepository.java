@@ -18,6 +18,5 @@ public interface BetLineCrudRepository extends IBaseRepository<BetLine, Long> {
 			+ "INNER JOIN MatchBet mb ON mb.id = bl.bettype.id "
 			+ "WHERE bl.status = 1 "
 			+ "AND mb.match.id = ?1"))
-	List<BetLine> getCurrentBetLineByMatch(Long match_id);
-	
+	List<BetLine> getBetLinesByMatch(Long match_id);
 }
