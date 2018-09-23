@@ -14,14 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.infotel.plagiamax.controller.base.BaseRestController;
 import com.infotel.plagiamax.model.Bet;
 import com.infotel.plagiamax.model.User;
 import com.infotel.plagiamax.model.security.SecurityRole;
 import com.infotel.plagiamax.repository.BetCrudRepository;
 import com.infotel.plagiamax.repository.UserCrudRepository;
+import com.infotel.plagiamax.service.UserService;
 import com.infotel.plagiamax.utils.GenericMerger;
 
 /**
@@ -60,7 +59,7 @@ public class UserController extends BaseRestController<User, Long> {
 		newUser.setRoles(set);
 		userCrud.save(newUser);
 		newUser.setPassword(null);
-		patchFirebaseUser(newUser);
+		UserService.patchFirebaseUser(newUser);
 
 		return ResponseEntity.ok(newUser);
 	}
@@ -82,16 +81,11 @@ public class UserController extends BaseRestController<User, Long> {
 	public ResponseEntity<User> updatefields(@PathVariable("index") Long index, @RequestBody User user) {
 		Optional<User> userToUpdate = userCrud.findById(index);
 		User updatedUser = GenericMerger.<User>merge(userToUpdate.get(), user, user.getClass());
-		patchFirebaseUser(updatedUser);
+		UserService.patchFirebaseUser(updatedUser);
 
 		return ResponseEntity.ok(userCrud.save(updatedUser));
 	}
 
-	public void patchFirebaseUser(User user) {
-		final FirebaseDatabase database = FirebaseDatabase.getInstance();
-		DatabaseReference ref = database.getReference("users/" + user.getId() + "/wallet");
-		ref.setValueAsync(user.getWallet());
-		ref.push();
-	}
+
 
 }

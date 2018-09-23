@@ -1,27 +1,19 @@
 package com.infotel.plagiamax.service;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.infotel.plagiamax.model.BetLine;
-import com.infotel.plagiamax.model.Event;
 import com.infotel.plagiamax.model.Match;
-import com.infotel.plagiamax.model.MatchDay;
 import com.infotel.plagiamax.model.MatchTeam;
 import com.infotel.plagiamax.model.Team;
 
 import com.infotel.plagiamax.repository.BetLineCrudRepository;
-import com.infotel.plagiamax.repository.EventCrudRepository;
 import com.infotel.plagiamax.repository.MatchBetCrudRepository;
 import com.infotel.plagiamax.repository.TeamCrudRepository;
 import com.infotel.plagiamax.repository.UserCrudRepository;
@@ -297,6 +289,7 @@ public class MatchService {
 				bl.getBet().getUser().setWallet(amountWin);
 				// save wallet user
 				userCrud.save(bl.getBet().getUser());
+				UserService.patchFirebaseUser(bl.getBet().getUser());
 			}
 	
 			System.out.println("odds : " + bl.getBet().getMomentodds() + " amount : " + bl.getBet().getBetamount());

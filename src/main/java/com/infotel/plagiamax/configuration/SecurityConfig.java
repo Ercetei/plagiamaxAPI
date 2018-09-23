@@ -81,6 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 					.ignoringAntMatchers("/bet")
 					.ignoringAntMatchers("/betline")
 					.ignoringAntMatchers("/user", "/user/**")
+					.ignoringAntMatchers("/event", "/event/**")
 			.and()
         		.httpBasic()
         	.and()
