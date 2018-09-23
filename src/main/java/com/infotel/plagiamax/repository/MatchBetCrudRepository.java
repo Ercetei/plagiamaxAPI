@@ -35,7 +35,8 @@ public interface MatchBetCrudRepository extends IBaseRepository<MatchBet, Long> 
 	 */
 	@Query(value = ("SELECT mb FROM MatchBet mb "
 			+ "INNER JOIN Match m ON m.id = mb.match.id "
-			+ "INNER JOIN MatchDay md ON md.id = m.matchday.id WHERE md.id = ?1 "
+			+ "INNER JOIN MatchDay md ON md.id = m.matchday.id "
+			+ "WHERE md.id = ?1 "
 			+ "AND mb.type = 1 "
 			+ "AND (m.status = 3 OR m.status = 4) "
 			))

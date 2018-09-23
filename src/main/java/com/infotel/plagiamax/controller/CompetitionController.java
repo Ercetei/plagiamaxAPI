@@ -27,10 +27,16 @@ public class CompetitionController extends BaseRestController<Competition, Long>
 	private MatchDayCrudRepository matchDayCrud;
 	
 	@RequestMapping(path = { "/{index}/matchdays" }, method = RequestMethod.GET)
-	public ResponseEntity<Iterable<MatchDay>> getMatchDayByCompetition(@PathVariable("index") Long index) {
+	public ResponseEntity<Iterable<MatchDay>> getMatchdaysByCompetition(@PathVariable("index") Long index) {
 		Iterable<MatchDay> item = matchDayCrud.findByCompetitionId(index);
 		new ResponseEntity<Competition>(HttpStatus.OK);
 		return ResponseEntity.ok(item);
 	}
-    
+	
+	@RequestMapping(path = { "/{index}/matchdays/active" }, method = RequestMethod.GET)
+	public ResponseEntity<Iterable<MatchDay>> getActiveMatchdaysByCompetition(@PathVariable("index") Long index) {
+		Iterable<MatchDay> item = matchDayCrud.findActiveByCompetitionId(index);
+		new ResponseEntity<Competition>(HttpStatus.OK);
+		return ResponseEntity.ok(item);
+	}
 }

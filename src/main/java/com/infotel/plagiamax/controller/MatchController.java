@@ -85,6 +85,14 @@ public class MatchController extends BaseRestController<Match, Long> {
 
 		return ResponseEntity.ok(savedMatch);
 	}
+	
+
+	@RequestMapping(path = { "/bettype/{index}"}, method = RequestMethod.GET)
+	public ResponseEntity<Match> getByBettypeId(@PathVariable("index") Long index) {
+		Optional<Match> match = matchCrud.findByBettypeId(index);
+		new ResponseEntity<Match>(HttpStatus.OK);
+		return ResponseEntity.ok(match.get());
+	}
 
 	/**
 	 * Delete the row from firebase if it is not useful anymore.
@@ -107,12 +115,5 @@ public class MatchController extends BaseRestController<Match, Long> {
 		DatabaseReference ref = database.getReference("matchs/" + match.getId());
 		ref.setValueAsync(MatchService.firebaseParser(match));
 		ref.push();
-	}
-
-	@RequestMapping(path = { "/bettype/{index}"}, method = RequestMethod.GET)
-	public ResponseEntity<Match> getByBettypeId(@PathVariable("index") Long index) {
-		Optional<Match> match = matchCrud.findByBettypeId(index);
-		new ResponseEntity<Match>(HttpStatus.OK);
-		return ResponseEntity.ok(match.get());
 	}
 }
