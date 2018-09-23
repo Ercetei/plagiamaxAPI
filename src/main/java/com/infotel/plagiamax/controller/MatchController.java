@@ -30,27 +30,29 @@ public class MatchController extends BaseRestController<Match, Long> {
 
 	/** The Constant BASE_URL. */
 	public static final String BASE_URL = "/match";
-	
+
+	/** The firebase. */
 	private Firebase firebase;
 
+	/** The match service. */
 	@Autowired
 	private MatchService matchService;
-	
-	@RequestMapping(path = { "/", "" }, method = RequestMethod.GET)
-	public ResponseEntity<Iterable<Match>> index() {
-		Iterable<Match> matchs = ((MatchCrudRepository) crudRepository).findAll();
 
-		new ResponseEntity<Match>(HttpStatus.OK);
-		return ResponseEntity.ok(matchs);
-	}
-
+	/**
+	 * Updates only the given fields for a Match at a specific id. Calls the
+	 * manageWinnings function to manage the bet results when a match is over.
+	 *
+	 * @param index : the match id
+	 * @param match : the match to update
+	 * @return the updated item
+	 */
 	@RequestMapping(path = { "/{index}" }, method = RequestMethod.PATCH)
-	public ResponseEntity<Match> updatefields(@PathVariable("index") Long index, @RequestBody Match match) {
+	public ResponseEntity<Match> updateFields(@PathVariable("index") Long index, @RequestBody Match match) {
 		Optional<Match> matchToUpdate = ((MatchCrudRepository) crudRepository).findById(index);
 		Match updatedMatch = GenericMerger.<Match>merge(matchToUpdate.get(), match, match.getClass());
 
 		if (updatedMatch.getStatus() == 5) {
-			matchService.managedWinnings(updatedMatch);
+			matchService.manageWinnings(updatedMatch);
 			deleteMatchFromFirebase(updatedMatch);
 		}
 
@@ -59,6 +61,13 @@ public class MatchController extends BaseRestController<Match, Long> {
 		return ResponseEntity.ok(((MatchCrudRepository) crudRepository).save(updatedMatch));
 	}
 
+	/**
+	 * Replaces a match. Deletes the match from Firebase when it is over.
+	 *
+	 * @param index : the match id
+	 * @param match : the match to update
+	 * @return the updated item
+	 */
 	@RequestMapping(path = { "/{index}" }, method = RequestMethod.PUT)
 	public ResponseEntity<Match> updateItem(@PathVariable("index") Long index, @RequestBody Match match) {
 		match.setId((Long) index);
@@ -73,6 +82,12 @@ public class MatchController extends BaseRestController<Match, Long> {
 		return ResponseEntity.ok(putMatch);
 	}
 
+	/**
+	 * Persists a match inside the database.
+	 *
+	 * @param match : the match to persist
+	 * @return the persisted match
+	 */
 	@RequestMapping(path = { "/", "" }, method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE,
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Match> postItem(@RequestBody Match match) {
@@ -82,10 +97,15 @@ public class MatchController extends BaseRestController<Match, Long> {
 
 		return ResponseEntity.ok(savedMatch);
 	}
-	
 
-	@RequestMapping(path = { "/bettype/{index}"}, method = RequestMethod.GET)
-	public ResponseEntity<Match> getByBettypeId(@PathVariable("index") Long index) {
+	/**
+	 * Gets the match by bettype id.
+	 *
+	 * @param index : the bettype id
+	 * @return the match for a specific bettype
+	 */
+	@RequestMapping(path = { "/bettype/{index}" }, method = RequestMethod.GET)
+	public ResponseEntity<Match> getMatchByBettypeId(@PathVariable("index") Long index) {
 		Optional<Match> match = ((MatchCrudRepository) crudRepository).findByBettypeId(index);
 		new ResponseEntity<Match>(HttpStatus.OK);
 		return ResponseEntity.ok(match.get());
@@ -93,8 +113,8 @@ public class MatchController extends BaseRestController<Match, Long> {
 
 	/**
 	 * Delete the row from firebase if it is not useful anymore.
-	 * 
-	 * @param match
+	 *
+	 * @param match : the match to delete
 	 */
 	public void deleteMatchFromFirebase(Match match) {
 		final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -104,8 +124,8 @@ public class MatchController extends BaseRestController<Match, Long> {
 
 	/**
 	 * Create or update a row for a match in the firebase database.
-	 * 
-	 * @param match
+	 *
+	 * @param match : the match to persist
 	 */
 	public void postMatchToFirebase(Match match) {
 		final FirebaseDatabase database = FirebaseDatabase.getInstance();

@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.infotel.plagiamax.controller.base.BaseRestController;
 import com.infotel.plagiamax.model.Player;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class PlayerController.
  */
@@ -14,6 +13,6 @@ import com.infotel.plagiamax.model.Player;
 @RequestMapping(PlayerController.BASE_URL)
 public class PlayerController extends BaseRestController<Player, Long> {
 
-    /** The Constant BASE_URL. */
-    public static final String BASE_URL = "/player";
+	/** The Constant BASE_URL. */
+	public static final String BASE_URL = "/player";
 }

@@ -20,19 +20,33 @@ import com.infotel.plagiamax.repository.MatchDayCrudRepository;
 @RequestMapping(CompetitionController.BASE_URL)
 public class CompetitionController extends BaseRestController<Competition, Long> {
 
-    /** The Constant BASE_URL. */
-    public static final String BASE_URL = "/competition";
-    
+	/** The Constant BASE_URL. */
+	public static final String BASE_URL = "/competition";
+
+	/** The match day crud. */
 	@Autowired
 	private MatchDayCrudRepository matchDayCrud;
-	
+
+	/**
+	 * Gets the matchdays by competition.
+	 *
+	 * @param index : the competition id
+	 * @return all the matchdays for a specific competition
+	 */
 	@RequestMapping(path = { "/{index}/matchdays" }, method = RequestMethod.GET)
 	public ResponseEntity<Iterable<MatchDay>> getMatchdaysByCompetition(@PathVariable("index") Long index) {
 		Iterable<MatchDay> item = matchDayCrud.findByCompetitionId(index);
 		new ResponseEntity<Competition>(HttpStatus.OK);
 		return ResponseEntity.ok(item);
 	}
-	
+
+	/**
+	 * Gets the active matchdays by competition.
+	 *
+	 * @param index : the competition id
+	 * @return the matchdays containing matches yet to be played for a specific
+	 *         competition
+	 */
 	@RequestMapping(path = { "/{index}/matchdays/active" }, method = RequestMethod.GET)
 	public ResponseEntity<Iterable<MatchDay>> getActiveMatchdaysByCompetition(@PathVariable("index") Long index) {
 		Iterable<MatchDay> item = matchDayCrud.findActiveByCompetitionId(index);

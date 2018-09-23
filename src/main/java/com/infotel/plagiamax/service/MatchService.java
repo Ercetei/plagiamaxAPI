@@ -22,29 +22,39 @@ import com.infotel.plagiamax.repository.UserCrudRepository;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 
+/**
+ * The Service MatchService. Specifies how to persist a match inside Firebase
+ * Manages the actions taken on a match
+ */
 @Service
 @Transactional
 public class MatchService {
 
+	/** The team crud. */
 	@Autowired
 	private TeamCrudRepository teamCrud;
 
+	/** The bet line crud. */
 	@Autowired
 	private BetLineCrudRepository betLineCrud;
 
+	/** The match bet crud. */
 	@Autowired
 	private MatchBetCrudRepository matchBetCrud;
 
+	/** The user crud. */
 	@Autowired
 	private UserCrudRepository userCrud;
 
+	/** The bet crud. */
 	@Autowired
 	private BetCrudRepository betCrud;
 
 	/**
-	 * Parse to JSON Object a match component to be send to Firebase Database
-	 * @param match
-	 * @return
+	 * Parse to JSON Object a match component to be send to Firebase Database.
+	 *
+	 * @param match the match
+	 * @return the JSON object
 	 */
 	public static JSONObject firebaseParser(Match match) {
 		JSONObject jsonInfo = new JSONObject();
@@ -141,17 +151,17 @@ public class MatchService {
 	}
 
 	/**
-	 * Manage the winnings when a match is over and update the wallet
-	 * for every user who won something betting on it.
-	 * @param match
+	 * Manages the winnings when a match is over and updates the wallet for every
+	 * user who won something betting on it.
+	 *
+	 * @param match the match
 	 */
-	public void managedWinnings(Match match) {
+	public void manageWinnings(Match match) {
 		/**
-		 * 1. Faire sortir les matchbets qui étendent des bettypes
-		 * 2. comparer chaque matchbet avec tous les events du match (voir status)
-		 * 3. si ils sont égaux, modifier le status de la betline à 2, sinon 3
-		 * 4. si parmis les betlines, aucun n'est à 3 ou 1, on fait le calcul:
-		 * bet.momentodds * bet.betamount
+		 * 1. Faire sortir les matchbets qui étendent des bettypes 2. comparer chaque
+		 * matchbet avec tous les events du match (voir status) 3. si ils sont égaux,
+		 * modifier le status de la betline à 2, sinon 3 4. si parmis les betlines,
+		 * aucun n'est à 3 ou 1, on fait le calcul: bet.momentodds * bet.betamount
 		 * 
 		 */
 		Boolean validBet = false;

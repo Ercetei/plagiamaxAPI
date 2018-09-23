@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.infotel.plagiamax.controller.base.BaseRestController;
 import com.infotel.plagiamax.model.Team;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class TeamController.
  */
@@ -16,7 +15,7 @@ import com.infotel.plagiamax.model.Team;
 @RequestMapping(TeamController.BASE_URL)
 public class TeamController extends BaseRestController<Team, Long> {
 
-    /** The Constant BASE_URL. */
-    public static final String BASE_URL = "/team";
-    
+	/** The Constant BASE_URL. */
+	public static final String BASE_URL = "/team";
+
 }

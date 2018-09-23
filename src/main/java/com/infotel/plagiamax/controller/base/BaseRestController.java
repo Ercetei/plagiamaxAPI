@@ -20,22 +20,20 @@ import com.infotel.plagiamax.utils.GenericMerger;
 /**
  * The Class BaseRestController.
  *
- * @param <T> the generic type
- * @param <ID> the generic type
+ * @param <T> the object type
+ * @param <ID> the id type
  */
 @RestController
 public abstract class BaseRestController<T, ID extends Serializable> {
-
-	/** The logger. */
 
 	/** The crud repository. */
 	@Autowired
 	protected IBaseRepository<T, ID> crudRepository;
 
 	/**
-	 * Index.
+	 * Gets all the elements for the object type.
 	 *
-	 * @return the response entity
+	 * @return the elements
 	 */
 	@RequestMapping(path = { "/", "" }, method = RequestMethod.GET)
 	public ResponseEntity<Iterable<T>> index() {
@@ -45,10 +43,10 @@ public abstract class BaseRestController<T, ID extends Serializable> {
 	}
 
 	/**
-	 * Gets the by index.
+	 * Gets the element with the specific id for the object type.
 	 *
-	 * @param index the index
-	 * @return the by index
+	 * @param index : the id
+	 * @return the element
 	 */
 	@RequestMapping(path = { "/{index}" }, method = RequestMethod.GET)
 	public ResponseEntity<Optional<T>> getByIndex(@PathVariable("index") ID index) {
@@ -58,10 +56,10 @@ public abstract class BaseRestController<T, ID extends Serializable> {
 	}
 
 	/**
-	 * Post item.
+	 * Persists an item of the object type inside the database.
 	 *
-	 * @param item the item
-	 * @return the response entity
+	 * @param item : the item to persist
+	 * @return the persisted item
 	 */
 	@RequestMapping(path = { "/", "" }, method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE,
 			MediaType.APPLICATION_JSON_VALUE })
@@ -71,11 +69,11 @@ public abstract class BaseRestController<T, ID extends Serializable> {
 	}
 
 	/**
-	 * Update item.
+	 * Replaces an item of the object type at a specific id.
 	 *
-	 * @param index the index
-	 * @param item the item
-	 * @return the response entity
+	 * @param index : the id
+	 * @param item  : the item to update
+	 * @return the updated item
 	 */
 	@RequestMapping(path = { "/{index}" }, method = RequestMethod.PUT)
 	public ResponseEntity<T> updateItem(@PathVariable("index") ID index, @RequestBody T item) {
@@ -85,23 +83,24 @@ public abstract class BaseRestController<T, ID extends Serializable> {
 	}
 
 	/**
-	 * Updatefields.
+	 * Updates only the given fields for an item of the object type at a specific
+	 * id.
 	 *
-	 * @param index the index
-	 * @param item the item
-	 * @return the response entity
+	 * @param index : the id
+	 * @param item  : the item to update
+	 * @return the updated item
 	 */
 	@RequestMapping(path = { "/{index}" }, method = RequestMethod.PATCH)
-	public ResponseEntity<T> updatefields(@PathVariable("index") ID index, @RequestBody T item) {
+	public ResponseEntity<T> updateFields(@PathVariable("index") ID index, @RequestBody T item) {
 		Optional<T> dbItem = crudRepository.findById(index);
 		T itemToReturn = GenericMerger.merge(dbItem.get(), item, item.getClass());
 		return ResponseEntity.ok(crudRepository.save(itemToReturn));
 	}
 
 	/**
-	 * Delete item.
+	 * Deletes an item at a specific id.
 	 *
-	 * @param index the index
+	 * @param index : the id
 	 */
 	@RequestMapping(path = { "/{index}" }, method = RequestMethod.DELETE)
 	public void deleteItem(@PathVariable("index") ID index) {

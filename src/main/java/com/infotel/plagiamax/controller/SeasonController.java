@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.infotel.plagiamax.controller.base.BaseRestController;
 import com.infotel.plagiamax.model.Season;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SeasonController.
  */
@@ -14,6 +13,6 @@ import com.infotel.plagiamax.model.Season;
 @RequestMapping(SeasonController.BASE_URL)
 public class SeasonController extends BaseRestController<Season, Long> {
 
-    /** The Constant BASE_URL. */
-    public static final String BASE_URL = "/season";
+	/** The Constant BASE_URL. */
+	public static final String BASE_URL = "/season";
 }

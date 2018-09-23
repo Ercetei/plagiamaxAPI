@@ -1,7 +1,6 @@
 package com.infotel.plagiamax.controller;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,6 @@ import com.infotel.plagiamax.model.security.SecurityRole;
 import com.infotel.plagiamax.repository.BetCrudRepository;
 import com.infotel.plagiamax.repository.UserCrudRepository;
 import com.infotel.plagiamax.service.UserService;
-import com.infotel.plagiamax.utils.GenericMerger;
 
 /**
  * The Class UserController.
@@ -38,10 +36,10 @@ public class UserController extends BaseRestController<User, Long> {
 	private BetCrudRepository betCrud;
 
 	/**
-	 * Register user.
+	 * Creates a user
 	 *
-	 * @param newUser the new user
-	 * @return the response entity
+	 * @param newUser : the new user
+	 * @return the created user
 	 */
 	@RequestMapping(path = { "/register" }, method = RequestMethod.POST, consumes = {
 			MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_JSON_VALUE })
@@ -61,27 +59,15 @@ public class UserController extends BaseRestController<User, Long> {
 	}
 
 	/**
-	 * Gets the bet by user.
+	 * Gets the bets for a specific user.
 	 *
-	 * @param index the index
-	 * @return the bet by user
+	 * @param index : the user id
+	 * @return the bet for a specific user
 	 */
 	@RequestMapping(path = { "/{index}/bets" }, method = RequestMethod.GET)
-	public ResponseEntity<Iterable<Bet>> getBetByUser(@PathVariable("index") Long index) {
+	public ResponseEntity<Iterable<Bet>> getBetsByUser(@PathVariable("index") Long index) {
 		Iterable<Bet> item = betCrud.findByUserId(index);
 		new ResponseEntity<User>(HttpStatus.OK);
 		return ResponseEntity.ok(item);
 	}
-
-	@RequestMapping(path = { "/{index}" }, method = RequestMethod.PATCH)
-	public ResponseEntity<User> updatefields(@PathVariable("index") Long index, @RequestBody User user) {
-		Optional<User> userToUpdate = ((UserCrudRepository) crudRepository).findById(index);
-		User updatedUser = GenericMerger.<User>merge(userToUpdate.get(), user, user.getClass());
-		UserService.patchFirebaseUser(updatedUser);
-
-		return ResponseEntity.ok(((UserCrudRepository) crudRepository).save(updatedUser));
-	}
-
-
-
 }
