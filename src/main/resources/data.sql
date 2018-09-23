@@ -179,18 +179,6 @@ INSERT INTO matchbet VALUES
 (59, 4, null),
 (60, 4, null);
 
-
-INSERT INTO bet VALUES
-(null, 10, "2018-08-12", 3.14, 1, 2),
-(null, 15, "2018-08-14", 2.1, 1, 2),
-(null, 5, "2018-09-05", 5.5, 1, 1);
-
-INSERT INTO betline VALUES
-(null, 1, 1, 3),
-(null, 1, 2, 14),
-(null, 1, 3, 16),
-(null, 1, 1, 4);
-
 INSERT INTO player VALUES
 (null, "1955-08-01", "Julien", "Lepers", 1, 1),
 (null, "1960-08-01", "Nicolas", "Sarkozy", 1, 1);
