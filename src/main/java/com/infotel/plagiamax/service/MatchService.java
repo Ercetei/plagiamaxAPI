@@ -1,8 +1,9 @@
 package com.infotel.plagiamax.service;
 
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.infotel.plagiamax.model.Bet;
 import com.infotel.plagiamax.model.BetLine;
 import com.infotel.plagiamax.model.Match;
-import com.infotel.plagiamax.model.MatchTeam;
 import com.infotel.plagiamax.model.Team;
 import com.infotel.plagiamax.repository.BetCrudRepository;
 import com.infotel.plagiamax.repository.BetLineCrudRepository;
