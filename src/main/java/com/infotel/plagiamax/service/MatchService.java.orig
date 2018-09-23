@@ -1,8 +1,15 @@
 package com.infotel.plagiamax.service;
 
+<<<<<<< HEAD
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+=======
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+>>>>>>> 693988706a9945e62582a7e76022c837295acb5d
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +18,10 @@ import org.springframework.stereotype.Service;
 import com.infotel.plagiamax.model.Bet;
 import com.infotel.plagiamax.model.BetLine;
 import com.infotel.plagiamax.model.Match;
+<<<<<<< HEAD
+=======
 import com.infotel.plagiamax.model.MatchTeam;
+>>>>>>> 693988706a9945e62582a7e76022c837295acb5d
 import com.infotel.plagiamax.model.Team;
 import com.infotel.plagiamax.repository.BetCrudRepository;
 import com.infotel.plagiamax.repository.BetLineCrudRepository;
@@ -43,6 +53,7 @@ public class MatchService {
 
 	/**
 	 * Parse to JSON Object a match component to be send to Firebase Database
+	 * 
 	 * @param match
 	 * @return
 	 */
@@ -141,17 +152,17 @@ public class MatchService {
 	}
 
 	/**
-	 * Manage the winnings when a match is over and update the wallet
-	 * for every user who won something betting on it.
+	 * Manage the winnings when a match is over and update the wallet for every user
+	 * who won something betting on it.
+	 * 
 	 * @param match
 	 */
 	public void managedWinnings(Match match) {
 		/**
-		 * 1. Faire sortir les matchbets qui étendent des bettypes
-		 * 2. comparer chaque matchbet avec tous les events du match (voir status)
-		 * 3. si ils sont égaux, modifier le status de la betline à 2, sinon 3
-		 * 4. si parmis les betlines, aucun n'est à 3 ou 1, on fait le calcul:
-		 * bet.momentodds * bet.betamount
+		 * 1. Faire sortir les matchbets qui étendent des bettypes 2. comparer chaque
+		 * matchbet avec tous les events du match (voir status) 3. si ils sont égaux,
+		 * modifier le status de la betline à 2, sinon 3 4. si parmis les betlines,
+		 * aucun n'est à 3 ou 1, on fait le calcul: bet.momentodds * bet.betamount
 		 * 
 		 */
 		Boolean validBet = false;
@@ -270,6 +281,7 @@ public class MatchService {
 					betStatus = 0;
 				}
 			}
+<<<<<<< HEAD
 
 			// Si le pari est gagné
 			if (betStatus == 1) {
@@ -296,6 +308,15 @@ public class MatchService {
 				System.out.println("Gains potentiels : " + bet.getMomentodds() * bet.getBetamount());
 				System.out.println("User : " + bet.getUser().getUsername());
 				System.out.println("PARI PERDU");
+=======
+			
+			if (newWallet == true) {
+				amountWin = bl.getBet().getMomentodds() * bl.getBet().getBetamount() + bl.getBet().getUser().getWallet() ; 
+				bl.getBet().getUser().setWallet(amountWin);
+				// save wallet user
+				userCrud.save(bl.getBet().getUser());
+				UserService.patchFirebaseUser(bl.getBet().getUser());
+>>>>>>> 693988706a9945e62582a7e76022c837295acb5d
 			}
 		}
 	}
