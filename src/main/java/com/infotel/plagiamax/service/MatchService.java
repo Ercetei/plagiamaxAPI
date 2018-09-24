@@ -60,6 +60,7 @@ public class MatchService {
 		JSONObject jsonInfo = new JSONObject();
 		jsonInfo.put("id", match.getId());
 		jsonInfo.put("status", match.getStatus());
+		jsonInfo.put("date", match.getDate());
 
 		// Place
 		JSONArray placeArray = new JSONArray();
