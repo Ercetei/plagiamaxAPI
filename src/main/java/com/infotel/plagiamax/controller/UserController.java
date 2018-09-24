@@ -1,6 +1,7 @@
 package com.infotel.plagiamax.controller;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import com.infotel.plagiamax.model.security.SecurityRole;
 import com.infotel.plagiamax.repository.BetCrudRepository;
 import com.infotel.plagiamax.repository.UserCrudRepository;
 import com.infotel.plagiamax.service.UserService;
+import com.infotel.plagiamax.utils.GenericMerger;
 
 /**
  * The Class UserController.
@@ -69,5 +71,22 @@ public class UserController extends BaseRestController<User, Long> {
 		Iterable<Bet> item = betCrud.findByUserId(index);
 		new ResponseEntity<User>(HttpStatus.OK);
 		return ResponseEntity.ok(item);
+	}
+	
+	
+	/**
+	 * Updates a specific user.
+	 * Updates the wallet value on firebase if changed
+	 *
+	 * @param index : the user id
+	 * @param user : the specific user
+	 * @return the updates user
+	 */
+	@RequestMapping(path = { "/{index}" }, method = RequestMethod.PATCH)
+	public ResponseEntity<User> updateFields(@PathVariable("index") Long index, @RequestBody User user) {
+		Optional<User> userToUpdate = ((UserCrudRepository) crudRepository).findById(index);
+		User updatedUser = GenericMerger.<User>merge(userToUpdate.get(), user, user.getClass());
+		UserService.patchFirebaseUser(updatedUser);
+ 		return ResponseEntity.ok(((UserCrudRepository) crudRepository).save(updatedUser));
 	}
 }

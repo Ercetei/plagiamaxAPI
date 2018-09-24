@@ -17,6 +17,7 @@ import com.infotel.plagiamax.contract.MatchTeamContract;
 import com.infotel.plagiamax.contract.PeriodContract;
 import com.infotel.plagiamax.contract.PlaceContract;
 import com.infotel.plagiamax.contract.StatContract;
+import com.infotel.plagiamax.contract.TeamBetContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 // TODO: Auto-generated Javadoc
@@ -70,6 +71,10 @@ public class Team extends DBItem {
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = MatchBetContract.ASSOCIATION_TEAM)
 	@JsonIgnoreProperties({ MatchBetContract.ASSOCIATION_MATCH, MatchBetContract.ASSOCIATION_TEAM })
 	private List<MatchBet> matchbets;
+	
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = TeamBetContract.ASSOCIATION_TEAM)
+	@JsonIgnoreProperties({ TeamBetContract.ASSOCIATION_TEAM })
+	private List<TeamBet> teambets;
 
 	/**
 	 * Gets the label.

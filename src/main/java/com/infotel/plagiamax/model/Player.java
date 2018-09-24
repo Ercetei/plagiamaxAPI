@@ -37,9 +37,11 @@ public class Player extends DBItem {
 	/** The birthdate. */
 	private Date birthdate;
 
-	/** The status. */
+	/** The status. 
+	 * 
+	 * */
 	@Column(nullable = false)
-	private String status;
+	private Integer status;
 
 	/** The place. */
 	@ManyToOne
@@ -151,7 +153,7 @@ public class Player extends DBItem {
 	 *
 	 * @return the status
 	 */
-	public String getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
@@ -160,7 +162,7 @@ public class Player extends DBItem {
 	 *
 	 * @param status the new status
 	 */
-	public void setStatus(String status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 
