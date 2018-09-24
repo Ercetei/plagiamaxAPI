@@ -191,8 +191,6 @@ public class MatchService {
 
 			// Pour les paris sur l'équipe gagnante
 			if (betline.getBettype().getType() == 1) {
-
-				System.out.println("Vainqueur");
 				// Récupérer l'équipe sur laquelle l'utilisateur a parié
 				Team team = matchBetCrud.findById(betline.getBettype().getId()).get().getTeam();
 
@@ -215,7 +213,6 @@ public class MatchService {
 
 				// Pour les paris sur le score du match
 			} else if (betline.getBettype().getType() == 2) {
-				System.out.println("Score");
 				scoreExact = scoreHomeTeam + "-" + scoreOutsiderTeam;
 
 				// Si le score est correct
@@ -225,7 +222,6 @@ public class MatchService {
 
 				// Pour les paris sur le nombre de buts
 			} else if (betline.getBettype().getType() == 3) {
-				System.out.println("Buts");
 				// Récupération du nombre de buts sur lequel l'utilisateur a parié
 				Double betGoals = Double.parseDouble(betline.getBettype().getLabel().substring(1));
 
@@ -246,11 +242,9 @@ public class MatchService {
 
 			// Changer le status de betline
 			if (validBet == true) {
-				System.out.println("Ligne Gagnée");
 				betline.setStatus(2);
 
 			} else {
-				System.out.println("Ligne Perdue");
 				betline.setStatus(3);
 			}
 
@@ -283,29 +277,24 @@ public class MatchService {
 
 			// Si le pari est gagné
 			if (betStatus == 1) {
-				Double updatedWallet = bet.getMomentodds() * bet.getBetamount() + bet.getUser().getWallet();
+				// Formattage du portefeuille
+				Double updatedWallet = Math
+						.round((bet.getMomentodds() * bet.getBetamount() + bet.getUser().getWallet()) * 100.0) / 100.0;
 				bet.getUser().setWallet(updatedWallet);
 
 				// MAJ du portefeuille de l'utilisateur
 				userCrud.save(bet.getUser());
+				UserService.patchFirebaseUser(bet.getUser());
 
 				// MAJ du bet en statut gagné et sauvegarde
 				bet.setStatus(2);
 				betCrud.save(bet);
-
-				System.out.println("Gains : " + bet.getMomentodds() * bet.getBetamount());
-				System.out.println("User : " + bet.getUser().getUsername());
-				System.out.println("PARI GAGNE");
 
 				// Si le pari est perdu
 			} else if (betStatus == 2) {
 				// MAJ du bet en statut perdu et sauvegarde
 				bet.setStatus(3);
 				betCrud.save(bet);
-
-				System.out.println("Gains potentiels : " + bet.getMomentodds() * bet.getBetamount());
-				System.out.println("User : " + bet.getUser().getUsername());
-				System.out.println("PARI PERDU");
 			}
 		}
 	}

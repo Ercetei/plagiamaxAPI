@@ -35,7 +35,7 @@ public class Bet extends DBItem {
 	private Date betdate;
 	
 	/** The betamount. */
-	private Float betamount;
+	private Double betamount;
 	
 	/** The status. 
 	 * 
@@ -48,7 +48,7 @@ public class Bet extends DBItem {
 	private Integer status;
 
 	/** The momentodds. */
-	private Float momentodds;
+	private Double momentodds;
 	
 	/**
 	 * Gets the betlines.
@@ -109,7 +109,7 @@ public class Bet extends DBItem {
 	 *
 	 * @return the betamount
 	 */
-	public Float getBetamount() {
+	public Double getBetamount() {
 		return betamount;
 	}
 
@@ -118,7 +118,7 @@ public class Bet extends DBItem {
 	 *
 	 * @param betamount the new betamount
 	 */
-	public void setBetamount(Float betamount) {
+	public void setBetamount(Double betamount) {
 		this.betamount = betamount;
 	}
 
@@ -163,7 +163,7 @@ public class Bet extends DBItem {
 	 *
 	 * @return the momentodds
 	 */
-	public Float getMomentodds() {
+	public Double getMomentodds() {
 		return momentodds;
 	}
 
@@ -172,7 +172,7 @@ public class Bet extends DBItem {
 	 *
 	 * @param momentodds the new momentodds
 	 */
-	public void setMomentodds(Float momentodds) {
+	public void setMomentodds(Double momentodds) {
 		this.momentodds = momentodds;
 	}
 
