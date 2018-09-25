@@ -39,6 +39,7 @@ public class User extends SecurityUser {
 	private String mail;
 
 	/** The wallet. */
+	@Column(columnDefinition="int default 0")
 	private Double wallet;
 
 	/** The birthdate. */

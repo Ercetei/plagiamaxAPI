@@ -23,6 +23,13 @@ public class UserService {
 	 */
 	public static void patchFirebaseUser(User user) {
 		final FirebaseDatabase database = FirebaseDatabase.getInstance();
+		if (user.getWallet() == null) {
+			user.setWallet(0.0);
+			DatabaseReference ref2 = database.getReference("users/" + user.getId() + "/id");
+			ref2.setValueAsync(user.getId());
+			ref2.push();
+		}
+		
 		DatabaseReference ref = database.getReference("users/" + user.getId() + "/wallet");
 		ref.setValueAsync(user.getWallet());
 		ref.push();
