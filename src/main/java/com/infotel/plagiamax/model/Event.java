@@ -10,9 +10,9 @@ import com.infotel.plagiamax.contract.PlayerContract;
 import com.infotel.plagiamax.contract.TeamContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Event.
+ * Can be an event of any type within a match, also stores the goals
  */
 @Entity
 @Table(name = "event")
@@ -20,16 +20,16 @@ public class Event extends DBItem {
 
 	/** The status. 
 	 * 
-	 * 1. BUT
-	 * 2. Carton jaune
-	 * 3. Carton rouge
-	 * 4. Blessure
+	 * 1. Goal
+	 * 2. Yellow Card
+	 * 3. Red Card
+	 * 4. Injury
 	 * 5. Penalty
 	 * 
 	 */
 	private Integer status;
 	
-	/** The statustime. */
+	/** The time when the event took place (In minutes). */
 	private Float statustime;
 
 	/** The player. */

@@ -6,7 +6,8 @@ import com.infotel.plagiamax.model.Category;
 import com.infotel.plagiamax.repository.base.IBaseRepository;
 
 /**
- * The Interface CategoryCrudRepository.
+ * The Interface CategoryCrudRepository. Persists the Category class inside of
+ * the database
  */
 @Repository
 public interface CategoryCrudRepository extends IBaseRepository<Category, Long> {

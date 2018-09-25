@@ -12,9 +12,9 @@ import com.infotel.plagiamax.contract.PlayerContract;
 import com.infotel.plagiamax.contract.TeamContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Period.
+ * The Class Period. Keeps the information of all the times when a player was
+ * inside of a specific team.
  */
 @Entity
 @Table(name = "period")
@@ -34,11 +34,11 @@ public class Period extends DBItem {
 			TeamContract.ASSOCIATION_STATS })
 	private Team team;
 
-	/** The startdate. */
+	/** The date when the player came in. */
 	@Column(nullable = false)
 	private Date startdate;
-	
-	/** The enddate. */
+
+	/** The date when the player left. */
 	private Date enddate;
 
 	/**

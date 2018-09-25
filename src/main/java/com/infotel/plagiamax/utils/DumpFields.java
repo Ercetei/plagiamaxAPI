@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 
 import com.infotel.plagiamax.model.base.DBItem;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class DumpFields.
  */

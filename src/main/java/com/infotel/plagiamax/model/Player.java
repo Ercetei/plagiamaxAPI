@@ -19,27 +19,31 @@ import com.infotel.plagiamax.contract.PlayerBetContract;
 import com.infotel.plagiamax.contract.StatContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Player.
+ * The Class Player. Keeps all the information relative to a player
  */
 @Entity
 @Table(name = "player")
 public class Player extends DBItem {
 
-	/** The firstname. */
+	/** The first name. */
 	private String firstname;
 
-	/** The lastname. */
+	/** The last name. */
 	@Column(nullable = false)
 	private String lastname;
-	
-	/** The birthdate. */
+
+	/** The birth date. */
 	private Date birthdate;
 
-	/** The status. 
+	/**
+	 * The status.
 	 * 
-	 * */
+	 * 1 : Active player 
+	 * 2 : Coach 
+	 * 3 : Retreated
+	 * 
+	 */
 	@Column(nullable = false)
 	private Integer status;
 

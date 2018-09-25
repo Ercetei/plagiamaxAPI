@@ -14,9 +14,9 @@ import com.infotel.plagiamax.contract.PlayerContract;
 import com.infotel.plagiamax.contract.TeamContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Place.
+ * The Class Place. Specifies a place, can be a country, a city and / or a
+ * stadium
  */
 @Entity
 @Table(name = "place")
@@ -24,10 +24,10 @@ public class Place extends DBItem {
 
 	/** The country. */
 	private String country;
-	
+
 	/** The city. */
 	private String city;
-	
+
 	/** The stadium. */
 	private String stadium;
 

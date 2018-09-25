@@ -13,19 +13,19 @@ import com.infotel.plagiamax.contract.PlayerContract;
 import com.infotel.plagiamax.contract.TeamContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Stat.
+ * The Class Stat. Stores all the stats about the players and the teams to
+ * generate odds based on them.
  */
 @Entity
 @Table(name = "stat")
 public class Stat extends DBItem {
 
-	/** The label. */
+	/** The stat name. */
 	@Column(nullable = false)
 	private String label;
-	
-	/** The value. */
+
+	/** The stat value. */
 	private Float value;
 
 	/** The parent. */
@@ -46,8 +46,8 @@ public class Stat extends DBItem {
 	/** The player. */
 	@ManyToOne
 	@JsonIgnoreProperties({ PlayerContract.ASSOCIATION_MATCHPLAYER, PlayerContract.ASSOCIATION_PERIODS,
-		PlayerContract.ASSOCIATION_PLACE, PlayerContract.ASSOCIATION_PLAYERBETS,
-		PlayerContract.ASSOCIATION_PLAYERSTATUS, PlayerContract.ASSOCIATION_STATS })
+			PlayerContract.ASSOCIATION_PLACE, PlayerContract.ASSOCIATION_PLAYERBETS,
+			PlayerContract.ASSOCIATION_PLAYERSTATUS, PlayerContract.ASSOCIATION_STATS })
 	private Player player;
 
 	/**

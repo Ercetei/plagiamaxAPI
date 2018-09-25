@@ -24,25 +24,26 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class UserDetailsServiceImpl.
  */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-	
+
 	/** The user repository. */
 	@Autowired
 	private UserCrudRepository userRepository;
 
-	/* (non-Javadoc)
-	 * @see org.springframework.security.core.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
+	/**
+	 * Gets the main non-security related information about the user (Username,
+	 * Password, IsEnabled, Authorities)
+	 * 
 	 */
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = userRepository.findByUsername(username);
 		Set<GrantedAuthority> grantedAuthorities = new HashSet<GrantedAuthority>();
-        
+
 		if (user.getEnable()) {
 			for (SecurityRole role : user.getRoles()) {
 				grantedAuthorities.add(new SimpleGrantedAuthority(role.getRole()));

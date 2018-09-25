@@ -12,23 +12,28 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infotel.plagiamax.contract.CompetitionContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Category.
+ * Corresponds to a sport or an activity people can bet on.
  */
 @Entity
 @Table(name = "category")
 public class Category extends DBItem {
 
-	/** The label. */
+	/** The name of the activity. */
 	@Column(nullable = false)
 	private String label;
 
-	/** The status. */
+	/** The status.
+	 * 
+	 * 1 : Active
+	 * 2 : Deprecated
+	 * 
+	 */
 	@Column(nullable = false)
 	private Integer status;
 
-	/** The competitions. */
+	/** The corresponding competitions. */
 	@ManyToMany(cascade = CascadeType.DETACH)
 	@JsonIgnoreProperties({ CompetitionContract.ASSOCIATION_CATEGORY, CompetitionContract.ASSOCIATION_PLACE,
 			CompetitionContract.ASSOCIATION_SEASON })

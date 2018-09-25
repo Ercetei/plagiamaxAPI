@@ -5,6 +5,9 @@ import org.springframework.context.annotation.Configuration;
 
 import com.infotel.plagiamax.repository.EventCrudRepository;
 
+/**
+ * The Class ServiceConfiguration.
+ */
 @Configuration
 public class ServiceConfiguration {
 

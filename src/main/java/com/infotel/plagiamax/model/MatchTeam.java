@@ -9,15 +9,15 @@ import com.infotel.plagiamax.contract.MatchContract;
 import com.infotel.plagiamax.contract.TeamContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class MatchTeam.
+ * Specifies which teams are going to play / played in a specific match
  */
 @Entity
 @Table(name = "matchteam")
 public class MatchTeam extends DBItem {
 
-	/** The ishometeam. */
+	/** Boolean to specify if the team is the home team. */
 	private Boolean ishometeam;
 
 	/** The team. */

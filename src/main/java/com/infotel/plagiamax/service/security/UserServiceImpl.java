@@ -10,7 +10,6 @@ import com.infotel.plagiamax.repository.security.SecurityRoleCrudRepository;
 
 import java.util.Set;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class UserServiceImpl.
  */
@@ -25,8 +24,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private SecurityRoleCrudRepository roleRepository;
 
-    /* (non-Javadoc)
-     * @see com.infotel.plagiamax.service.security.UserService#save(com.infotel.plagiamax.model.User)
+    /** 
+     * implements the save operation of the class userService
      */
     public void save(User user) {
         user.setPassword(user.getPassword());
@@ -34,8 +33,8 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-    /* (non-Javadoc)
-     * @see com.infotel.plagiamax.service.security.UserService#findByUsername(java.lang.String)
+    /** 
+     * implements the findByUsername operation of the class userService
      */
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);

@@ -13,9 +13,9 @@ import com.infotel.plagiamax.contract.MatchContract;
 import com.infotel.plagiamax.contract.SeasonContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class MatchDay.
+ * The Class MatchDay. Corresponds to a "Match Day" in a competition's point of
+ * view. Generally represents a week for championships, or a phase for cups.
  */
 @Entity
 @Table(name = "matchday")
@@ -24,12 +24,12 @@ public class MatchDay extends DBItem {
 	/** The label. */
 	private String label;
 
-	/** The season. */
+	/** The season it takes place in. */
 	@ManyToOne
 	@JsonIgnoreProperties({ SeasonContract.ASSOCIATION_MATCHDAY })
 	private Season season;
 
-	/** The matchs. */
+	/** The matches. */
 	@OneToMany(mappedBy = MatchContract.ASSOCIATION_MATCHDAY, cascade = { CascadeType.REMOVE })
 	@JsonIgnoreProperties({ MatchContract.ASSOCIATION_EVENT, MatchContract.ASSOCIATION_MATCHBET,
 			MatchContract.ASSOCIATION_MATCHDAY, MatchContract.ASSOCIATION_MATCHPLAYER,

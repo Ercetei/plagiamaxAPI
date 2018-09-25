@@ -15,7 +15,6 @@ import com.infotel.plagiamax.model.User;
 @Transactional
 public class UserService {
 
-	
 	/**
 	 * Updates a user on Firebase.
 	 *

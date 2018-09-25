@@ -13,12 +13,20 @@ import com.infotel.plagiamax.model.firebase.FirebaseResponse;
 import com.infotel.plagiamax.utils.JsonManager;
 import com.google.firebase.FirebaseException;
 
+/**
+ * The Class FirebaseController. Instantiates and creates transactions with the
+ * Firebase object.
+ */
 @RestController
 @RequestMapping(value = { "/firebase" })
 public class FirebaseController {
 
+	/** The firebase. */
 	Firebase firebase;
 
+	/**
+	 * Instantiates a new firebase controller.
+	 */
 	public FirebaseController() {
 
 		try {
@@ -30,6 +38,14 @@ public class FirebaseController {
 		}
 	}
 
+	/**
+	 * Post M 2 to firebase.
+	 *
+	 * @param obj the obj
+	 * @return the response entity
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
+	 * @throws FirebaseException            the firebase exception
+	 */
 	@RequestMapping(value = { "/test" }, method = RequestMethod.POST)
 	public ResponseEntity<FirebaseResponse> postM2ToFirebase(@RequestBody Object obj)
 			throws UnsupportedEncodingException, FirebaseException {

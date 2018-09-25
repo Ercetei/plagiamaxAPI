@@ -13,9 +13,9 @@ import com.infotel.plagiamax.contract.UserContract;
 import com.infotel.plagiamax.model.User;
 import com.infotel.plagiamax.model.base.DBItem;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class SecurityRole.
+ * The Class SecurityRole. 
+ * Grants roles to group of users
  */
 @Entity
 @Table(name = "security_role")

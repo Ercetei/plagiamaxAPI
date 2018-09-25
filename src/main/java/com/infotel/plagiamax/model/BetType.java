@@ -14,31 +14,40 @@ import com.infotel.plagiamax.contract.BetLineContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 /**
- * The Class BetType.
+ * The Class BetType. Is the parent of MatchBet, PlayerBet and TeamBet which the
+ * users can select and put money on.
  */
 @Entity
 @Table(name = "bettype")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class BetType extends DBItem {
 
-	/** The label. */
+	/** The label of the bet. */
 	protected String label;
 
-	/** The initialodds. */
+	/** The odds when they are generated. */
 	protected Double initialodds;
 
-	/** The currentodds. */
+	/** The odds that evolve with the amount of users betting on each side. */
 	protected Double currentodds;
 
-	/** The status. */
+	/**
+	 * The status, to know which ones you can still bet on. (Useful for a match in
+	 * progress for example)
+	 * 
+	 * 1 : In progress. 
+	 * 2 : Closed.
+	 * 
+	 */
 	protected Integer status;
 
 	/**
-	 * The type.
+	 * The type of the bet, to know how the program has to interprete them.
 	 * 
-	 * 1. Vainqueur 
-	 * 2. Score exact 
-	 * 3. Buts
+	 * 1. Winner 
+	 * 2. Exact Score 
+	 * 3. Goals
+	 * 
 	 */
 	protected Integer type;
 

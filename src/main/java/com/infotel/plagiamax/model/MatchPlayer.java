@@ -9,18 +9,18 @@ import com.infotel.plagiamax.contract.MatchContract;
 import com.infotel.plagiamax.contract.PlayerContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class MatchPlayer.
+ * The Class MatchPlayer. Stores which players played a specific match, when the
+ * entered and when they left.
  */
 @Entity
 @Table(name = "matchplayer")
 public class MatchPlayer extends DBItem {
 
-	/** The enteringtime. */
+	/** The time when the player entered the field. */
 	private Float enteringtime;
-	
-	/** The exittime. */
+
+	/** The time when the played left the field. */
 	private Float exittime;
 
 	/** The player. */

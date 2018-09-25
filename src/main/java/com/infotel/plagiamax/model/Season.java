@@ -17,9 +17,9 @@ import com.infotel.plagiamax.contract.CompetitionContract;
 import com.infotel.plagiamax.contract.MatchDayContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Season.
+ * The Class Season. Specifies the beginning / End dates for a specific
+ * competition.
  */
 @Entity
 @Table(name = "season")

@@ -15,7 +15,6 @@ import com.infotel.plagiamax.contract.PlaceContract;
 import com.infotel.plagiamax.contract.SeasonContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Competition.
  */
@@ -23,13 +22,25 @@ import com.infotel.plagiamax.model.base.DBItem;
 @Table(name = "competition")
 public class Competition extends DBItem {
 
-	/** The label. */
+	/** The name of the competition. */
 	private String label;
 
-	/** The status. */
+	/**
+	 * The status.
+	 * 
+	 * 1 : Active 
+	 * 2 : Deprecated
+	 * 
+	 */
 	private Integer status;
 
-	/** The type. */
+	/**
+	 * The type of competition.
+	 * 
+	 * 1 : Cup 
+	 * 2 : Championship
+	 * 
+	 */
 	private Integer type;
 
 	/** The categories. */

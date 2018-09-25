@@ -13,9 +13,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infotel.plagiamax.converter.CryptoConverter;
 import com.infotel.plagiamax.model.base.DBItem;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SecurityUser.
+ * Manages the secured data for a specific user, like its status and the encrypted data
  */
 // If abstract
 @MappedSuperclass
@@ -26,11 +26,11 @@ public abstract class SecurityUser extends DBItem {
 
 	/** The username. */
 	private String username;
-	
+
 	/** The password. */
 	@Convert(converter = CryptoConverter.class)
 	private String password;
-	
+
 	/** The enable. */
 	private Boolean enable;
 

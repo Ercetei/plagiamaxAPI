@@ -13,17 +13,19 @@ import com.infotel.plagiamax.contract.TeamBetContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 /**
- * The Class BetLine.
+ * The Class BetLine. 
+ * Makes a link between a Bet and the MatchBets. 
+ * The status is useful in case of combined bets, to know which ones are won / lost 
+ * or still in progress.
  */
 @Entity
 @Table(name = "betline")
 public class BetLine extends DBItem {
 
-	/** The status. 
+	/**
+	 * The status.
 	 * 
-	 * 1. En cours
-	 * 2. Gagné
-	 * 3. Perdu
+	 * 1. In progress 2. Won 3. Lost
 	 * 
 	 */
 	private Integer status;
@@ -39,7 +41,6 @@ public class BetLine extends DBItem {
 			MatchBetContract.ASSOCIATION_TEAM, TeamBetContract.ASSOCIATION_TEAM, PlayerBetContract.ASSOCIATION_PLAYER })
 	private BetType bettype;
 
-	
 	/**
 	 * Get the status.
 	 * 

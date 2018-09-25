@@ -15,7 +15,8 @@ import com.infotel.plagiamax.contract.UserContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
 /**
- * The Class Bet.
+ * The Class Bet. Contains all the info related to a bet and specific to a user.
+ * Can be a Combined or a Simple bet, depending how many betlines it contains.
  */
 @Entity
 @Table(name = "bet")
@@ -26,30 +27,34 @@ public class Bet extends DBItem {
 	@JsonIgnoreProperties({ UserContract.ASSOCIATION_BET, UserContract.ASSOCIATION_SECURITY_ROLE })
 	private User user;
 
-	/** The betlines. */
+	/**
+	 * The betlines. 
+	 * If it has only one line, it's a simple bet. Otherwise it's a combined one.
+	 */
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, mappedBy = BetLineContract.ASSOCIATION_BET)
 	@JsonIgnoreProperties({ BetLineContract.ASSOCIATION_BET })
 	private List<BetLine> betlines;
-	
-	/** The betdate. */
+
+	/** The bet date. */
 	private Date betdate;
-	
-	/** The betamount. */
+
+	/** The amount the user bet on. */
 	private Double betamount;
-	
-	/** The status. 
+
+	/**
+	 * The status.
 	 * 
-	 * 1. En cours
-	 * 2. Gagné
-	 * 3. Perdu
+	 * 1. In progress 
+	 * 2. Won 
+	 * 3. Lost
 	 * 
-	 * */
-	@Column(columnDefinition="int default 1")
+	 */
+	@Column(columnDefinition = "int default 1")
 	private Integer status;
 
-	/** The momentodds. */
+	/** The odds a the time of the bet. */
 	private Double momentodds;
-	
+
 	/**
 	 * Gets the betlines.
 	 *
@@ -157,7 +162,7 @@ public class Bet extends DBItem {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
 	/**
 	 * Gets the momentodds.
 	 *

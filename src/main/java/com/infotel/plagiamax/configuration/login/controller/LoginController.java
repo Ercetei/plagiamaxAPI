@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.security.core.userdetails.User;
 import com.infotel.plagiamax.repository.UserCrudRepository;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class LoginController.
  */

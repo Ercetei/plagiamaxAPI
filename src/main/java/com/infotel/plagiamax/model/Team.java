@@ -20,9 +20,8 @@ import com.infotel.plagiamax.contract.StatContract;
 import com.infotel.plagiamax.contract.TeamBetContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Team.
+ * The Class Team. Keeps all the information regarding a team.
  */
 @Entity
 @Table(name = "team")
@@ -32,14 +31,19 @@ public class Team extends DBItem {
 	@Column(nullable = false)
 	private String label;
 
-	/** The status. */
+	/**
+	 * The status.
+	 * 
+	 * 1 : Active 2 : Inactive
+	 * 
+	 */
 	@Column(nullable = false)
 	private Integer status;
-	
-	/** The creationdate. */
+
+	/** The creation date. */
 	private Date creationdate;
 
-	/** The place. */
+	/** The city / Country / Stadium. */
 	@ManyToOne
 	@JsonIgnoreProperties({ PlaceContract.ASSOCIATION_COMPETITION, PlaceContract.ASSOCIATION_MATCH,
 			PlaceContract.ASSOCIATION_PLAYER, PlaceContract.ASSOCIATION_TEAM })
@@ -71,7 +75,7 @@ public class Team extends DBItem {
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = MatchBetContract.ASSOCIATION_TEAM)
 	@JsonIgnoreProperties({ MatchBetContract.ASSOCIATION_MATCH, MatchBetContract.ASSOCIATION_TEAM })
 	private List<MatchBet> matchbets;
-	
+
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = TeamBetContract.ASSOCIATION_TEAM)
 	@JsonIgnoreProperties({ TeamBetContract.ASSOCIATION_TEAM })
 	private List<TeamBet> teambets;

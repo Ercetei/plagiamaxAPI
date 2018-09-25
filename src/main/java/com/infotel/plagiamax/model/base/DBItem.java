@@ -5,16 +5,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class DBItem.
+ * The Abstract Class DBItem. 
+ * Specifies an ID for each class extending this one
  */
 @MappedSuperclass
 public abstract class DBItem {
 
-	/** The id. */
+	/** the ID */
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long id;
 
 	/**

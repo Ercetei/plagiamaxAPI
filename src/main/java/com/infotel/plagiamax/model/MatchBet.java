@@ -8,14 +8,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infotel.plagiamax.contract.MatchContract;
 import com.infotel.plagiamax.contract.TeamContract;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class MatchBet.
+ * The Class MatchBet. Extends the class BetType, all the infos about the bet
+ * are inside of it. Corresponds to a match.
  */
 @Entity
 @Table(name = "matchbet")
 public class MatchBet extends BetType {
-	
+
 	/** The match. */
 	@ManyToOne
 	@JsonIgnoreProperties({ MatchContract.ASSOCIATION_EVENT, MatchContract.ASSOCIATION_MATCHBET,

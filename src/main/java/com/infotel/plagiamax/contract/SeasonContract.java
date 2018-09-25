@@ -1,6 +1,5 @@
 package com.infotel.plagiamax.contract;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Abstract Class SeasonContract.
  */

@@ -19,7 +19,6 @@ import com.infotel.plagiamax.contract.MatchTeamContract;
 import com.infotel.plagiamax.contract.PlaceContract;
 import com.infotel.plagiamax.model.base.DBItem;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Match.
  */
@@ -32,11 +31,14 @@ public class Match extends DBItem {
 	
 	
 	/** The status. 
+	 * 
 	 * 1 : Canceled
 	 * 2 : Reported
 	 * 3 : To come
 	 * 4 : In progress
-	 * 5 : Finished */
+	 * 5 : Finished 
+	 * 
+	 */
 	private Integer status;
 
 	/** The place. */

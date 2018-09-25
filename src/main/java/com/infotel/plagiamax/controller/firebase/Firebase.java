@@ -30,8 +30,12 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+/**
+ * The Class Firebase. Defines a Firebase object to be used by the controller.
+ */
 public class Firebase {
 
+	/** The Constant FIREBASE_API_JSON_EXTENSION. */
 	public static final String FIREBASE_API_JSON_EXTENSION = ".json";
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -40,10 +44,21 @@ public class Firebase {
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+	/** The base url. */
 	private final String baseUrl;
+
+	/** The secure token. */
 	private String secureToken = null;
+
+	/** The query. */
 	private List<NameValuePair> query;
 
+	/**
+	 * Instantiates a new firebase.
+	 *
+	 * @param baseUrl the base url
+	 * @throws FirebaseException the firebase exception
+	 */
 	public Firebase(String baseUrl) throws FirebaseException {
 
 		if (baseUrl == null || baseUrl.trim().isEmpty()) {
@@ -56,6 +71,13 @@ public class Firebase {
 		System.out.println("intialized with base-url: " + this.baseUrl);
 	}
 
+	/**
+	 * Instantiates a new firebase.
+	 *
+	 * @param baseUrl     the base url
+	 * @param secureToken the secure token
+	 * @throws FirebaseException the firebase exception
+	 */
 	public Firebase(String baseUrl, String secureToken) throws FirebaseException {
 		if (baseUrl == null || baseUrl.trim().isEmpty()) {
 			String msg = "baseUrl cannot be null or empty; was: '" + baseUrl + "'";
@@ -76,10 +98,10 @@ public class Firebase {
 
 	/**
 	 * GETs data from the base-url.
-	 * 
+	 *
 	 * @return {@link FirebaseResponse}
-	 * @throws UnsupportedEncodingException
-	 * @throws                              {@link FirebaseException}
+	 * @throws FirebaseException            the firebase exception
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
 	public FirebaseResponse get() throws FirebaseException, UnsupportedEncodingException {
 		return this.get(null);
@@ -87,11 +109,11 @@ public class Firebase {
 
 	/**
 	 * GETs data from the provided-path relative to the base-url.
-	 * 
+	 *
 	 * @param path -- if null/empty, refers to the base-url
 	 * @return {@link FirebaseResponse}
-	 * @throws UnsupportedEncodingException
-	 * @throws                              {@link FirebaseException}
+	 * @throws FirebaseException            the firebase exception
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
 	public FirebaseResponse get(String path) throws FirebaseException, UnsupportedEncodingException {
 
@@ -107,13 +129,13 @@ public class Firebase {
 	}
 
 	/**
-	 * PATCHs data to the base-url
-	 * 
+	 * PATCHs data to the base-url.
+	 *
 	 * @param data -- can be null/empty
-	 * @return
-	 * @throws                              {@link FirebaseException}
-	 * @throws                              {@link Exception}
-	 * @throws UnsupportedEncodingException
+	 * @return the firebase response
+	 * @throws FirebaseException            the firebase exception
+	 * @throws Exception                    the exception
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
 
 	public FirebaseResponse patch(Map<String, Object> data)
@@ -123,13 +145,13 @@ public class Firebase {
 
 	/**
 	 * PATCHs data on the provided-path relative to the base-url.
-	 * 
+	 *
 	 * @param path -- if null/empty, refers to the base-url
 	 * @param data -- can be null/empty
 	 * @return {@link FirebaseResponse}
-	 * @throws                              {@link FirebaseException}
-	 * @throws                              {@link Exception}
-	 * @throws UnsupportedEncodingException
+	 * @throws FirebaseException            the firebase exception
+	 * @throws Exception                    the exception
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
 
 	public FirebaseResponse patch(String path, Map<String, Object> data)
@@ -148,11 +170,12 @@ public class Firebase {
 	}
 
 	/**
-	 * 
-	 * @param jsonData
-	 * @return
-	 * @throws UnsupportedEncodingException
-	 * @throws FirebaseException
+	 * Patch.
+	 *
+	 * @param jsonData the json data
+	 * @return the firebase response
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
+	 * @throws FirebaseException            the firebase exception
 	 */
 
 	public FirebaseResponse patch(String jsonData) throws UnsupportedEncodingException, FirebaseException {
@@ -160,12 +183,13 @@ public class Firebase {
 	}
 
 	/**
-	 * 
-	 * @param path
-	 * @param jsonData
-	 * @return
-	 * @throws UnsupportedEncodingException
-	 * @throws FirebaseException
+	 * Patch.
+	 *
+	 * @param path     the path
+	 * @param jsonData the json data
+	 * @return the firebase response
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
+	 * @throws FirebaseException            the firebase exception
 	 */
 
 	public FirebaseResponse patch(String path, String jsonData) throws UnsupportedEncodingException, FirebaseException {
@@ -185,12 +209,12 @@ public class Firebase {
 	 * PUTs data to the base-url (ie: creates or overwrites). If there is already
 	 * data at the base-url, this data overwrites it. If data is null/empty, any
 	 * data existing at the base-url is deleted.
-	 * 
+	 *
 	 * @param data -- can be null/empty
 	 * @return {@link FirebaseResponse}
-	 * @throws UnsupportedEncodingException
-	 * @throws                              {@link Exception}
-	 * @throws                              {@link FirebaseException}
+	 * @throws Exception                    the exception
+	 * @throws FirebaseException            the firebase exception
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
 	public FirebaseResponse put(Map<String, Object> data)
 			throws Exception, FirebaseException, UnsupportedEncodingException {
@@ -201,13 +225,13 @@ public class Firebase {
 	 * PUTs data to the provided-path relative to the base-url (ie: creates or
 	 * overwrites). If there is already data at the path, this data overwrites it.
 	 * If data is null/empty, any data existing at the path is deleted.
-	 * 
+	 *
 	 * @param path -- if null/empty, refers to base-url
 	 * @param data -- can be null/empty
 	 * @return {@link FirebaseResponse}
-	 * @throws UnsupportedEncodingException
-	 * @throws                              {@link Exception}
-	 * @throws                              {@link FirebaseException}
+	 * @throws Exception                    the exception
+	 * @throws FirebaseException            the firebase exception
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
 	public FirebaseResponse put(String path, Map<String, Object> data)
 			throws Exception, FirebaseException, UnsupportedEncodingException {
@@ -228,11 +252,11 @@ public class Firebase {
 	 * PUTs data to the provided-path relative to the base-url (ie: creates or
 	 * overwrites). If there is already data at the path, this data overwrites it.
 	 * If data is null/empty, any data existing at the path is deleted.
-	 * 
+	 *
 	 * @param jsonData -- can be null/empty
 	 * @return {@link FirebaseResponse}
-	 * @throws UnsupportedEncodingException
-	 * @throws                              {@link FirebaseException}
+	 * @throws FirebaseException            the firebase exception
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
 	public FirebaseResponse put(String jsonData) throws FirebaseException, UnsupportedEncodingException {
 		return this.put(null, jsonData);
@@ -242,12 +266,12 @@ public class Firebase {
 	 * PUTs data to the provided-path relative to the base-url (ie: creates or
 	 * overwrites). If there is already data at the path, this data overwrites it.
 	 * If data is null/empty, any data existing at the path is deleted.
-	 * 
+	 *
 	 * @param path     -- if null/empty, refers to base-url
 	 * @param jsonData -- can be null/empty
 	 * @return {@link FirebaseResponse}
-	 * @throws UnsupportedEncodingException
-	 * @throws                              {@link FirebaseException}
+	 * @throws FirebaseException            the firebase exception
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
 	public FirebaseResponse put(String path, String jsonData) throws FirebaseException, UnsupportedEncodingException {
 
@@ -270,12 +294,12 @@ public class Firebase {
 	 * but instead defines it as 'PUSH'; the API will insert this data under the
 	 * base-url but associated with a Firebase- generated key; thus, every use of
 	 * this method will result in a new insert even if the data already exists.
-	 * 
+	 *
 	 * @param data -- can be null/empty but will result in no data being POSTed
 	 * @return {@link FirebaseResponse}
-	 * @throws UnsupportedEncodingException
-	 * @throws                              {@link Exception}
-	 * @throws                              {@link FirebaseException}
+	 * @throws Exception                    the exception
+	 * @throws FirebaseException            the firebase exception
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
 	public FirebaseResponse post(Map<String, Object> data)
 			throws Exception, FirebaseException, UnsupportedEncodingException {
@@ -290,13 +314,13 @@ public class Firebase {
 	 * provided path but associated with a Firebase- generated key; thus, every use
 	 * of this method will result in a new insert even if the provided path and data
 	 * already exist.
-	 * 
+	 *
 	 * @param path -- if null/empty, refers to base-url
 	 * @param data -- can be null/empty but will result in no data being POSTed
 	 * @return {@link FirebaseResponse}
-	 * @throws UnsupportedEncodingException
-	 * @throws                              {@link Exception}
-	 * @throws                              {@link FirebaseException}
+	 * @throws Exception                    the exception
+	 * @throws FirebaseException            the firebase exception
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
 	public FirebaseResponse post(String path, Map<String, Object> data)
 			throws Exception, FirebaseException, UnsupportedEncodingException {
@@ -306,7 +330,7 @@ public class Firebase {
 		HttpPost request = new HttpPost(url);
 		request.setEntity(this.buildEntityFromDataMap(data));
 		HttpResponse httpResponse = this.makeRequest(request);
-		
+
 		// process the response
 		FirebaseResponse response = this.processResponse(FirebaseRestMethod.POST, httpResponse);
 
@@ -321,11 +345,11 @@ public class Firebase {
 	 * base-url but associated with a Firebase- generated key; thus, every use of
 	 * this method will result in a new insert even if the provided data already
 	 * exists.
-	 * 
+	 *
 	 * @param jsonData -- can be null/empty but will result in no data being POSTed
 	 * @return {@link FirebaseResponse}
-	 * @throws UnsupportedEncodingException
-	 * @throws                              {@link FirebaseException}
+	 * @throws FirebaseException            the firebase exception
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
 	public FirebaseResponse post(String jsonData) throws FirebaseException, UnsupportedEncodingException {
 		return this.post(null, jsonData);
@@ -339,12 +363,12 @@ public class Firebase {
 	 * provided path but associated with a Firebase- generated key; thus, every use
 	 * of this method will result in a new insert even if the provided path and data
 	 * already exist.
-	 * 
+	 *
 	 * @param path     -- if null/empty, refers to base-url
 	 * @param jsonData -- can be null/empty but will result in no data being POSTed
 	 * @return {@link FirebaseResponse}
-	 * @throws UnsupportedEncodingException
-	 * @throws                              {@link FirebaseException}
+	 * @throws FirebaseException            the firebase exception
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
 	public FirebaseResponse post(String path, String jsonData) throws FirebaseException, UnsupportedEncodingException {
 
@@ -375,10 +399,10 @@ public class Firebase {
 
 	/**
 	 * DELETEs data from the base-url.
-	 * 
+	 *
 	 * @return {@link FirebaseResponse}
-	 * @throws UnsupportedEncodingException
-	 * @throws                              {@link FirebaseException}
+	 * @throws FirebaseException            the firebase exception
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
 	public FirebaseResponse delete() throws FirebaseException, UnsupportedEncodingException {
 		return this.delete(null);
@@ -386,11 +410,11 @@ public class Firebase {
 
 	/**
 	 * DELETEs data from the provided-path relative to the base-url.
-	 * 
+	 *
 	 * @param path -- if null/empty, refers to the base-url
 	 * @return {@link FirebaseResponse}
-	 * @throws UnsupportedEncodingException
-	 * @throws                              {@link FirebaseException}
+	 * @throws FirebaseException            the firebase exception
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
 	public FirebaseResponse delete(String path) throws FirebaseException, UnsupportedEncodingException {
 
@@ -411,6 +435,14 @@ public class Firebase {
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * Builds the entity from data map.
+	 *
+	 * @param dataMap the data map
+	 * @return the string entity
+	 * @throws FirebaseException the firebase exception
+	 * @throws Exception         the exception
+	 */
 	private StringEntity buildEntityFromDataMap(Map<String, Object> dataMap) throws FirebaseException, Exception {
 
 		String jsonData = JacksonUtility.GET_JSON_STRING_FROM_MAP(dataMap);
@@ -418,6 +450,13 @@ public class Firebase {
 		return this.buildEntityFromJsonData(jsonData);
 	}
 
+	/**
+	 * Builds the entity from json data.
+	 *
+	 * @param jsonData the json data
+	 * @return the string entity
+	 * @throws FirebaseException the firebase exception
+	 */
 	private StringEntity buildEntityFromJsonData(String jsonData) throws FirebaseException {
 
 		StringEntity result = null;
@@ -436,6 +475,13 @@ public class Firebase {
 		return result;
 	}
 
+	/**
+	 * Builds the full url from relative path.
+	 *
+	 * @param path the path
+	 * @return the string
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
+	 */
 	private String buildFullUrlFromRelativePath(String path) throws UnsupportedEncodingException {
 
 		// massage the path (whether it's null, empty, or not) into a full URL
@@ -477,6 +523,13 @@ public class Firebase {
 		return url;
 	}
 
+	/**
+	 * Make request.
+	 *
+	 * @param request the request
+	 * @return the http response
+	 * @throws FirebaseException the firebase exception
+	 */
 	private HttpResponse makeRequest(HttpRequestBase request) throws FirebaseException {
 
 		HttpResponse response = null;
@@ -505,6 +558,14 @@ public class Firebase {
 		return response;
 	}
 
+	/**
+	 * Process response.
+	 *
+	 * @param method       the method
+	 * @param httpResponse the http response
+	 * @return the firebase response
+	 * @throws FirebaseException the firebase exception
+	 */
 	private FirebaseResponse processResponse(FirebaseRestMethod method, HttpResponse httpResponse)
 			throws FirebaseException {
 
@@ -605,8 +666,20 @@ public class Firebase {
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * The Enum FirebaseRestMethod.
+	 */
 	public enum FirebaseRestMethod {
 
-		GET, PATCH, PUT, POST, DELETE;
+		/** The get. */
+		GET,
+		/** The patch. */
+		PATCH,
+		/** The put. */
+		PUT,
+		/** The post. */
+		POST,
+		/** The delete. */
+		DELETE;
 	}
 }

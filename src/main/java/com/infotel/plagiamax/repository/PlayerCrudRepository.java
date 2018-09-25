@@ -6,7 +6,8 @@ import com.infotel.plagiamax.model.Player;
 import com.infotel.plagiamax.repository.base.IBaseRepository;
 
 /**
- * The Interface PlayerCrudRepository.
+ * The Interface PlayerCrudRepository. Persists the Player class inside of the
+ * database
  */
 @Repository
 public interface PlayerCrudRepository extends IBaseRepository<Player, Long> {

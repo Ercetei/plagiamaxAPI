@@ -7,9 +7,9 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infotel.plagiamax.contract.TeamContract;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class TeamBet.
+ * The Class TeamBet. Extends the class BetType, all the infos about the bet are
+ * inside of it. Corresponds to a team.
  */
 @Entity
 @Table(name = "teambet")

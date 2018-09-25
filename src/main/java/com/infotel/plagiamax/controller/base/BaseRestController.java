@@ -20,8 +20,8 @@ import com.infotel.plagiamax.utils.GenericMerger;
 /**
  * The Class BaseRestController.
  *
- * @param <T> the object type
- * @param <ID> the id type
+ * @param <T> the generic object type
+ * @param <ID> the generic id type
  */
 @RestController
 public abstract class BaseRestController<T, ID extends Serializable> {

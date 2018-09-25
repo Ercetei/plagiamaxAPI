@@ -3,12 +3,11 @@ package com.infotel.plagiamax;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class SpringDemoApplication.
+ * The starter class for the Spring Boot application.
  */
 @SpringBootApplication
-public class SpringDemoApplication {
+public class PlagiamaxApplication {
 
 	/**
 	 * The main method.
@@ -16,9 +15,7 @@ public class SpringDemoApplication {
 	 * @param args the arguments
 	 */
 	public static void main(String[] args) {
-		SpringApplication.run(SpringDemoApplication.class, args);
+		SpringApplication.run(PlagiamaxApplication.class, args);
 	}
 
 }
-
-

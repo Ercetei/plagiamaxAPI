@@ -24,18 +24,29 @@ import com.infotel.plagiamax.utils.JsonManager;
 
 import net.minidev.json.JSONObject;
 
+/**
+ * The Class FirebaseInitiliazer.
+ */
 @Component
 public class FirebaseInitiliazer implements CommandLineRunner {
 
+	/** The match crud. */
 	@Autowired
 	private MatchCrudRepository matchCrud;
 
+	/** The user crud. */
 	@Autowired
 	private UserCrudRepository userCrud;
 
+	/** The firebase. */
 	Firebase firebase;	
+	
+	/** The database. */
 	FirebaseDatabase database;
 	
+	/* (non-Javadoc)
+	 * @see org.springframework.boot.CommandLineRunner#run(java.lang.String[])
+	 */
 	@Override
 	public void run(String... args) throws Exception {
 		this.initFirebase();
@@ -81,7 +92,8 @@ public class FirebaseInitiliazer implements CommandLineRunner {
 	
 	/**
 	 * Remove all data from Firebase Database.
-	 * @throws UnsupportedEncodingException
+	 *
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
 	private void deleteAll() throws UnsupportedEncodingException {
 		try {
@@ -96,6 +108,12 @@ public class FirebaseInitiliazer implements CommandLineRunner {
 		
 	}
 	
+	/**
+	 * Send data to firebase.
+	 *
+	 * @param path the path
+	 * @param obj the obj
+	 */
 	private void sendDataToFirebase(String path, Object obj) {
 		DatabaseReference ref = database.getReference(path);
 		ref.setValueAsync(obj);

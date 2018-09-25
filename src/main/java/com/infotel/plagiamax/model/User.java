@@ -13,9 +13,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infotel.plagiamax.contract.BetContract;
 import com.infotel.plagiamax.model.security.SecurityUser;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class User.
+ * The Class User. Extends the class SecurityUser. All the sensitive data are
+ * stored inside of its parent class.
  */
 @Entity
 @Table(name = "user")
@@ -26,11 +26,11 @@ public class User extends SecurityUser {
 	@JsonIgnoreProperties({ BetContract.ASSOCIATION_USER, BetContract.ASSOCIATION_BETLINE })
 	private List<Bet> bets;
 
-	/** The lastname. */
+	/** The last name. */
 	@Column(nullable = false)
 	private String lastname;
 
-	/** The firstname. */
+	/** The first name. */
 	@Column(nullable = false)
 	private String firstname;
 
@@ -38,10 +38,10 @@ public class User extends SecurityUser {
 	@Column(nullable = false)
 	private String mail;
 
-	/** The wallet. */
+	/** The amount on the wallet. */
 	private Double wallet;
 
-	/** The birthdate. */
+	/** The birth date. */
 	@Column(nullable = false)
 	private Date birthdate;
 
